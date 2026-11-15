@@ -16,31 +16,36 @@ export const event = {
   name: "SHIFRA Symposium",
   brand: "SHIFRA",
   arabicBrand: "شيفرة",
-  theme: "Genomics × AI UAE",
+  theme: "UAE Genomics × AI",
   date: "2026-11-27",
   displayDate: "27 November 2026",
   shortDate: "27.11.2026",
   timezone: "Asia/Dubai",
   timezoneLabel: "UAE time (GST, UTC+4)",
   utcOffset: "+04:00",
-  venue: "Lecture Hall 1&2",
+  venue: "Lecture Hall 1 & 2",
   institution: "Mohamed bin Zayed University of Artificial Intelligence",
   institutionShort: "MBZUAI",
+  city: "Abu Dhabi, UAE",
+  mapsUrl: "https://maps.app.goo.gl/RiVvrxRdd8ehJdk88",
+  mapsEmbedUrl:
+    "https://www.google.com/maps?cid=7247490091810667654&output=embed",
   division: "Division of Biological and Life Sciences",
   divisionShort: "BLS",
   programmeStatus: "Provisional programme",
   confirmationNote:
     "Speakers and presenter assignments are subject to confirmation.",
   introduction:
-    "SHIFRA brings students, researchers, and invited guests together to explore the intersection of genomics and artificial intelligence.",
+    "SHIFRA brings students, researchers, and invited guests together to explore the intersection of genomics and artificial intelligence. The symposium creates a shared space for scientific exchange across disciplines and career stages.",
   story:
-    "Named after the Arabic word for “code”, SHIFRA connects the code of life with the code of computation through scientific talks, student research, posters, and conversations across disciplines.",
+    "Named after the Arabic word for “code”, SHIFRA connects the code of life with the code of computation. Scientific talks and discussions explore how biological insight and computational methods can inform one another.",
+  community:
+    "Poster presentations and one-minute pitches give emerging researchers a place to share their work and receive feedback. Informal conversations make room for new connections and future collaborations across our growing genomics and AI community.",
   registrationUrl: null as string | null,
-  contactEmail: null as string | null,
+  contactEmail: "hala.alsaleh@mbzuai.ac.ae" as string | null,
   banner: {
     image: null as string | null,
     alt: "SHIFRA Symposium banner",
-    opacity: 0.12,
   },
   poster: {
     image: null as string | null,

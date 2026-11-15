@@ -11,6 +11,9 @@ importers:
       '@astrojs/check':
         specifier: 0.9.12
         version: 0.9.12(prettier@3.10.1)(typescript@6.0.3)
+      '@fontsource-variable/bodoni-moda':
+        specifier: 5.3.0
+        version: 5.3.0
       '@fontsource-variable/montserrat':
         specifier: 5.3.0
         version: 5.3.0
@@ -283,6 +286,9 @@ packages:
 
   '@emnapi/wasi-threads@2.2.0':
     resolution: {integrity: sha512-JP7OYH38Q7+pyTAe14raZHLQIK7BDKbdwji+Xi3pcd/6QkJYQH3SX4wu6EplGrGJWRepoNzedfm0G3B9Z4e9Rw==}
+
+  '@fontsource-variable/bodoni-moda@5.3.0':
+    resolution: {integrity: sha512-yTDXk4+/J8I20KjtkHBbXDQNeE5PR3BZa0gv/YRza+kyxsz+mmg0la/n/hsr6+WvSfVP7Lc8lRTjHGIYwBW43A==}
 
   '@fontsource-variable/montserrat@5.3.0':
     resolution: {integrity: sha512-7PaZoxaxrWLAyrhO46v65An9LhUhfkTExWLhfbywYZCnZEgg/W1rEHnlNmZKjNZ3nJTVYyicqxlJt10z/26yTA==}
@@ -1899,6 +1905,8 @@ snapshots:
     dependencies:
       tslib: 2.9.1
     optional: true
+
+  '@fontsource-variable/bodoni-moda@5.3.0': {}
 
   '@fontsource-variable/montserrat@5.3.0': {}
 

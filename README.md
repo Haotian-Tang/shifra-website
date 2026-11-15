@@ -1,6 +1,6 @@
 # SHIFRA Symposium
 
-A six-page, static Astro + TypeScript site for **SHIFRA | شيفرة · Genomics × AI UAE**. English public copy, locally served D-DIN, Montserrat, Raleway, and Arabic fonts, and no production Node server on GitHub Pages. A separate local preview server can receive poster registrations on this computer. The presentation follows the HCA reference: a white background, blue links, centered headings, and conventional conference panels.
+A six-page, static Astro + TypeScript site for **SHIFRA | شيفرة · UAE Genomics × AI**. English public copy, locally served Bodoni Moda and Arabic fonts, and no production Node server on GitHub Pages. A separate local preview server can receive poster registrations on this computer. The academic layout now follows the supplied SHIFRA identity, with serif typography, the two approved logos, restrained green accents, and conventional conference panels.
 
 ## Local development and preview
 
@@ -34,29 +34,32 @@ These commands only build local files; they do not activate the domain or DNS.
 
 ## Where to edit content
 
-| Content                                                                              | File / setting                                                                                                           |
-| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
-| Date, venue, institution, time zone, introduction, programme status, acknowledgement | `src/data/event.ts` → `event`                                                                                            |
-| Agenda start times, durations, titles, notes, category labels                        | `src/data/agenda.ts` → `agenda`                                                                                          |
-| Organizers, order, optional portraits and biographies                                | `src/data/event.ts` → `organizers`                                                                                       |
-| Confirmed speaker cards                                                              | `src/data/event.ts` → `speakers` (currently `[]`)                                                                        |
-| Poster                                                                               | Set `event.poster.image` to a real file path relative to `public/`, e.g. `images/poster.webp`; add meaningful `alt` text |
-| Poster download                                                                      | Set `event.poster.download` only when a real downloadable file exists in `public/`                                       |
-| Optional background banner                                                           | `event.banner.image` and `event.banner.opacity` (currently 0.12); no separate banner panel is displayed                  |
-| Optional general-registration link                                                   | Set `event.registrationUrl` to the confirmed URL; the Registration page and footer will show it                          |
-| Optional contact                                                                     | Set `event.contactEmail` only when supplied for public use                                                               |
-| Deployment origin and base path                                                      | `site.config.mjs` and optional full `SITE_URL` environment variable                                                      |
-| Social-sharing graphic                                                               | `public/images/shifra-social.svg` and its PNG rendition; update if the event date changes                                |
+| Content                                                                              | File / setting                                                                                                             |
+| ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| Date, venue, institution, time zone, introduction, programme status, acknowledgement | `src/data/event.ts` → `event`                                                                                              |
+| Agenda start times, durations, titles, notes, category labels                        | `src/data/agenda.ts` → `agenda`                                                                                            |
+| Organizers, order, optional portraits and biographies                                | `src/data/event.ts` → `organizers`                                                                                         |
+| Confirmed speaker cards                                                              | `src/data/event.ts` → `speakers` (currently `[]`)                                                                          |
+| Poster                                                                               | Set `event.poster.image` to a real file path relative to `public/`, e.g. `images/poster.webp`; add meaningful `alt` text   |
+| Poster download                                                                      | Set `event.poster.download` only when a real downloadable file exists in `public/`                                         |
+| Symposium banner                                                                     | `event.banner.image`; a centered panel below navigation, at most 860 px wide, 160 px high on desktop and 112 px on mobile  |
+| Supplied logos                                                                       | Original JPEGs in `public/images/logos/`; `Brand.astro` and `Header.astro` display them without replacing their lettering  |
+| Location map                                                                         | `event.mapsUrl` and `event.mapsEmbedUrl`; the university campus location, not a separate room pin                          |
+| Countdown                                                                            | `src/components/Countdown.astro`; derives its target from `event.date`, `event.utcOffset`, and the first agenda start time |
+| Optional general-registration link                                                   | Set `event.registrationUrl` to the confirmed URL; the Registration page and footer will show it                            |
+| Public contact                                                                       | `event.contactEmail`, supplied as `hala.alsaleh@mbzuai.ac.ae`                                                              |
+| Deployment origin and base path                                                      | `site.config.mjs` and optional full `SITE_URL` environment variable                                                        |
+| Social-sharing graphic                                                               | `public/images/shifra-social.svg` and its PNG rendition; update if the event date changes                                  |
 
 Missing fields use `null`, so no broken images or empty links appear. Organizer fields `title`, `affiliation`, `biography`, `portrait`, and `profileUrl` remain empty until information is supplied. For speakers, add the same fields plus `talkTitle`. The three placeholder speaker cards imply no final count.
 
 All times are fixed to **Asia/Dubai — GST, UTC+4**. They never convert to a visitor's time zone. The print control uses the browser's working print dialog and agenda-specific print CSS.
 
-The normal-flow header remains usable without JavaScript. With JavaScript, the compact mobile menu supports Escape and visible keyboard focus. There are no animation controls, animated artwork, gradients, or scroll effects. Browser JavaScript supports navigation, printing, and accessible poster-form validation/submission; native form submission also works with the local receiver.
+The normal-flow header remains usable without JavaScript. With JavaScript, the compact mobile menu supports Escape and visible keyboard focus. There are no animation controls, animated artwork, gradients, or scroll effects. Browser JavaScript supports navigation, printing, the countdown, and accessible poster-form validation/submission; native form submission also works with the local receiver.
 
 ## Poster registration and the temporary local receiver
 
-The new top-level **Registration** link sits between **Agenda** and **Organizing Committee**. `/registration/` opens the **Register for poster** entry, and `/registration/poster/` contains the four required fields: full name, affiliation, email address, and poster PDF. The venue is **Lecture Hall 1&2**.
+The new top-level **Registration** link sits between **Agenda** and **Organizing Committee**. `/registration/` opens the **Register for poster** entry, and `/registration/poster/` contains the four required fields: full name, affiliation, email address, and poster PDF. The venue is **Lecture Hall 1 & 2**.
 
 To run a working preview that actually saves submissions:
 
@@ -111,8 +114,14 @@ Do this only when the organizers are ready to activate the domain:
 
 ## Content and assets
 
-See `CONTENT_NOTES.md` for outstanding generic confirmation details. The source proposal, internal invitees, unconfirmed organizations, portraits, sponsor marks, and contacts are not included. The symposium poster is deliberately unfilled. The typographic social graphic is a separate asset.
+See `CONTENT_NOTES.md` for outstanding generic confirmation details. The source proposal, internal invitees, unconfirmed organizations, portraits, sponsor marks, and private contacts are not included. The two supplied logos and approved public contact email are displayed. The symposium poster is deliberately unfilled. The typographic social graphic is a separate asset.
 
-Unmodified **normal-width D-DIN regular and bold** webfonts come from [amcchord/datto-d-din](https://github.com/amcchord/datto-d-din). Their accompanying copyright, OFL, FONTLOG, and CC-BY-SA notices are retained in `public/fonts/d-din/`. Montserrat (body), Raleway (agenda), and Noto Sans Arabic are served locally from Fontsource packages; their OFL notices are in `licenses/`. Font files are bundled with base-aware URLs. No HCA branding, banner, portraits, event details, or registration data is used.
+The current English typography uses **Bodoni Moda**, a high-contrast serif chosen to closely match the supplied SHIFRA logo. The original logo font file/name was not supplied, so this is a visual match, not an assertion that it is the exact original typeface. Body, headings, navigation, agenda, and forms share the same family. Noto Sans Arabic supports accessible Arabic text. Current fonts are served locally from Fontsource; OFL notices are in `licenses/`. The former D-DIN and Fontsource assets/notices remain in the source history and checkout but are no longer referenced by the page stylesheet. No HCA branding or participant content is used.
 
-Typography baselines: navigation D-DIN 17/20 regular; text-only masthead D-DIN 64 px bold with 44 px Arabic; Home title D-DIN 48/52.8 bold (36/39.6 on mobile); interior titles D-DIN 55/60.5 bold (33/36.3 on mobile); section headings D-DIN 36/39.6 bold; body Montserrat 16/22.86 medium; agenda titles Raleway 18.75/26.79 bold and supporting text 15/21.43 medium. Desktop containers are 992 px including 15 px padding at each side. No dedicated banner or temporary logo is displayed. Set `event.banner.image` to an approved asset for a faint hero background, with opacity controlled by `event.banner.opacity` (currently 0.12). The About section places introductory copy beside the symposium poster, and the venue is followed by the acknowledgement.
+The two logo JPEGs are copied byte for byte from the user's attachments. SVG display filters remove their black JPEG matte in the browser while retaining the original outlines, lettering, and RGB colors. The original files are not redrawn or AI-regenerated. Header frames crop only surrounding blank margins, and both logos have meaningful alternative text.
+
+Typography: navigation 17 px; Home title 48 px on desktop, responsive 27–36 px on mobile; body 18 px; About copy 20 px on desktop and 19 px on mobile; venue label 28 px and university/city copy 22 px on desktop. The expanded three-paragraph About column and symposium poster share the same bottom edge on desktop and stack on mobile. Desktop containers remain 992 px including side padding. The banner is restored as a compact panel below the menu; it remains a labeled placeholder until an approved banner is supplied.
+
+The venue and footer use **Lecture Hall 1 & 2**, the full university name, and **Abu Dhabi, UAE**. The location block omits the BLS division line. The campus pin and external map link follow the location published on [MBZUAI's official site](https://mbzuai.ac.ae/about-us); this does not claim an independently mapped location for Lecture Halls 1 and 2.
+
+The Home countdown is below Acknowledgement and above the footer. It targets **27 November 2026, 08:30 GST (UTC+4)** from the first agenda entry, independent of the visitor's time zone. It updates seconds and changes to “SHIFRA has started” when the target is reached; it never displays negative time. With JavaScript disabled, the date, start time, and programme link remain available.

@@ -11,7 +11,7 @@ import { sitePath, contentUrl } from '../../lib/urls';
       {posterRegistration.isPreview && <p class="preview-label">Preview registration</p>}
       <h2 id="poster-registration-title">Poster registration</h2>
       <p>Share your research with the SHIFRA community. Register for a poster presentation by providing your details and uploading your poster.</p>
-      <p class="registration-event"><time datetime={event.date}>{event.displayDate}</time><br />{event.venue} · {event.institutionShort}</p>
+      <p class="registration-event"><time datetime={event.date}>{event.displayDate}</time><br />{event.venue} · {event.institution}<br />{event.city}</p>
       <a class="primary-button" href={sitePath('registration/poster/')}>Register for poster</a>
       <p class="form-hint">Poster file: PDF, up to {posterRegistration.maxFileSizeMb} MB.</p>
     </div>

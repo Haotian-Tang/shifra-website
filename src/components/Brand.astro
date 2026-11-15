@@ -1,4 +1,5 @@
 ---
 import { event } from '../data/event';
+import { sitePath } from '../lib/urls';
 ---
-<span class="brand"><span class="brand-latin">{event.brand}</span><span class="brand-divider" aria-hidden="true">|</span><bdi class="brand-arabic" lang="ar" dir="rtl">{event.arabicBrand}</bdi></span>
+<span class="logo-frame shifra-logo"><img class="shifra-logo-image" src={sitePath('images/logos/shifra-original.jpg')} alt="SHIFRA — UAE Genomics & AI Symposium" width="1600" height="533" fetchpriority="high" /><bdi class="visually-hidden" lang="ar" dir="rtl">{event.arabicBrand}</bdi></span>

@@ -1,13 +1,18 @@
 ---
 import Brand from './Brand.astro';
-import { navigation } from '../data/event';
+import { event, navigation } from '../data/event';
 import { sitePath } from '../lib/urls';
 interface Props { current: string; }
 const { current } = Astro.props;
 ---
 <header class="site-header">
+  <svg class="logo-filters" width="0" height="0" aria-hidden="true" focusable="false"><defs>
+    <filter id="shifra-logo-ink" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 24 0 0 -.35" /></filter>
+    <filter id="mbzuai-logo-matte" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 6 0 -.14" /></filter>
+  </defs></svg>
   <div class="container header-brand">
     <a class="brand-link" href={sitePath()} aria-label="SHIFRA Symposium home"><Brand /></a>
+    <a class="institution-link" href="https://mbzuai.ac.ae/" target="_blank" rel="noopener noreferrer" aria-label={event.institution}><span class="logo-frame institution-logo"><img src={sitePath('images/logos/mbzuai-original.jpg')} alt={event.institution} width="1600" height="533" /></span></a>
     <button class="menu-toggle" aria-controls="main-navigation" aria-expanded="false" aria-label="Open navigation menu" hidden><span></span><span></span><span></span></button>
   </div>
   <div class="container navigation-row">

@@ -9,10 +9,14 @@ Public copy follows the detailed provisional timetable. No source proposal or in
 - Original talk numbering skips from 2 to 4. Use the supplied session-based labels, without inventing a missing talk or slot.
 - The four afternoon selected talks are not explicitly identified as student talks. Their labels remain neutral.
 - Closing remarks are a ten-minute conclusion, not a confirmed closing keynote. Eduardo Beltrame's closing assignment remains provisional.
-- The proposed date is **27 November 2026**. The organizers have updated the venue to **Lecture Hall 1&2, MBZUAI**. No street address, directions, or map is asserted.
+- The proposed date is **27 November 2026**. The organizers have updated the venue to **Lecture Hall 1 & 2, MBZUAI, Abu Dhabi, UAE**. The Google Maps campus location follows MBZUAI’s official site; it does not independently map the individual lecture halls.
 - All times use **Asia/Dubai — GST, UTC+4**. This is a location-based implementation choice; the proposal did not explicitly give a time zone. No visitor-local conversion occurs.
-- Speaker and presenter assignments remain subject to confirmation. No confirmed speaker roster, biographies, portraits, registration URL, public contact address, or finished poster was supplied. These fields remain empty in typed content data.
+- Speaker and presenter assignments remain subject to confirmation. No confirmed speaker roster, biographies, portraits, general-attendance registration URL, or finished poster was supplied. These fields remain empty in typed content data. The organizer supplied `hala.alsaleh@mbzuai.ac.ae` as the public contact address.
 - Organizers appear in the supplied order with equal weight: **Hala Alsaleh**, **Haotian Tang**, **Eduardo Beltrame**. No individual roles, titles, or affiliations are inferred.
 - Prospective invitees and organizations are not confirmed participants or sponsors. No unconfirmed special/royal guest, organization name, logo, or internal invitation detail is published.
 - The three abstract speaker placeholders are a visual layout, not a promised number of speakers.
 - **shifra.ae** is a future domain, not a current live canonical. Domain activation and DNS remain a separate later step.
+
+- The SHIFRA and MBZUAI logo attachments are approved for the page header. Their original JPEGs are retained unchanged. Bodoni Moda is a close visual match for the SHIFRA lettering; the original logo font was not identified.
+- The restored symposium banner and official symposium poster remain labeled placeholders until final image assets are supplied.
+- The requested countdown derives its start from the first timetable entry: **08:30, 27 November 2026, UAE time**.

@@ -1,34 +1,39 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Poster from '../components/Poster.astro';
+import Countdown from '../components/Countdown.astro';
 import { event } from '../data/event';
 import { sitePath, contentUrl } from '../lib/urls';
 ---
-<Layout title="Genomics × AI UAE" description={`SHIFRA Symposium brings genomics and artificial intelligence into conversation. ${event.displayDate} at ${event.venue}, MBZUAI. Explore the provisional programme and poster registration.`} current="">
+<Layout title={event.theme} description={`SHIFRA Symposium brings genomics and artificial intelligence into conversation. ${event.displayDate} at ${event.venue}, ${event.institution}, ${event.city}. Explore the provisional programme and poster registration.`} current="">
+  <div class="event-banner container">
+    <div class="banner-panel">{event.banner.image ? <img src={contentUrl(event.banner.image)} alt={event.banner.alt} width="1440" height="280" /> : <span>Symposium banner coming soon</span>}</div>
+  </div>
   <section class="home-hero" aria-labelledby="event-title">
-    {event.banner.image && <img class="hero-background" src={contentUrl(event.banner.image)} alt="" aria-hidden="true" style={`opacity:${event.banner.opacity}`} width="1440" height="422" />}
     <div class="home-intro container">
       <h1 id="event-title" class="home-title"><span>{event.name}</span><span>{event.theme}</span></h1>
       <p class="event-date"><time datetime={event.date}>{event.displayDate}</time></p>
-      <p class="event-location">{event.venue} · {event.institutionShort}</p>
+      <p class="event-location"><span>{event.venue}</span> · <span>{event.institution}</span></p>
       <div class="home-actions"><a class="primary-button" href={sitePath('agenda/')}>View agenda</a><a class="secondary-button" href={sitePath('registration/poster/')}>Register for poster</a></div>
       <p class="home-programme-status">{event.programmeStatus}</p>
     </div>
   </section>
   <section class="home-section about-section container" aria-labelledby="about-title">
     <div class="about-layout">
-      <div><h2 id="about-title" class="section-title">About this event</h2><div class="home-copy"><p>{event.introduction}</p><p>{event.story}</p></div></div>
+      <div class="about-copy-column"><h2 id="about-title" class="section-title">About this event</h2><div class="home-copy"><p>{event.introduction}</p><p>{event.story}</p><p>{event.community}</p></div></div>
       <aside class="about-poster" aria-label="Symposium poster"><h3>Symposium poster</h3><Poster /></aside>
     </div>
   </section>
   <section class="home-section venue-section container" aria-labelledby="venue-title">
     <h2 id="venue-title" class="section-title">Location/Venue</h2>
     <p class="venue-name">{event.venue}</p>
-    <p>{event.institution} ({event.institutionShort})</p>
-    <p>{event.division} ({event.divisionShort})</p>
+    <p class="venue-institution">{event.institution} ({event.institutionShort})<br />{event.city}</p>
+    <div class="venue-map"><iframe title="Google Maps: Mohamed bin Zayed University of Artificial Intelligence, Abu Dhabi" src={event.mapsEmbedUrl} width="900" height="340" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
+    <a class="map-link" href={event.mapsUrl} target="_blank" rel="noopener noreferrer">Open location in Google Maps <span aria-hidden="true">↗</span></a>
   </section>
   <section class="home-section acknowledgement-section container" aria-labelledby="acknowledgement-title">
     <h2 id="acknowledgement-title" class="section-title">Acknowledgement</h2>
     {event.acknowledgement.map(paragraph => <p>{paragraph}</p>)}
   </section>
+  <Countdown />
 </Layout>
