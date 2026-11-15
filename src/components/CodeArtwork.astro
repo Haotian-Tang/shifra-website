@@ -1,0 +1,64 @@
+---
+// Deterministic abstract composition, not a molecular model or a dataset.
+const count = 20;
+const letters = ['A', 'C', 'G', 'T'];
+const complement = ['T', 'G', 'C', 'A'];
+const nodes = Array.from({ length: count * 2 }, (_, n) => {
+  const row = Math.floor(n / 2), side = n % 2;
+  const t = row / (count - 1);
+  const wave = Math.cos(t * Math.PI * 3.1) * 104;
+  const swing = Math.sign(wave) * Math.max(16, Math.abs(wave));
+  const life = { x: 214 + t * 78 + (side ? -swing : swing), y: 60 + t * 370 };
+  const angle = n * 2.39996;
+  const radius = 36 + Math.sqrt(n / (count * 2)) * 171;
+  const network = { x: 250 + Math.cos(angle) * radius, y: 245 + Math.sin(angle) * radius * 0.94 };
+  return { life, network, letter: (side ? complement : letters)[row % 4], accent: n % 7 === 0, small: n % 3 === 0 };
+});
+const lifeEdges = Array.from({ length: count }, (_, i) => [i * 2, i * 2 + 1]);
+for (let i = 0; i < count * 2 - 2; i++) lifeEdges.push([i, i + 2]);
+const networkEdges: number[][] = [];
+nodes.forEach((node, i) => {
+  const near = nodes.map((other, j) => ({ j, d: Math.hypot(node.network.x - other.network.x, node.network.y - other.network.y) })).filter(p => p.j !== i).sort((a,b) => a.d-b.d).slice(0, 3);
+  near.forEach(p => { if (i < p.j) networkEdges.push([i, p.j]); });
+});
+---
+<figure class="code-art" data-mode="life">
+  <div class="art-top"><span class="tiny-label">Life × computation</span><span class="art-cross" aria-hidden="true">+</span></div>
+  <svg class="code-canvas" viewBox="0 0 500 490" role="img" aria-labelledby="code-title code-description">
+    <title id="code-title">Two expressions of code</title>
+    <desc id="code-description">An abstract ribbon of A, C, G and T marks, with a control to rearrange the marks into a computational network. A brand illustration, not a molecular model.</desc>
+    <defs><pattern id="art-grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="currentColor" stroke-opacity=".055" stroke-width="1" /></pattern><radialGradient id="mint-halo"><stop stop-color="#c9efb1" stop-opacity=".44"/><stop offset="1" stop-color="#c9efb1" stop-opacity="0"/></radialGradient></defs>
+    <rect x="10" y="10" width="480" height="470" fill="url(#art-grid)" />
+    <circle cx="250" cy="245" r="220" fill="url(#mint-halo)" />
+    <circle cx="250" cy="245" r="200" fill="none" stroke="currentColor" stroke-opacity=".1" />
+    <path d="M250 25v12m0 416v12M30 245h12m416 0h12" stroke="currentColor" stroke-opacity=".4"/>
+    <g class="life-edges">{lifeEdges.map(([a,b]) => <line x1={nodes[a].life.x} y1={nodes[a].life.y} x2={nodes[b].life.x} y2={nodes[b].life.y} class:list={{ rung: a % 2 === 0 && b === a + 1 }} />)}</g>
+    <g class="network-edges">{networkEdges.map(([a,b]) => <line x1={nodes[a].network.x} y1={nodes[a].network.y} x2={nodes[b].network.x} y2={nodes[b].network.y} />)}</g>
+    <g aria-hidden="true">{nodes.map((node, i) => <g class:list={['code-node', { accent: node.accent, small: node.small }]} style={`--lx:${node.life.x}px;--ly:${node.life.y}px;--nx:${node.network.x}px;--ny:${node.network.y}px;--delay:${i % 6 * 16}ms`}><circle r={node.small ? 7.5 : 11} /><text dy=".35em" text-anchor="middle">{node.letter}</text></g>)}</g>
+    <text x="20" y="478" class="art-notation" aria-hidden="true">A / C / G / T</text><text x="480" y="478" text-anchor="end" class="art-notation" aria-hidden="true">SHIFRA — 2026</text>
+  </svg>
+  <div class="art-bottom">
+    <div class="art-controls" role="group" aria-label="Illustration arrangement" hidden><button type="button" data-art-mode="life" aria-pressed="true">Life’s code</button><button type="button" data-art-mode="network" aria-pressed="false">Computational code</button></div>
+    <figcaption aria-live="polite">Genetic letters, woven into an abstract ribbon.</figcaption>
+  </div>
+</figure>
+<script>
+  const art = document.querySelector<HTMLElement>('.code-art');
+  if (art) {
+    const controls = art.querySelector<HTMLElement>('.art-controls');
+    if (controls) controls.hidden = false;
+    const caption = art.querySelector('figcaption');
+    art.querySelectorAll<HTMLButtonElement>('[data-art-mode]').forEach(button => {
+      button.addEventListener('click', () => {
+        const mode = button.dataset.artMode || 'life';
+        art.dataset.mode = mode;
+        art.querySelectorAll('[data-art-mode]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+        if (caption) caption.textContent = mode === 'life' ? 'Genetic letters, woven into an abstract ribbon.' : 'The same letters, connected as a computational network.';
+      });
+    });
+    // Finite CSS transitions only; finish immediately when hidden or offscreen.
+    const observer = new IntersectionObserver(([entry]) => art.toggleAttribute('data-paused', !entry.isIntersecting));
+    observer.observe(art);
+    document.addEventListener('visibilitychange', () => art.toggleAttribute('data-hidden', document.hidden));
+  }
+</script>

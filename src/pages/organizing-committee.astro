@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PersonCard from '../components/PersonCard.astro';
+import Arrow from '../components/Arrow.astro';
+import { organizers } from '../data/event';
+import { sitePath } from '../lib/urls';
+---
+<Layout title="Organizing Committee" description="Meet the SHIFRA Symposium organizing committee: Hala Alsaleh, Haotian Tang, and Eduardo Beltrame." current="organizing-committee/">
+  <section class="page-intro shell"><span class="section-index">Organizing Committee / SHIFRA 2026</span><h1>The people<br/>behind SHIFRA.</h1><p class="page-lead narrow-lead">Bringing our community together for an exchange<br class="desktop-break"/> of ideas in genomics and artificial intelligence.</p></section>
+  <section class="shell people-grid" aria-label="Organizing Committee members">{organizers.map((person, index) => <PersonCard person={person} index={index} />)}</section>
+  <aside class="shell next-page"><div><span class="tiny-label">Ideas. People. Possibilities.</span><h2>See what’s on the programme.</h2></div><a class="text-link" href={sitePath('agenda/')}>Explore the agenda <Arrow /></a></aside>
+</Layout>

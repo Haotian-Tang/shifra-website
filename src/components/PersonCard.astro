@@ -1,0 +1,10 @@
+---
+import type { Person } from '../data/event';
+import { contentUrl } from '../lib/urls';
+interface Props { person: Person; index: number; }
+const { person, index } = Astro.props;
+---
+<article class="person-card">
+  <div class:list={['person-portrait', `portrait-${index}`]}>{person.portrait ? <img src={contentUrl(person.portrait)} alt={person.name} width="600" height="600" loading="lazy"/> : <><span class="portrait-corner" aria-hidden="true">+</span><span class="person-initials" aria-hidden="true">{person.initials}</span><span class="portrait-caption">Portrait to come</span><svg viewBox="0 0 300 300" fill="none" aria-hidden="true"><circle cx="150" cy="150" r="110"/><path d="M0 150h300M150 0v300"/></svg></>}</div>
+  <div class="person-meta"><span class="tiny-label">Organizing Committee</span><h2>{person.profileUrl ? <a href={contentUrl(person.profileUrl)}>{person.name}</a> : person.name}</h2>{person.title && <p>{person.title}</p>}{person.affiliation && <p>{person.affiliation}</p>}{person.biography && <p class="person-bio">{person.biography}</p>}</div>
+</article>

@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CodeArtwork from '../components/CodeArtwork.astro';
+import Arrow from '../components/Arrow.astro';
+import Poster from '../components/Poster.astro';
+import { event } from '../data/event';
+import { sitePath, contentUrl } from '../lib/urls';
+---
+<Layout title="Genomics × AI UAE" description="SHIFRA Symposium brings genomics and artificial intelligence into conversation. 27 November 2026 at the Visitor Center, MBZUAI. Explore the provisional programme." current="">
+  <section class="hero shell" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span> SHIFRA SYMPOSIUM <span class="eyebrow-rule" aria-hidden="true"></span> 2026</div>
+      <div class="hero-wordmark"><h1 id="hero-title">SHIFRA</h1><bdi lang="ar" dir="rtl">{event.arabicBrand}</bdi></div>
+      <p class="hero-theme">Genomics <span>×</span> AI UAE</p>
+      <p class="hero-statement">Where life’s code meets<br class="desktop-break"/> computational code.</p>
+      <div class="hero-details">
+        <div><span class="tiny-label">The date</span><p><time datetime={event.date}>{event.displayDate}</time></p></div>
+        <div><span class="tiny-label">The place</span><p>{event.venue} <span class="meta-separator">/</span> {event.institutionShort}</p></div>
+      </div>
+      <div class="hero-actions"><a class="button" href={sitePath('agenda/')}>Explore the agenda <Arrow /></a><a class="text-link" href={sitePath('organizing-committee/')}>Meet the organizers <Arrow /></a></div>
+      {event.registrationUrl && <a class="registration-link text-link" href={contentUrl(event.registrationUrl)}>Register for SHIFRA <Arrow /></a>}
+    </div>
+    <CodeArtwork />
+  </section>
+
+  <div class="discipline-strip"><div class="shell"><span>Genomics</span><span class="strip-star" aria-hidden="true">✳</span><span>Artificial intelligence</span><span class="strip-star" aria-hidden="true">✳</span><span>Shared discovery</span><span class="strip-star" aria-hidden="true">✳</span></div></div>
+
+  <section class="about-section shell section-space" aria-labelledby="about-title">
+    <div class="section-heading"><span class="section-index">01 / About SHIFRA</span><div class="about-heading-grid"><h2 id="about-title">Different disciplines.<br/>Shared curiosity.</h2><div class="about-copy"><p>{event.introduction}</p><p>{event.story}</p></div></div></div>
+    <div class="exchange-grid">
+      <article><span class="exchange-symbol" aria-hidden="true">[↗]</span><h3>Ideas in motion</h3><p>Explore emerging research and tools at the intersection of genomics and AI.</p></article>
+      <article><span class="exchange-symbol" aria-hidden="true">{`{＋}`}</span><h3>Space for student research</h3><p>Present work, exchange perspectives, and receive feedback through talks and posters.</p></article>
+      <article><span class="exchange-symbol" aria-hidden="true">(×)</span><h3>Connections that continue</h3><p>Connect the BLS community with researchers and practitioners, and open conversations for future collaboration.</p></article>
+    </div>
+  </section>
+
+  <section class="gathering-section" aria-labelledby="gathering-title"><div class="shell gathering-grid">
+    <div class="poster-column"><span class="section-index">02 / The gathering</span><Poster /></div>
+    <div class="gathering-copy"><span class="tiny-label">27 November 2026 · MBZUAI</span><h2 id="gathering-title">Good science starts<br/>with a conversation.</h2><p class="gathering-intro">Scientific talks, student research, posters, and the conversations in between. A symposium to make room for ideas across disciplines.</p>
+      <div class="venue-block"><div><span class="tiny-label">Meet us at</span><h3>{event.venue}</h3><p>{event.institution} ({event.institutionShort})</p></div><div><span class="tiny-label">Our academic community</span><p>{event.division} ({event.divisionShort})</p></div></div>
+      <a class="text-link" href={sitePath('agenda/')}>See how the day unfolds <Arrow /></a>
+      <div class="small-status"><span class="status-dot" aria-hidden="true"></span>{event.programmeStatus}</div>
+    </div>
+  </div></section>
+</Layout>

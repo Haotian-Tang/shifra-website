@@ -1,0 +1,9 @@
+---
+import { event } from '../data/event';
+import { contentUrl } from '../lib/urls';
+import Arrow from './Arrow.astro';
+---
+<figure class="poster-block">
+  {event.poster.image ? <div class="poster-frame has-poster"><img src={contentUrl(event.poster.image)} alt={event.poster.alt} width="600" height="900" loading="lazy" /></div> : <div class="poster-frame"><span class="poster-mark">SHIFRA <span lang="ar" dir="rtl">شيفرة</span></span><div class="poster-coming"><span class="tiny-label">Symposium poster</span><p>Coming soon</p><span class="poster-line" aria-hidden="true"></span></div><span class="poster-edition">27 NOV 2026</span></div>}
+  <figcaption>{event.poster.image ? event.poster.alt : 'Symposium poster — coming soon'}{event.poster.download && <a href={contentUrl(event.poster.download)} download>Download poster <Arrow /></a>}</figcaption>
+</figure>
