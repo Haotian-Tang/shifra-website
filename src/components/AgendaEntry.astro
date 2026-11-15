@@ -3,10 +3,8 @@ import type { AgendaEntry } from '../data/agenda';
 import { event } from '../data/event';
 interface Props { entry: AgendaEntry; }
 const { entry } = Astro.props;
-const tone = ['Posters'].includes(entry.category) ? 'coral' : ['Arrival', 'Break', 'Networking'].includes(entry.category) ? 'muted' : 'mint';
 ---
 <li class="agenda-entry" data-category={entry.category}>
   <div class="agenda-time"><time datetime={`${event.date}T${entry.start}:00${event.utcOffset}`}>{entry.start}</time><span>{entry.duration} min</span></div>
   <div class="agenda-content"><h2>{entry.title}</h2>{entry.notes && <p>{entry.notes}</p>}</div>
-  <span class:list={['category-label', tone]}>{entry.category}</span>
 </li>

@@ -1,6 +1,6 @@
 # SHIFRA Symposium
 
-A four-page, static Astro + TypeScript site for **SHIFRA | شيفرة · Genomics × AI UAE**. English public copy, locally served fonts, an original SVG code illustration, and no backend or production Node server.
+A four-page, static Astro + TypeScript site for **SHIFRA | شيفرة · Genomics × AI UAE**. English public copy, locally served D-DIN, Montserrat, Raleway, and Arabic fonts, and no backend or production Node server. The presentation follows the HCA reference: a white background, blue links, centered headings, and conventional conference panels.
 
 ## Local development and preview
 
@@ -51,7 +51,7 @@ Missing fields use `null`, so no broken images or empty links appear. Organizer 
 
 All times are fixed to **Asia/Dubai — GST, UTC+4**. They never convert to a visitor's time zone. The print control uses the browser's working print dialog and agenda-specific print CSS.
 
-The header remains usable without JavaScript. With JavaScript, the mobile menu supports Escape and visible keyboard focus. The artwork has two native buttons with pressed states, a descriptive SVG, and a live caption. Motion consists of finite transitions only; reduced-motion users receive immediate complete arrangements. Hidden/offscreen artwork finishes transitions immediately.
+The normal-flow header remains usable without JavaScript. With JavaScript, the compact mobile menu supports Escape and visible keyboard focus. There are no animation controls, animated artwork, gradients, or scroll effects. The only browser JavaScript supports navigation and the working print control.
 
 ## GitHub Pages deployment
 
@@ -81,4 +81,6 @@ Do this only when the organizers are ready to activate the domain:
 
 See `CONTENT_NOTES.md` for outstanding generic confirmation details. The source proposal, internal invitees, unconfirmed organizations, portraits, sponsor marks, and contacts are not included. The symposium poster is deliberately unfilled. The typographic social graphic is a separate asset.
 
-Space Grotesk, DM Sans, and Noto Sans Arabic are self-hosted from their Fontsource packages under the SIL Open Font License; copies are in `licenses/`. No third-party event branding or imagery is used.
+Unmodified **normal-width D-DIN regular and bold** webfonts come from [amcchord/datto-d-din](https://github.com/amcchord/datto-d-din). Their accompanying copyright, OFL, FONTLOG, and CC-BY-SA notices are retained in `public/fonts/d-din/`. Montserrat (body), Raleway (agenda), and Noto Sans Arabic are served locally from Fontsource packages; their OFL notices are in `licenses/`. Font files are bundled with base-aware URLs. No HCA branding, banner, portraits, event details, or registration data is used.
+
+Typography baselines: navigation D-DIN 20/20 regular; visible Home title D-DIN 48/52.8 bold; interior titles D-DIN 55/60.5 bold (33/36.3 on mobile); section headings D-DIN 36/39.6 bold; body Montserrat 16/22.86 medium; agenda titles Raleway 18.75/26.79 bold and supporting text 15/21.43 medium. Desktop containers are 992 px including 15 px padding at each side. The static Home banner is 422 px tall on desktop and 220 px on mobile.

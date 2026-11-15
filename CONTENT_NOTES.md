@@ -15,5 +15,4 @@ Public copy follows the detailed provisional timetable. No source proposal or in
 - Organizers appear in the supplied order with equal weight: **Hala Alsaleh**, **Haotian Tang**, **Eduardo Beltrame**. No individual roles, titles, or affiliations are inferred.
 - Prospective invitees and organizations are not confirmed participants or sponsors. No unconfirmed special/royal guest, organization name, logo, or internal invitation detail is published.
 - The three abstract speaker placeholders are a visual layout, not a promised number of speakers.
-- The code artwork is an abstract original brand illustration, not an experimental dataset or a validated molecular model.
 - **shifra.ae** is a future domain, not a current live canonical. Domain activation and DNS remain a separate later step.

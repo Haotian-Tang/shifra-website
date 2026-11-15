@@ -37,6 +37,10 @@ export const event = {
     "Named after the Arabic word for “code”, SHIFRA connects the code of life with the code of computation through scientific talks, student research, posters, and conversations across disciplines.",
   registrationUrl: null as string | null,
   contactEmail: null as string | null,
+  banner: {
+    image: null as string | null,
+    alt: "SHIFRA Symposium banner",
+  },
   poster: {
     image: null as string | null,
     alt: "SHIFRA Symposium poster",

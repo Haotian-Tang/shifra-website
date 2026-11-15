@@ -1,13 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Arrow from '../components/Arrow.astro';
 import { speakers } from '../data/event';
 import { sitePath, contentUrl } from '../lib/urls';
 ---
 <Layout title="Speakers" description="The SHIFRA Symposium speaker line-up will be announced here. Explore the provisional programme for 27 November 2026 at MBZUAI." current="speakers/">
-  <section class="page-intro shell"><span class="section-index">The voices / SHIFRA 2026</span><h1>{speakers.length ? <>The voices<br/>of SHIFRA.</> : <>Speakers to<br/>be announced.</>}</h1><p class="page-lead narrow-lead">{speakers.length ? 'Meet the researchers and practitioners joining the conversation.' : 'The line-up is being confirmed. New perspectives on genomics and AI will take their place here.'}</p><a class="text-link intro-link" href={sitePath('agenda/')}>Explore the provisional programme <Arrow /></a></section>
-  <section class="shell speakers-section" aria-label={speakers.length ? 'Speaker line-up' : 'Speaker placeholders'}>
-    {speakers.length ? <div class="people-grid speaker-grid">{speakers.map(person => <article class="speaker-card"><div class="speaker-image">{person.portrait ? <img src={contentUrl(person.portrait)} alt={person.name} width="600" height="600" loading="lazy"/> : <span class="person-initials">{person.initials}</span>}</div><h2>{person.profileUrl ? <a href={contentUrl(person.profileUrl)}>{person.name}</a> : person.name}</h2>{person.title && <p>{person.title}</p>}{person.affiliation && <p>{person.affiliation}</p>}{person.talkTitle && <h3>{person.talkTitle}</h3>}{person.biography && <p>{person.biography}</p>}</article>)}</div> : <><div class="speaker-placeholder-grid">{[0,1,2].map(i => <article class="speaker-placeholder"><div class:list={['speaker-pattern', `pattern-${i}`]} aria-hidden="true"><svg viewBox="0 0 300 240" fill="none">{i === 0 ? <><circle cx="150" cy="120" r="65"/><circle cx="150" cy="120" r="38"/><path d="M150 30v180M60 120h180"/><circle class="pattern-dot" cx="150" cy="55" r="7"/></> : i === 1 ? <><path d="M60 170 105 65l60 110 75-95M60 170l105 5L105 65l135 15"/>{[[60,170],[105,65],[165,175],[240,80]].map(([x,y]) => <circle class="pattern-dot" cx={x} cy={y} r="7"/>)}</> : <>{[0,1,2,3,4].map(n => <path d={`M70 ${55+n*32} Q150 ${5+n*32} 230 ${55+n*32}`} />)}<circle class="pattern-dot" cx="150" cy="96" r="7"/></>}</svg><span class="tiny-label">Placeholder</span></div><div class="placeholder-meta"><span class="small-status"><span class="status-dot" aria-hidden="true"></span>Line-up forthcoming</span><h2>Speaker to be announced</h2></div></article>)}</div><p class="placeholder-note">Speaker names, talk details, and the final number of speakers will be announced once confirmed.</p></>}
+  <div class="page-heading container"><h1>Speakers</h1></div>
+  <section class="container speakers-section" aria-label={speakers.length ? 'Speaker line-up' : 'Speaker placeholders'}>
+    {!speakers.length && <div class="speakers-notice"><h2>Speakers to be announced</h2><p>The speaker line-up is being confirmed. Explore the <a href={sitePath('agenda/')}>provisional programme</a> in the meantime.</p></div>}
+    <div class="speaker-grid">
+      {speakers.length ? speakers.map(person => <article class="person-panel speaker-panel">
+        <div class="person-portrait speaker-portrait">{person.portrait ? <img src={contentUrl(person.portrait)} alt={person.name} width="232" height="300" loading="lazy" /> : <span>Portrait coming soon</span>}</div>
+        <h2 class="person-name">{person.profileUrl ? <a href={contentUrl(person.profileUrl)}>{person.name}</a> : person.name}</h2>
+        {person.title && <p>{person.title}</p>}
+        {person.affiliation && <p>{person.affiliation}</p>}
+        {person.talkTitle && <h3>{person.talkTitle}</h3>}
+        {person.biography && <p>{person.biography}</p>}
+      </article>) : [0,1,2].map(() => <article class="person-panel speaker-panel placeholder-panel">
+        <div class="person-portrait speaker-portrait"><span>Portrait coming soon</span></div>
+        <h2 class="person-name">Speaker to be announced</h2><p>Placeholder</p>
+      </article>)}
+    </div>
+    {!speakers.length && <p class="placeholder-note">Speaker names, talk details, and the final number of speakers will be announced once confirmed.</p>}
   </section>
-  <aside class="shell next-page"><div><span class="tiny-label">In the meantime</span><h2>Meet the people bringing us together.</h2></div><a class="text-link" href={sitePath('organizing-committee/')}>Organizing Committee <Arrow /></a></aside>
 </Layout>

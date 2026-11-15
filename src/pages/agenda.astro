@@ -5,17 +5,22 @@ import { event } from '../data/event';
 import { agenda } from '../data/agenda';
 ---
 <Layout title="Agenda" description="Explore the provisional SHIFRA Symposium programme for 27 November 2026: scientific talks, poster pitches, research exchange, and networking. All times are UAE time, GST (UTC+4)." current="agenda/">
-  <section class="page-intro shell agenda-intro"><span class="section-index">The programme / {event.shortDate}</span><div class="intro-title-row"><div><h1>A day of ideas.</h1><p class="page-lead">From reading life to rethinking what AI can do.</p></div><button class="outline-button print-button" type="button" hidden><svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M7 8V3h10v5M7 17H4V9h16v8h-3M7 14h10v7H7z" stroke="currentColor" stroke-width="1.5"/></svg>Print agenda</button></div>
-    <div class="programme-notice"><span class="category-label coral">{event.programmeStatus}</span><p>{event.confirmationNote}</p></div>
-  </section>
-  <section class="agenda-section shell" aria-label="Chronological agenda">
-    <div class="agenda-date"><p><time datetime={event.date}>{event.displayDate}</time></p><span>{event.timezoneLabel}</span></div>
-    <div class="agenda-column-headings" aria-hidden="true"><span>Time / duration</span><span>Programme</span><span>Format</span></div>
+  <div class="page-heading agenda-heading container"><h1>Agenda</h1></div>
+  <section class="agenda-section container" aria-label="Chronological agenda">
+    <div class="agenda-summary">
+      <h2><time datetime={event.date}>{event.displayDate}</time></h2>
+      <p>{event.timezoneLabel}</p>
+      <p><strong>{event.programmeStatus}</strong><br />{event.confirmationNote}</p>
+      <button class="print-button" type="button" hidden>Print agenda</button>
+    </div>
     <ol class="agenda-list">{agenda.map(entry => <AgendaEntry entry={entry} />)}</ol>
     <p class="agenda-footnote">All times are shown in UAE time — GST, UTC+4 ({event.timezone}).</p>
   </section>
 </Layout>
 <script>
   const printButton = document.querySelector<HTMLButtonElement>('.print-button');
-  if (printButton) { printButton.hidden = false; printButton.addEventListener('click', () => window.print()); }
+  if (printButton) {
+    printButton.hidden = false;
+    printButton.addEventListener('click', () => window.print());
+  }
 </script>

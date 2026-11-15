@@ -1,15 +1,13 @@
 ---
-import Brand from './Brand.astro';
 import { event, navigation } from '../data/event';
 import { sitePath, contentUrl } from '../lib/urls';
 ---
-<footer class="site-footer">
-  <div class="shell">
-    <div class="footer-main">
-      <div><a class="brand-link" href={sitePath()} aria-label="SHIFRA Symposium home"><Brand /></a><p class="footer-tagline">The code of life.<br/>The possibilities of AI.</p></div>
-      <nav aria-label="Footer navigation">{navigation.map(item => <a href={sitePath(item.path)}>{item.label}</a>)}{event.registrationUrl && <a href={contentUrl(event.registrationUrl)}>Registration</a>}</nav>
-      <div class="footer-event"><p>{event.displayDate}</p><p>{event.venue} · {event.institutionShort}</p><span>{event.theme}</span>{event.contactEmail && <a href={`mailto:${event.contactEmail}`}>{event.contactEmail}</a>}</div>
-    </div>
-    <div class="footer-bottom"><span>SHIFRA Symposium · 2026</span><span>{event.division}</span><span class="footer-dot" aria-hidden="true"></span></div>
-  </div>
+<footer class="site-footer container">
+  <p><strong>{event.name}</strong> · {event.displayDate}</p>
+  <p>{event.venue} · {event.institutionShort}</p>
+  <nav aria-label="Footer navigation">
+    {navigation.map(item => <a href={sitePath(item.path)}>{item.label}</a>)}
+    {event.registrationUrl && <a href={contentUrl(event.registrationUrl)}>Registration</a>}
+  </nav>
+  {event.contactEmail && <p><a href={`mailto:${event.contactEmail}`}>{event.contactEmail}</a></p>}
 </footer>
