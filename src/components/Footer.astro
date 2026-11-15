@@ -1,13 +1,8 @@
 ---
-import { event, navigation } from '../data/event';
-import { sitePath, contentUrl } from '../lib/urls';
+import { event } from '../data/event';
 ---
 <footer class="site-footer container">
   <p><strong>{event.name}</strong> · {event.displayDate}</p>
   <p>{event.venue} · {event.institution} · {event.city}</p>
-  <nav aria-label="Footer navigation">
-    {navigation.map(item => <a href={sitePath(item.path)}>{item.label}</a>)}
-    {event.registrationUrl && <a href={contentUrl(event.registrationUrl)}>General registration</a>}
-  </nav>
-  {event.contactEmail && <p class="footer-contact">For any questions, contact <a href={`mailto:${event.contactEmail}`}>{event.contactEmail}</a>.</p>}
+  {event.contactEmail && <p class="footer-contact"><Fragment set:html="<!--email_off-->" />Contact: <span>{event.contactEmail}</span><Fragment set:html="<!--/email_off-->" /></p>}
 </footer>

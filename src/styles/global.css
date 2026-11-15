@@ -7,6 +7,14 @@
     format("woff2");
 }
 @font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 200 1000;
+  font-display: swap;
+  src: url("@fontsource-variable/nunito-sans/files/nunito-sans-latin-wght-normal.woff2")
+    format("woff2");
+}
+@font-face {
   font-family: "Noto Sans Arabic";
   font-style: normal;
   font-weight: 100 900;
@@ -18,8 +26,9 @@
   --blue: #165747;
   --text: #28362f;
   --border: #d9e0db;
-  --heading-font: "Bodoni Moda", Didot, "Times New Roman", serif;
-  --body-font: "Bodoni Moda", Didot, "Times New Roman", serif;
+  --display-font: "Bodoni Moda", Didot, "Times New Roman", serif;
+  --body-font: "Nunito Sans", "Segoe UI", Arial, sans-serif;
+  --heading-font: var(--body-font);
   --agenda-font: var(--body-font);
 }
 * {
@@ -231,9 +240,9 @@ main:focus {
 }
 .home-title {
   margin-block: 5px;
-  font-family: var(--heading-font);
+  font-family: var(--display-font);
   font-size: 48px;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.15;
   letter-spacing: 0.015em;
   text-transform: uppercase;
@@ -298,7 +307,7 @@ main:focus {
   text-align: center;
   font-family: var(--heading-font);
   font-size: 34px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1.2;
   text-transform: uppercase;
 }
@@ -373,7 +382,7 @@ main:focus {
 .page-heading h1 {
   font-family: var(--heading-font);
   font-size: 55px;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 60.5px;
   text-transform: uppercase;
 }
@@ -569,32 +578,25 @@ main:focus {
 }
 
 .site-footer {
-  margin-top: 50px;
-  padding-top: 20px;
-  padding-bottom: 45px;
+  margin-top: 30px;
+  padding-top: 0;
+  padding-bottom: 18px;
   text-align: center;
-  font-size: 17px;
-  line-height: 1.6;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #526157;
 }
 .site-footer::before {
   content: "";
   display: block;
   height: 1px;
-  background: #cccccc;
-  margin-bottom: 20px;
+  background: var(--border);
+  margin-bottom: 12px;
 }
 .site-footer p + p {
-  margin-top: 5px;
-}
-.site-footer nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px 22px;
-  margin-top: 18px;
+  margin-top: 3px;
 }
 .footer-contact {
-  margin-top: 22px !important;
   overflow-wrap: anywhere;
 }
 
@@ -1085,12 +1087,6 @@ main:focus {
   }
   .agenda-content p {
     margin-top: 12px;
-  }
-  .site-footer {
-    font-size: 16px;
-  }
-  .site-footer nav {
-    column-gap: 15px;
   }
 }
 @media (max-width: 767px) {
