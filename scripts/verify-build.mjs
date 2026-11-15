@@ -4,7 +4,14 @@ import path from "node:path";
 import { basePath, siteOrigin } from "../site.config.mjs";
 
 const directory = path.resolve(process.env.BUILD_DIR || "dist");
-const routes = ["", "agenda/", "organizing-committee/", "speakers/"];
+const routes = [
+  "",
+  "agenda/",
+  "organizing-committee/",
+  "speakers/",
+  "registration/",
+  "registration/poster/",
+];
 const htmlFiles = routes.map((route) =>
   path.join(directory, route, "index.html"),
 );
@@ -118,5 +125,5 @@ for (const time of [
 for (const name of ["Hala Alsaleh", "Haotian Tang", "Eduardo Beltrame"])
   assert((await readFile(htmlFiles[2], "utf8")).includes(name));
 console.log(
-  `Verified 4 static routes, 17 UAE-time agenda entries, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
+  `Verified 6 static routes, 17 UAE-time agenda entries, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
 );

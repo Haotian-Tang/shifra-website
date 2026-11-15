@@ -1,22 +1,35 @@
-# Academic-style preview verification
+# SHIFRA layout and poster registration verification
 
-Verified on 15 November 2026 against the actual static production output, using local Chrome. This revision replaces the original visual direction with the requested HCA conference layout.
+Verified on 15 November 2026 using the built static output, the local Node receiver, and actual Chrome. This revision retains the academic reference style while making the organizer-requested layout and registration changes.
 
-- Captured the Home, Agenda, Local Organizing Team, and Speakers reference pages at 1440 and 390 px and compared them with SHIFRA at matching widths.
-- Used actual normal-width D-DIN regular and bold from the supplied font repository, plus locally served Montserrat, Raleway, and Noto Sans Arabic. Five distinct WOFF2 files loaded successfully in the browser; D-DIN regular and bold were both checked as loaded font faces.
-- Checked the requested rendered font families, sizes, weights, and line heights for navigation, Home and interior headings, section headings, Home paragraphs, dates, organizer names, and agenda text. Desktop content containers measure 992 px including side padding; desktop navigation boxes measure 50 px tall; the Home banner measures 422 px tall (220 px on mobile).
-- Production builds and built-link/asset validation pass for the project subpath `/shifra-website/` and root path `/`. All four static HTML routes and 63 internal link/asset references per build resolve correctly.
-- Astro type check: 0 errors, 0 warnings, 0 hints in 18 files. Dependency peer check: no issues.
-- Visited and refreshed all four pages at 1440, 768, and 390 px. No horizontal overflow, clipped Arabic, broken image, failed resource request, or browser runtime error was found.
-- Checked the two-column organizer grid, mobile stacking, the 33 px / 36.3 px mobile interior titles, mobile navigation, Escape closing and focus return, navigation clicks, the working print control, and print CSS.
-- All four pages remain navigable without JavaScript. All four root-path pages also load directly.
-- The old animated Home component, controls, observers, gradients, transitions, and animation styles were removed. The old display/body font packages and their unused license copies were removed, and the lockfile was updated. The replacement favicon and typographic sharing image contain no scientific illustration.
-- The event data and all 17 UAE-time programme entries remain unchanged; only an optional `event.banner` setting was added. The existing GitHub Pages workflow and deployment URL/base configuration were preserved.
+## Pages and presentation
 
-## Deliberate differences from the reference
+- The venue is **Lecture Hall 1&2** in event content, page metadata, footers, registration, and the social-sharing graphic.
+- The provisional graphical favicon is removed. The text-only SHIFRA and Arabic masthead is larger, with 64 px Latin and 44 px Arabic type on desktop. Navigation is 17 px, and Registration sits between Agenda and Organizing Committee. Both registration routes highlight that tab.
+- There is no standalone banner panel. A future supplied banner can appear as a faint hero background using `event.banner.image` and `event.banner.opacity` (0.12). No replacement artwork is invented.
+- About this event places the introduction on the left and the official symposium poster placeholder on the right. These stack on mobile. Acknowledgement follows Location/Venue and thanks Eduardo Beltrame, the speakers, and the BLS administrative team.
+- Visited and refreshed all six routes at 1440, 768, 390, and 320 px. No horizontal overflow, clipped Arabic, broken image, failed resource request, or browser runtime error remained. The narrow-screen acknowledgement heading scales to fit.
+- Inspected desktop and mobile screenshots. Verified the larger masthead, smaller navigation, home content order, four labeled required fields, mobile menu navigation, Escape closing, and focus return. Bundled font resources load successfully.
+- The 17 agenda entries, UAE time zone, organizer order, existing print control, and other conference content remain intact.
 
-SHIFRA has a simple text wordmark and four navigation routes. No approved banner image, poster, portraits, speaker roster, biographies, registration link, or contact details have been supplied, so these are intentionally absent or represented by plain labeled placeholders. No HCA branding, images, programme information, participant data, maps, countdowns, or registration controls are copied. The supplied SHIFRA content is shorter, so total page and panel heights differ naturally. The single-day agenda uses a provisional note instead of HCA's multiple-day tabs or session-detail controls.
+## Poster registration
 
-## Publishing state
+- Registration opens a working Register for poster entry and a separate form for full name, affiliation, email address, and one PDF up to 20 MB.
+- Browser checks cover missing fields, invalid email, non-PDF selection, oversized selection, server rejection of a renamed non-PDF, and retry after a simulated network failure. Errors retain the entered details and selected file; success appears only after a real save response and includes a submission reference.
+- Submitted a sample PDF through the actual browser UI and compared the saved file byte for byte. All text fields were checked against the saved registration record. Also verified native HTML submission and its stylesheet with JavaScript disabled.
+- All 10 receiver tests pass: exact field/file persistence, required fields, file signature/size/count checks, empty uploads, early oversized-request rejection, origin checks, static-file and symlink boundaries, HTML confirmation, and a storage failure that returns an error without a false receipt. Test details are synthetic, and unit-test storage is temporary.
+- The receiver writes `poster.pdf` and `registration.json` in a private reference directory outside the served build. Files use owner-only permissions. Public requests for stored posters and records return 404. Collection files are outside the source checkout or ignored by Git.
+- The existing temporary HTTPS share link serves all six pages successfully. A real submission through that public link returned HTTP 201; Unicode text fields and exact PDF bytes were verified in local storage. Only that synthetic public test record was then removed.
+- The shared receiver uses `outputs/shifra-poster-submissions/` outside the checkout. The receiver and tunnel must remain running and this computer online for the temporary link and collection to work. Confirmation is on screen; it does not send email or confirm poster acceptance.
 
-Source is maintained on `codex/shifra-preview` for review, with production deployment configured for `main` after merge. No GitHub Pages settings, repository visibility, custom domain, or DNS were changed. A temporary share preview is separate from the later production Pages deployment.
+## Builds and delivery
+
+- Astro check: **0 errors, 0 warnings, 0 hints** across 25 files.
+- Production project-path build, working local-preview build, and root-domain build all pass. Each contains six HTML routes and passes validation of 101 local asset/link references, canonical metadata, and all 17 UAE-time agenda entries.
+- The root-domain build's six routes also load directly. A normal production build without an upload receiver keeps collection closed, disables the form controls, and explicitly says submissions are not being collected.
+- GitHub Pages remains static. Its workflow now tests the local receiver and accepts a future `POSTER_SUBMISSION_ENDPOINT` repository variable for a separately hosted receiver. The local receiver is not included in the Pages deployment.
+- Source remains on `codex/shifra-preview` for review. No merge into main, repository visibility change, custom-domain activation, DNS update, or GitHub Pages settings change is included.
+
+## Pending organizer assets
+
+The final logo, background banner, official symposium poster, portraits, speaker roster, biographies, general-attendance registration URL, and public contact details have not been supplied. They remain absent or use labeled placeholders. Uploaded research posters are private submissions and do not automatically replace the official symposium poster.

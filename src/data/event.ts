@@ -23,7 +23,7 @@ export const event = {
   timezone: "Asia/Dubai",
   timezoneLabel: "UAE time (GST, UTC+4)",
   utcOffset: "+04:00",
-  venue: "Visitor Center",
+  venue: "Lecture Hall 1&2",
   institution: "Mohamed bin Zayed University of Artificial Intelligence",
   institutionShort: "MBZUAI",
   division: "Division of Biological and Life Sciences",
@@ -40,12 +40,17 @@ export const event = {
   banner: {
     image: null as string | null,
     alt: "SHIFRA Symposium banner",
+    opacity: 0.12,
   },
   poster: {
     image: null as string | null,
     alt: "SHIFRA Symposium poster",
     download: null as string | null,
   },
+  acknowledgement: [
+    "We are grateful to Eduardo Beltrame for his all-round support of SHIFRA.",
+    "We also thank our speakers and the BLS administrative team for their contributions and help in bringing the symposium together.",
+  ],
 };
 
 export const organizers: Person[] = [
@@ -83,6 +88,7 @@ export const speakers: Speaker[] = [];
 export const navigation = [
   { label: "Home", path: "" },
   { label: "Agenda", path: "agenda/" },
+  { label: "Registration", path: "registration/" },
   { label: "Organizing Committee", path: "organizing-committee/" },
   { label: "Speakers", path: "speakers/" },
 ];

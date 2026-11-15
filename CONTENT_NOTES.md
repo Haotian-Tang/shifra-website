@@ -9,7 +9,7 @@ Public copy follows the detailed provisional timetable. No source proposal or in
 - Original talk numbering skips from 2 to 4. Use the supplied session-based labels, without inventing a missing talk or slot.
 - The four afternoon selected talks are not explicitly identified as student talks. Their labels remain neutral.
 - Closing remarks are a ten-minute conclusion, not a confirmed closing keynote. Eduardo Beltrame's closing assignment remains provisional.
-- The proposed date is **27 November 2026**, and the proposed venue is **Visitor Center, MBZUAI**. Confirm before final publication. No room number, address, directions, or map is asserted.
+- The proposed date is **27 November 2026**. The organizers have updated the venue to **Lecture Hall 1&2, MBZUAI**. No street address, directions, or map is asserted.
 - All times use **Asia/Dubai — GST, UTC+4**. This is a location-based implementation choice; the proposal did not explicitly give a time zone. No visitor-local conversion occurs.
 - Speaker and presenter assignments remain subject to confirmation. No confirmed speaker roster, biographies, portraits, registration URL, public contact address, or finished poster was supplied. These fields remain empty in typed content data.
 - Organizers appear in the supplied order with equal weight: **Hala Alsaleh**, **Haotian Tang**, **Eduardo Beltrame**. No individual roles, titles, or affiliations are inferred.

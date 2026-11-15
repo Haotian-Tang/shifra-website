@@ -1,0 +1,20 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { event } from '../../data/event';
+import { posterRegistration } from '../../data/registration';
+import { sitePath, contentUrl } from '../../lib/urls';
+---
+<Layout title="Registration" description="Register to present a poster at the SHIFRA Symposium. Provide your name, affiliation, email, and poster PDF." current="registration/">
+  <div class="page-heading registration-heading container"><h1>Registration</h1></div>
+  <section class="registration-overview container" aria-labelledby="poster-registration-title">
+    <div class="registration-option">
+      {posterRegistration.isPreview && <p class="preview-label">Preview registration</p>}
+      <h2 id="poster-registration-title">Poster registration</h2>
+      <p>Share your research with the SHIFRA community. Register for a poster presentation by providing your details and uploading your poster.</p>
+      <p class="registration-event"><time datetime={event.date}>{event.displayDate}</time><br />{event.venue} · {event.institutionShort}</p>
+      <a class="primary-button" href={sitePath('registration/poster/')}>Register for poster</a>
+      <p class="form-hint">Poster file: PDF, up to {posterRegistration.maxFileSizeMb} MB.</p>
+    </div>
+    {event.registrationUrl && <p class="general-registration">For general attendance, visit <a href={contentUrl(event.registrationUrl)}>general registration</a>.</p>}
+  </section>
+</Layout>

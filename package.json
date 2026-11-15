@@ -12,7 +12,10 @@
     "check": "astro check",
     "build": "astro build",
     "preview": "astro preview --host 127.0.0.1 --port 4173",
-    "verify": "node scripts/verify-build.mjs"
+    "verify": "node scripts/verify-build.mjs",
+    "build:preview": "node scripts/build-preview.mjs",
+    "preview:posters": "node scripts/poster-preview.mjs",
+    "test:posters": "node --test scripts/poster-preview.test.mjs"
   },
   "dependencies": {
     "@astrojs/check": "0.9.12",

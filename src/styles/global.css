@@ -123,12 +123,12 @@ main:focus {
   top: 10px;
 }
 
-/* Normal-flow conference header, matching the reference's generous logo area. */
+/* Text-only event identity; the final logo can be added later. */
 .site-header {
   background: #ffffff;
 }
 .header-brand {
-  height: 177px;
+  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -150,7 +150,7 @@ main:focus {
 }
 .brand-latin {
   font-family: var(--heading-font);
-  font-size: 48px;
+  font-size: 64px;
   font-weight: 700;
   line-height: 1.1;
 }
@@ -161,15 +161,15 @@ main:focus {
   color: #aaaaaa;
 }
 .brand-arabic {
-  font-size: 32px;
+  font-size: 44px;
   line-height: 1.8;
 }
 .navigation-row {
   display: flex;
   align-items: center;
-  gap: 35px;
-  padding-top: 12px;
-  padding-bottom: 26px;
+  gap: 20px;
+  padding-top: 0;
+  padding-bottom: 14px;
 }
 .navigation-row::before,
 .navigation-row::after {
@@ -186,10 +186,10 @@ main:focus {
 }
 .site-header nav a {
   display: block;
-  padding: 15px;
+  padding: 12px 14px;
   color: #000000;
   font-family: var(--heading-font);
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 400;
   line-height: 20px;
   white-space: nowrap;
@@ -202,34 +202,27 @@ main:focus {
 .menu-toggle {
   display: none;
 }
-.home-mobile-brand {
-  display: none;
+/* Optional supplied banner appears only as a faint background. */
+.home-hero {
+  position: relative;
+  isolation: isolate;
+  padding-bottom: 8px;
+  background: #ffffff;
 }
-
-/* Home: static banner, centered event information, and ordinary text sections. */
-.event-banner {
-  width: 100%;
-  height: 422px;
-  border: 1px solid var(--border);
-  background: #f6f6f6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #666666;
-  text-align: center;
-}
-.event-banner img {
+.hero-background {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-.event-banner > span {
-  padding: 15px;
+  pointer-events: none;
+  z-index: -1;
 }
 .home-intro {
   text-align: center;
   color: #000000;
-  padding-top: 6px;
+  position: relative;
+  padding-top: 16px;
 }
 .home-title {
   margin-block: 5px;
@@ -243,7 +236,7 @@ main:focus {
   display: block;
 }
 .event-date {
-  margin-top: 32px;
+  margin-top: 24px;
   color: var(--blue);
   font-size: 26px;
   font-weight: 700;
@@ -277,7 +270,7 @@ main:focus {
   margin-top: 12px;
 }
 .home-section {
-  margin-top: 85px;
+  margin-top: 44px;
   color: #000000;
 }
 .home-section::before {
@@ -286,7 +279,7 @@ main:focus {
   width: 50%;
   height: 1px;
   background: var(--border);
-  margin: 0 auto 60px;
+  margin: 0 auto 36px;
 }
 .section-title {
   margin: 0 0 42px;
@@ -567,9 +560,265 @@ main:focus {
   margin-top: 18px;
 }
 
+/* Home introduction and poster sit together, before location and thanks. */
+.home-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+.home-actions .primary-button {
+  margin-top: 0;
+}
+.home-actions .primary-button,
+.secondary-button {
+  font-size: 18px;
+  line-height: 26px;
+  padding: 7px 16px;
+}
+.secondary-button {
+  display: inline-block;
+  border: 1px solid #000000;
+  border-radius: 24px;
+  font-weight: 700;
+  color: #000000;
+  text-transform: uppercase;
+}
+.secondary-button:hover {
+  background: #f6f6f6;
+  text-decoration: none;
+}
+.home-programme-status {
+  font-size: 14px;
+}
+.about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  gap: 60px;
+  align-items: start;
+}
+.about-layout .section-title {
+  text-align: left;
+  margin-bottom: 25px;
+}
+.about-poster {
+  width: 100%;
+  max-width: 280px;
+  justify-self: end;
+}
+.about-poster h3 {
+  font-family: var(--body-font);
+  font-size: 16px;
+  line-height: 23px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 14px;
+}
+.acknowledgement-section {
+  text-align: center;
+}
+.acknowledgement-section p {
+  max-width: 800px;
+  margin-inline: auto;
+}
+.acknowledgement-section p + p {
+  margin-top: 12px;
+}
+
+/* Poster registration. Files are handled by a separate local preview receiver. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+.registration-heading {
+  padding-bottom: 45px;
+}
+.registration-overview {
+  max-width: 730px;
+}
+.registration-option {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 30px;
+}
+.registration-option h2 {
+  font-family: var(--heading-font);
+  font-size: 32px;
+  line-height: 35.2px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.registration-option p {
+  line-height: 1.6;
+}
+.registration-option .primary-button {
+  font-size: 20px;
+  line-height: 28px;
+}
+.registration-event {
+  margin-top: 20px;
+  color: #333333;
+}
+.preview-label {
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.general-registration {
+  margin-top: 25px;
+}
+.poster-registration {
+  max-width: 730px;
+}
+.back-link {
+  display: inline-block;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.preview-notice {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: #f8fbff;
+  padding: 12px 15px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.preview-notice p {
+  margin-top: 4px;
+}
+.form-introduction {
+  margin-block: 22px;
+  font-size: 15px;
+  line-height: 23px;
+}
+.form-closed {
+  padding: 15px;
+  margin-bottom: 25px;
+  border: 1px solid var(--border);
+  font-weight: 700;
+}
+#poster-form fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  min-width: 0;
+}
+.form-field {
+  margin-bottom: 22px;
+}
+.form-field label {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.form-field input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  border: 1px solid #b8b8b8;
+  border-radius: 4px;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 16px;
+  background: #ffffff;
+  color: #000000;
+}
+.form-field input:focus-visible {
+  outline: 2px solid #1c7cc7;
+  outline-offset: 2px;
+}
+.form-field input[type="file"] {
+  padding: 8px;
+}
+.form-field input::file-selector-button {
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  background: #f6f6f6;
+  padding: 8px 10px;
+  margin-right: 12px;
+  font: inherit;
+  cursor: pointer;
+}
+.form-field input:disabled,
+#poster-form fieldset:disabled {
+  color: #666666;
+}
+.form-hint {
+  font-size: 13px;
+  color: #555555;
+  line-height: 20px;
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+}
+.form-error {
+  border-left: 3px solid #b3261e;
+  color: #8c1d18;
+  background: #fff7f5;
+  padding: 12px;
+  font-size: 15px;
+  line-height: 22px;
+  margin-bottom: 15px;
+}
+.form-status {
+  font-size: 14px;
+}
+.form-submit {
+  margin-top: 15px;
+  font-size: 20px;
+  line-height: 28px;
+}
+.form-submit:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+#poster-form fieldset:disabled .form-submit {
+  cursor: not-allowed;
+}
+.submission-success {
+  border: 1px solid var(--blue);
+  border-radius: 4px;
+  padding: 25px;
+}
+.submission-success h2,
+.receipt h1 {
+  font-family: var(--heading-font);
+  font-size: 36px;
+  line-height: 39.6px;
+  margin-bottom: 20px;
+}
+.submission-success p {
+  margin-block: 15px;
+}
+.submission-reference {
+  overflow-wrap: anywhere;
+}
+.submission-reference strong {
+  font-size: 14px;
+}
+.receipt {
+  max-width: 730px;
+  margin-block: 60px;
+}
+.receipt p {
+  margin-top: 18px;
+  overflow-wrap: anywhere;
+}
+
 @media (max-width: 767px) {
   .header-brand {
-    height: 52px;
+    height: 60px;
     justify-content: space-between;
     padding-inline: 15px;
     background: #f8f8f8;
@@ -579,14 +828,14 @@ main:focus {
     gap: 9px;
   }
   .brand-latin {
-    font-size: 27px;
+    font-size: 32px;
     line-height: 1.1;
   }
   .brand-divider {
     font-size: 20px;
   }
   .brand-arabic {
-    font-size: 20px;
+    font-size: 24px;
     line-height: 1.8;
   }
   .has-js .menu-toggle {
@@ -627,7 +876,7 @@ main:focus {
     background: #f8f8f8;
   }
   .site-header nav a {
-    padding: 10px 15px;
+    padding: 12px 15px;
     white-space: normal;
   }
   .has-js .site-header nav {
@@ -639,44 +888,26 @@ main:focus {
   .site-header nav a[aria-current="page"] {
     background: #eeeeee;
   }
-  .home-mobile-brand {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 102px;
-  }
-  .home-mobile-brand .brand-latin {
-    font-size: 32px;
-  }
-  .home-mobile-brand .brand-arabic {
-    font-size: 23px;
-  }
-  .event-banner {
-    height: 220px;
-  }
-  .event-banner > span {
-    font-size: 14px;
-  }
   .home-intro {
-    padding-top: 100px;
+    padding-top: 20px;
   }
   .home-title {
-    font-size: 48px;
-    line-height: 52.8px;
+    font-size: 36px;
+    line-height: 39.6px;
   }
   .event-date {
-    margin-top: 32px;
+    margin-top: 24px;
   }
   .event-date,
   .event-location {
-    font-size: 26px;
-    line-height: 37.142857px;
+    font-size: 22px;
+    line-height: 31.428571px;
   }
   .home-section {
-    margin-top: 85px;
+    margin-top: 38px;
   }
   .home-section::before {
-    margin-bottom: 45px;
+    margin-bottom: 30px;
   }
   .section-title {
     font-size: 36px;
@@ -684,7 +915,7 @@ main:focus {
     margin-bottom: 42px;
   }
   .home-copy {
-    text-align: justify;
+    text-align: left;
   }
   .home-copy p {
     margin-bottom: 12px;
@@ -753,6 +984,43 @@ main:focus {
   }
   .site-footer nav {
     column-gap: 15px;
+  }
+}
+@media (max-width: 767px) {
+  .acknowledgement-section .section-title {
+    font-size: clamp(28px, 9vw, 36px);
+    line-height: 1.1;
+  }
+  .about-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+  }
+  .about-poster {
+    justify-self: center;
+  }
+  .home-actions {
+    gap: 10px;
+  }
+  .home-actions .primary-button,
+  .secondary-button {
+    font-size: 15px;
+    line-height: 22px;
+    padding: 9px 13px;
+  }
+  .registration-heading {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  .registration-option {
+    padding: 22px;
+  }
+  .registration-option .primary-button {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .form-submit {
+    font-size: 18px;
+    line-height: 26px;
   }
 }
 @media print {

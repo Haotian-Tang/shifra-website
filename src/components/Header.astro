@@ -12,7 +12,7 @@ const { current } = Astro.props;
   </div>
   <div class="container navigation-row">
     <nav id="main-navigation" aria-label="Main navigation">
-      {navigation.map(item => <a href={sitePath(item.path)} aria-current={current === item.path ? 'page' : undefined}>{item.label}</a>)}
+      {navigation.map(item => <a href={sitePath(item.path)} aria-current={(item.path ? current.startsWith(item.path) : current === '') ? 'page' : undefined}>{item.label}</a>)}
     </nav>
   </div>
 </header>

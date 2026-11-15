@@ -1,35 +1,34 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Brand from '../components/Brand.astro';
 import Poster from '../components/Poster.astro';
 import { event } from '../data/event';
 import { sitePath, contentUrl } from '../lib/urls';
 ---
-<Layout title="Genomics × AI UAE" description="SHIFRA Symposium brings genomics and artificial intelligence into conversation. 27 November 2026 at the Visitor Center, MBZUAI. Explore the provisional programme." current="">
-  <div class="home-mobile-brand" aria-hidden="true"><Brand /></div>
-  <div class="event-banner">
-    {event.banner.image ? <img src={contentUrl(event.banner.image)} alt={event.banner.alt} width="1440" height="422" /> : <span>Symposium banner coming soon</span>}
-  </div>
-  <section class="home-intro container" aria-labelledby="event-title">
-    <h1 id="event-title" class="home-title"><span>{event.name}</span><span>{event.theme}</span></h1>
-    <p class="event-date"><time datetime={event.date}>{event.displayDate}</time></p>
-    <p class="event-location">{event.venue} · {event.institutionShort}</p>
-    <a class="primary-button" href={sitePath('agenda/')}>View agenda</a>
-    <p class="home-programme-status">{event.programmeStatus}</p>
-    {event.registrationUrl && <p><a href={contentUrl(event.registrationUrl)}>Register for SHIFRA</a></p>}
+<Layout title="Genomics × AI UAE" description={`SHIFRA Symposium brings genomics and artificial intelligence into conversation. ${event.displayDate} at ${event.venue}, MBZUAI. Explore the provisional programme and poster registration.`} current="">
+  <section class="home-hero" aria-labelledby="event-title">
+    {event.banner.image && <img class="hero-background" src={contentUrl(event.banner.image)} alt="" aria-hidden="true" style={`opacity:${event.banner.opacity}`} width="1440" height="422" />}
+    <div class="home-intro container">
+      <h1 id="event-title" class="home-title"><span>{event.name}</span><span>{event.theme}</span></h1>
+      <p class="event-date"><time datetime={event.date}>{event.displayDate}</time></p>
+      <p class="event-location">{event.venue} · {event.institutionShort}</p>
+      <div class="home-actions"><a class="primary-button" href={sitePath('agenda/')}>View agenda</a><a class="secondary-button" href={sitePath('registration/poster/')}>Register for poster</a></div>
+      <p class="home-programme-status">{event.programmeStatus}</p>
+    </div>
   </section>
-  <section class="home-section container" aria-labelledby="about-title">
-    <h2 id="about-title" class="section-title">About this event</h2>
-    <div class="home-copy"><p>{event.introduction}</p><p>{event.story}</p></div>
-  </section>
-  <section class="home-section container" aria-labelledby="poster-title">
-    <h2 id="poster-title" class="section-title">Symposium poster</h2>
-    <Poster />
+  <section class="home-section about-section container" aria-labelledby="about-title">
+    <div class="about-layout">
+      <div><h2 id="about-title" class="section-title">About this event</h2><div class="home-copy"><p>{event.introduction}</p><p>{event.story}</p></div></div>
+      <aside class="about-poster" aria-label="Symposium poster"><h3>Symposium poster</h3><Poster /></aside>
+    </div>
   </section>
   <section class="home-section venue-section container" aria-labelledby="venue-title">
     <h2 id="venue-title" class="section-title">Location/Venue</h2>
     <p class="venue-name">{event.venue}</p>
     <p>{event.institution} ({event.institutionShort})</p>
     <p>{event.division} ({event.divisionShort})</p>
+  </section>
+  <section class="home-section acknowledgement-section container" aria-labelledby="acknowledgement-title">
+    <h2 id="acknowledgement-title" class="section-title">Acknowledgement</h2>
+    {event.acknowledgement.map(paragraph => <p>{paragraph}</p>)}
   </section>
 </Layout>

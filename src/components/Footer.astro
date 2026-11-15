@@ -7,7 +7,7 @@ import { sitePath, contentUrl } from '../lib/urls';
   <p>{event.venue} · {event.institutionShort}</p>
   <nav aria-label="Footer navigation">
     {navigation.map(item => <a href={sitePath(item.path)}>{item.label}</a>)}
-    {event.registrationUrl && <a href={contentUrl(event.registrationUrl)}>Registration</a>}
+    {event.registrationUrl && <a href={contentUrl(event.registrationUrl)}>General registration</a>}
   </nav>
   {event.contactEmail && <p><a href={`mailto:${event.contactEmail}`}>{event.contactEmail}</a></p>}
 </footer>

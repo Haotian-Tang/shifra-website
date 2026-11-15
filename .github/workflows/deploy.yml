@@ -32,6 +32,8 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Type check
         run: pnpm check
+      - name: Test poster receiver
+        run: pnpm test:posters
       - name: Read actual GitHub Pages URL
         id: pages
         uses: actions/configure-pages@v5
@@ -39,6 +41,7 @@ jobs:
         env:
           SITE_URL: ${{ vars.SITE_URL || steps.pages.outputs.base_url }}
           ASTRO_TELEMETRY_DISABLED: "1"
+          PUBLIC_POSTER_SUBMISSION_ENDPOINT: ${{ vars.POSTER_SUBMISSION_ENDPOINT }}
         run: |
           pnpm build
           pnpm verify
