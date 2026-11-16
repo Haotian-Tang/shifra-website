@@ -89,11 +89,3 @@ export const organizers: Person[] = [
 ];
 
 export const speakers: Speaker[] = [];
-
-export const navigation = [
-  { label: "Home", path: "" },
-  { label: "Agenda", path: "agenda/" },
-  { label: "Registration", path: "registration/" },
-  { label: "Organizing Committee", path: "organizing-committee/" },
-  { label: "Speakers", path: "speakers/" },
-];

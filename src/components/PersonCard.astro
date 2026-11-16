@@ -5,10 +5,8 @@ interface Props { person: Person; }
 const { person } = Astro.props;
 ---
 <article class="person-panel">
-  <div class="person-portrait">
-    {person.portrait ? <img src={contentUrl(person.portrait)} alt={person.name} width="217" height="280" loading="lazy" /> : <span>Portrait coming soon</span>}
-  </div>
-  <h2 class="person-name">{person.profileUrl ? <a href={contentUrl(person.profileUrl)}>{person.name}</a> : person.name}</h2>
+  {person.portrait && <div class="person-portrait"><img src={contentUrl(person.portrait)} alt={person.name} width="217" height="280" loading="lazy" /></div>}
+  <h3 class="person-name">{person.profileUrl ? <a href={contentUrl(person.profileUrl)}>{person.name}</a> : person.name}</h3>
   <p>Organizing Committee</p>
   {person.title && <p>{person.title}</p>}
   {person.affiliation && <p>{person.affiliation}</p>}

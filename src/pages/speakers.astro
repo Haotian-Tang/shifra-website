@@ -1,25 +1,4 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { speakers } from '../data/event';
-import { sitePath, contentUrl } from '../lib/urls';
+import SectionRedirect from '../components/SectionRedirect.astro';
 ---
-<Layout title="Speakers" description="The SHIFRA Symposium speaker line-up will be announced here. Explore the provisional programme for 27 November 2026 at MBZUAI." current="speakers/">
-  <div class="page-heading container"><h1>Speakers</h1></div>
-  <section class="container speakers-section" aria-label={speakers.length ? 'Speaker line-up' : 'Speaker placeholders'}>
-    {!speakers.length && <div class="speakers-notice"><h2>Speakers to be announced</h2><p>The speaker line-up is being confirmed. Explore the <a href={sitePath('agenda/')}>provisional programme</a> in the meantime.</p></div>}
-    <div class="speaker-grid">
-      {speakers.length ? speakers.map(person => <article class="person-panel speaker-panel">
-        <div class="person-portrait speaker-portrait">{person.portrait ? <img src={contentUrl(person.portrait)} alt={person.name} width="232" height="300" loading="lazy" /> : <span>Portrait coming soon</span>}</div>
-        <h2 class="person-name">{person.profileUrl ? <a href={contentUrl(person.profileUrl)}>{person.name}</a> : person.name}</h2>
-        {person.title && <p>{person.title}</p>}
-        {person.affiliation && <p>{person.affiliation}</p>}
-        {person.talkTitle && <h3>{person.talkTitle}</h3>}
-        {person.biography && <p>{person.biography}</p>}
-      </article>) : [0,1,2].map(() => <article class="person-panel speaker-panel placeholder-panel">
-        <div class="person-portrait speaker-portrait"><span>Portrait coming soon</span></div>
-        <h2 class="person-name">Speaker to be announced</h2><p>Placeholder</p>
-      </article>)}
-    </div>
-    {!speakers.length && <p class="placeholder-note">Speaker names, talk details, and the final number of speakers will be announced once confirmed.</p>}
-  </section>
-</Layout>
+<SectionRedirect section="speakers" label="Speakers" />

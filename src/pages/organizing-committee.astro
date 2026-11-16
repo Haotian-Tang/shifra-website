@@ -1,11 +1,4 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PersonCard from '../components/PersonCard.astro';
-import { organizers } from '../data/event';
+import SectionRedirect from '../components/SectionRedirect.astro';
 ---
-<Layout title="Organizing Committee" description="Meet the SHIFRA Symposium organizing committee: Hala Alsaleh, Haotian Tang, and Eduardo Beltrame." current="organizing-committee/">
-  <div class="page-heading container"><h1>Organizing Committee</h1></div>
-  <section class="container people-grid" aria-label="Organizing Committee members">
-    {organizers.map(person => <PersonCard person={person} />)}
-  </section>
-</Layout>
+<SectionRedirect section="organizing-committee" label="Organizing Committee" />

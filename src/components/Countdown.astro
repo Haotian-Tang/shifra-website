@@ -12,7 +12,7 @@ const startsAt = `${event.date}T${startTime}:00${event.utcOffset}`;
     {['Days', 'Hours', 'Minutes', 'Seconds'].map(unit => <div><span class="countdown-value" data-unit={unit.toLowerCase()}>00</span><span class="countdown-unit">{unit}</span></div>)}
   </div>
   <p class="countdown-note">Join us for a day of genomics, AI, and shared discovery.</p>
-  <a class="secondary-button" href={sitePath('agenda/')}>View the programme</a>
+  <a class="secondary-button" href={sitePath('#agenda')}>View the programme</a>
 </section>
 <script>
   const section = document.querySelector<HTMLElement>('[data-countdown]');

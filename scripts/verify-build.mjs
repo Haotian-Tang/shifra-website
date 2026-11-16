@@ -4,17 +4,14 @@ import path from "node:path";
 import { basePath, siteOrigin } from "../site.config.mjs";
 
 const directory = path.resolve(process.env.BUILD_DIR || "dist");
-const routes = [
-  "",
-  "agenda/",
-  "organizing-committee/",
-  "speakers/",
-  "registration/",
-  "registration/poster/",
-];
-const htmlFiles = routes.map((route) =>
-  path.join(directory, route, "index.html"),
-);
+const redirects = {
+  "agenda/": "agenda",
+  "organizing-committee/": "organizing-committee",
+  "speakers/": "speakers",
+  "registration/": "registration",
+  "registration/poster/": "poster-registration",
+};
+const mainFile = path.join(directory, "index.html");
 let checked = 0;
 async function verifyUrl(reference, documentUrl) {
   if (/^(data:|mailto:|tel:)/.test(reference)) return;
@@ -43,38 +40,75 @@ async function verifyUrl(reference, documentUrl) {
   }
   checked++;
 }
-for (let i = 0; i < htmlFiles.length; i++) {
-  const html = await readFile(htmlFiles[i], "utf8");
-  const documentUrl = new URL(basePath + routes[i], siteOrigin);
-  assert.equal(
-    (html.match(/<h1(?:\s|>)/g) || []).length,
-    1,
-    "Each page needs one h1",
+const html = await readFile(mainFile, "utf8");
+const documentUrl = new URL(basePath, siteOrigin);
+assert.equal(
+  (html.match(/<h1(?:\s|>)/g) || []).length,
+  1,
+  "The single page needs one main title",
+);
+assert(
+  !html.includes('id="main-navigation"') &&
+    !html.includes('class="menu-toggle"'),
+  "Separate page tabs and mobile navigation must be removed",
+);
+assert(!html.includes('href="#"'), "No empty placeholder links");
+assert(
+  html.includes('lang="ar"') && html.includes('dir="rtl"'),
+  "Arabic identity must retain language and RTL isolation",
+);
+assert(html.includes("27 November 2026"), "Event date missing");
+assert(
+  html.includes(`rel="canonical" href="${documentUrl.href}"`),
+  "Main canonical URL missing",
+);
+for (const section of [
+  "about",
+  "agenda",
+  "registration",
+  "poster-registration",
+  "organizing-committee",
+  "speakers",
+  "location",
+])
+  assert(html.includes(`id="${section}"`), `Missing section ${section}`);
+assert(
+  html.includes("mbzuai-navy-blue.jpg") &&
+    !html.includes("mbzuai-original.jpg"),
+  "Use the supplied current MBZUAI logo",
+);
+assert.equal(
+  (html.match(/id="poster-form"/g) || []).length,
+  1,
+  "Poster registration must be inline exactly once",
+);
+const footer = html.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];
+assert(
+  footer && !/<a\b/.test(footer),
+  "Keep the footer compact and free of links",
+);
+for (const match of html.matchAll(/\b(?:href|src)="([^"]+)"/g))
+  await verifyUrl(match[1], documentUrl);
+const social = html.match(/property="og:image" content="([^"]+)"/);
+assert(social, "Social graphic missing");
+await verifyUrl(social[1], documentUrl);
+for (const [route, section] of Object.entries(redirects)) {
+  const redirect = await readFile(
+    path.join(directory, route, "index.html"),
+    "utf8",
   );
-  assert.equal(
-    (html.match(/aria-current="page"/g) || []).length,
-    1,
-    "Each page needs one current main navigation link",
-  );
-  assert(!html.includes('href="#"'), "No empty placeholder links");
   assert(
-    html.includes('lang="ar"'),
-    "Arabic brand must have a language attribute",
-  );
-  assert(html.includes('dir="rtl"'), "Arabic brand must use RTL isolation");
-  assert(
-    html.includes("2026-11-27") || html.includes("27 November 2026"),
-    "Event date missing",
+    redirect.includes('http-equiv="refresh"') &&
+      redirect.includes(`0;url=${basePath}#${section}`),
+    `Legacy route must lead to its section: ${route}`,
   );
   assert(
-    html.includes(new URL(basePath + routes[i], siteOrigin).href),
-    "Canonical URL missing",
+    !redirect.includes('id="poster-form"') &&
+      !redirect.includes('class="agenda-entry"'),
+    "Legacy links must not duplicate site content",
   );
-  for (const match of html.matchAll(/\b(?:href|src)="([^"]+)"/g))
-    await verifyUrl(match[1], documentUrl);
-  const social = html.match(/property="og:image" content="([^"]+)"/);
-  assert(social, "Social graphic missing");
-  await verifyUrl(social[1], documentUrl);
+  for (const match of redirect.matchAll(/\b(?:href|src)="([^"]+)"/g))
+    await verifyUrl(match[1], new URL(basePath + route, siteOrigin));
 }
 async function walk(dir) {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
@@ -92,7 +126,7 @@ async function walk(dir) {
   }
 }
 await walk(directory);
-const agenda = await readFile(htmlFiles[1], "utf8");
+const agenda = html;
 assert.equal(
   (agenda.match(/class="agenda-entry"/g) || []).length,
   17,
@@ -123,7 +157,7 @@ for (const time of [
   );
 }
 for (const name of ["Hala Alsaleh", "Haotian Tang", "Eduardo Beltrame"])
-  assert((await readFile(htmlFiles[2], "utf8")).includes(name));
+  assert(html.includes(name));
 console.log(
-  `Verified 6 static routes, 17 UAE-time agenda entries, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
+  `Verified 1 content page, 5 legacy section redirects, 17 UAE-time agenda entries, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
 );

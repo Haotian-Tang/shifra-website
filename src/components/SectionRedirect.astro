@@ -1,0 +1,10 @@
+---
+import { event } from '../data/event';
+import { sitePath } from '../lib/urls';
+interface Props { section: string; label: string; }
+const { section, label } = Astro.props;
+const destination = sitePath(`#${section}`);
+const canonical = new URL(sitePath(), Astro.site);
+---
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta http-equiv="refresh" content={`0;url=${destination}`} /><link rel="canonical" href={canonical} /><title>{label} | {event.name}</title></head><body><p>Opening <a href={destination}>{label}</a> on the SHIFRA website.</p></body></html>

@@ -1,51 +1,14 @@
 ---
 import Brand from './Brand.astro';
-import { event, navigation } from '../data/event';
+import { event } from '../data/event';
 import { sitePath } from '../lib/urls';
-interface Props { current: string; }
-const { current } = Astro.props;
 ---
 <header class="site-header">
   <svg class="logo-filters" width="0" height="0" aria-hidden="true" focusable="false"><defs>
     <filter id="shifra-logo-ink" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 24 0 0 -.35" /></filter>
-    <filter id="mbzuai-logo-matte" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%"><feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 6 0 -.14" /></filter>
   </defs></svg>
   <div class="container header-brand">
     <a class="brand-link" href={sitePath()} aria-label="SHIFRA Symposium home"><Brand /></a>
-    <a class="institution-link" href="https://mbzuai.ac.ae/" target="_blank" rel="noopener noreferrer" aria-label={event.institution}><span class="logo-frame institution-logo"><img src={sitePath('images/logos/mbzuai-original.jpg')} alt={event.institution} width="1600" height="533" /></span></a>
-    <button class="menu-toggle" aria-controls="main-navigation" aria-expanded="false" aria-label="Open navigation menu" hidden><span></span><span></span><span></span></button>
-  </div>
-  <div class="container navigation-row">
-    <nav id="main-navigation" aria-label="Main navigation">
-      {navigation.map(item => <a href={sitePath(item.path)} aria-current={(item.path ? current.startsWith(item.path) : current === '') ? 'page' : undefined}>{item.label}</a>)}
-    </nav>
+    <a class="institution-link" href="https://mbzuai.ac.ae/" target="_blank" rel="noopener noreferrer" aria-label={event.institution}><span class="logo-frame institution-logo"><img src={sitePath('images/logos/mbzuai-navy-blue.jpg')} alt={event.institution} width="1651" height="554" /></span></a>
   </div>
 </header>
-<script>
-  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
-  const nav = document.querySelector<HTMLElement>('#main-navigation');
-  if (toggle && nav) {
-    toggle.hidden = false;
-    document.documentElement.classList.add('has-js');
-    const close = () => {
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.setAttribute('aria-label', 'Open navigation menu');
-      nav.removeAttribute('data-open');
-    };
-    toggle.addEventListener('click', () => {
-      const open = toggle.getAttribute('aria-expanded') !== 'true';
-      toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
-      nav.toggleAttribute('data-open', open);
-    });
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { close(); toggle.focus(); }
-    });
-    document.addEventListener('click', e => {
-      if (!(e.target instanceof Node)) return;
-      if (!nav.contains(e.target) && !toggle.contains(e.target)) close();
-    });
-    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
-    matchMedia('(min-width: 768px)').addEventListener('change', close);
-  }
-</script>
