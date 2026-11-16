@@ -17,8 +17,11 @@ Public copy follows the detailed provisional timetable. No source proposal or in
 - The speaker section uses a compact announcement until confirmed speaker details are supplied, without implying a final number of speakers.
 - **shifra.ae** is a future domain, not a current live canonical. Domain activation and DNS remain a separate later step.
 
-- The SHIFRA logo and the newer **MBZUAI_Logo_EN_Navy_Blue_RGB.jpg** supplied on 16 November 2026 are approved for the page header. Their original JPEGs are retained unchanged; the outdated light/dark-blue university logo is removed. Bodoni Moda is a close visual match for the SHIFRA lettering; the original logo font was not identified.
+- The SHIFRA logo and the newer **MBZUAI_Logo_EN_Navy_Blue_RGB.jpg** supplied on 16 November 2026 are approved for the page header. Their original JPEGs are retained unchanged; the outdated light/dark-blue university logo is removed. The supplied logo lettering is retained as artwork. All editable English text now uses Nunito Sans, including the main title.
 - The restored symposium banner and official symposium poster remain labeled placeholders until final image assets are supplied.
 - The requested countdown derives its start from the first timetable entry: **08:30, 27 November 2026, UAE time**.
 
-- The site now has one content page. Former tab URLs forward to their matching sections, and poster registration is inline between the agenda and organizing committee.
+- The site now has one content page. Former tab URLs forward to their matching sections, and abstract submission instructions sit between the agenda and organizing committee.
+
+- Abstracts, rather than finished posters, are requested by email at **haotian.tang@mbzuai.ac.ae**. They are reviewed on a rolling basis and may be selected for poster presentations or talks; organizers respond by email. The former upload form is retired.
+- **hala.alsaleh@mbzuai.ac.ae** remains the general-enquiries contact in the footer.

@@ -65,6 +65,7 @@ assert(
 for (const section of [
   "about",
   "agenda",
+  "abstract-submission",
   "registration",
   "poster-registration",
   "organizing-committee",
@@ -78,9 +79,17 @@ assert(
   "Use the supplied current MBZUAI logo",
 );
 assert.equal(
-  (html.match(/id="poster-form"/g) || []).length,
-  1,
-  "Poster registration must be inline exactly once",
+  (html.match(/<form\b/g) || []).length,
+  0,
+  "Abstracts are collected by email, without an upload form",
+);
+assert(
+  html.includes("mailto:") && html.includes("SHIFRA%20abstract%20submission"),
+  "Abstract email action missing",
+);
+assert(
+  html.includes("rolling basis") && html.includes("selected talks"),
+  "Abstract review and presentation options must be clear",
 );
 const footer = html.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];
 assert(

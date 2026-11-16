@@ -16,8 +16,6 @@ const astroCli = path.join(
 const env = {
   ...process.env,
   BUILD_DIR: "dist-preview",
-  PUBLIC_POSTER_SUBMISSION_ENDPOINT: "api/poster-submissions",
-  PUBLIC_POSTER_SUBMISSION_MODE: "local-preview",
 };
 for (const args of [
   [astroCli, "build"],

@@ -43,6 +43,7 @@ export const event = {
     "Poster presentations and one-minute pitches give emerging researchers a place to share their work and receive feedback. Informal conversations make room for new connections and future collaborations across our growing genomics and AI community.",
   registrationUrl: null as string | null,
   contactEmail: "hala.alsaleh@mbzuai.ac.ae" as string | null,
+  abstractSubmissionEmail: "haotian.tang@mbzuai.ac.ae",
   banner: {
     image: null as string | null,
     alt: "SHIFRA Symposium banner",

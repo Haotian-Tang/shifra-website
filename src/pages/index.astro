@@ -3,13 +3,13 @@ import Layout from '../layouts/Layout.astro';
 import Poster from '../components/Poster.astro';
 import Countdown from '../components/Countdown.astro';
 import AgendaSection from '../components/AgendaSection.astro';
-import PosterRegistration from '../components/PosterRegistration.astro';
+import AbstractSubmission from '../components/AbstractSubmission.astro';
 import PersonCard from '../components/PersonCard.astro';
 import SpeakersSection from '../components/SpeakersSection.astro';
 import { event, organizers } from '../data/event';
 import { sitePath, contentUrl } from '../lib/urls';
 ---
-<Layout title={event.theme} description={`SHIFRA Symposium brings genomics and artificial intelligence into conversation. ${event.displayDate} at ${event.venue}, ${event.institution}, ${event.city}. Explore the provisional programme and poster registration.`}>
+<Layout title={event.theme} description={`SHIFRA Symposium brings genomics and artificial intelligence into conversation. ${event.displayDate} at ${event.venue}, ${event.institution}, ${event.city}. Explore the provisional programme and abstract submissions for posters and selected talks.`}>
   <div class="event-banner container">
     <div class="banner-panel">{event.banner.image ? <img src={contentUrl(event.banner.image)} alt={event.banner.alt} width="1440" height="280" /> : <span>Symposium banner coming soon</span>}</div>
   </div>
@@ -18,7 +18,7 @@ import { sitePath, contentUrl } from '../lib/urls';
       <h1 id="event-title" class="home-title"><span>{event.name}</span><span>{event.theme}</span></h1>
       <p class="event-date"><time datetime={event.date}>{event.displayDate}</time></p>
       <p class="event-location"><span>{event.venue}</span> · <span>{event.institution}</span></p>
-      <div class="home-actions"><a class="primary-button" href={sitePath('#agenda')}>View agenda</a><a class="secondary-button" href={sitePath('#registration')}>Register for poster</a></div>
+      <div class="home-actions"><a class="primary-button" href={sitePath('#agenda')}>View agenda</a><a class="secondary-button" href={sitePath('#abstract-submission')}>Submit an abstract</a></div>
       <p class="home-programme-status">{event.programmeStatus}</p>
     </div>
   </section>
@@ -29,7 +29,7 @@ import { sitePath, contentUrl } from '../lib/urls';
     </div>
   </section>
   <AgendaSection />
-  <PosterRegistration />
+  <AbstractSubmission />
   <section id="organizing-committee" class="home-section single-page-section committee-section container" aria-labelledby="committee-title">
     <h2 id="committee-title" class="section-title">Organizing Committee</h2>
     <div class="people-grid">{organizers.map(person => <PersonCard person={person} />)}</div>
