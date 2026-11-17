@@ -53,7 +53,16 @@ assert(
   "Home and Committee & Speakers navigation must be available",
 );
 const hero = html.match(/<section class="home-hero"[\s\S]*?<\/section>/)?.[0];
-assert(hero && (hero.match(/<a\b/g) || []).length === 1 && hero.includes('Register for our symposium'), "The hero must have one registration action");
+assert(hero && (hero.match(/<a\b/g) || []).length === 2 && hero.includes('Register for our symposium') && hero.includes('Add to calendar'), "The hero must offer registration and a calendar download");
+assert(hero.includes(`href="${basePath}downloads/shifra-symposium.ics"`) && hero.includes('download="SHIFRA-Symposium.ics"'), "The calendar action must download the event file");
+const calendar = await readFile(path.join(directory, 'downloads/shifra-symposium.ics'), 'utf8');
+const unfoldedCalendar = calendar.replace(/\r\n[ \t]/g, '');
+assert(calendar.endsWith('\r\n') && !/(?<!\r)\n/.test(calendar), "Calendar must use CRLF line endings");
+assert(calendar.split('\r\n').every(line => Buffer.byteLength(line, 'utf8') <= 75), "Calendar lines must be folded within 75 UTF-8 octets");
+assert.equal((unfoldedCalendar.match(/^BEGIN:VEVENT$/gm) || []).length, 1, "Calendar must contain one symposium event");
+assert(unfoldedCalendar.includes('DTSTART:20261127T043000Z\r\n') && unfoldedCalendar.includes('DTEND:20261127T120000Z\r\n'), "Calendar must represent 27 November, 08:30–16:00 UAE time");
+assert(unfoldedCalendar.includes('LOCATION:Lecture Hall 1 & 2') && unfoldedCalendar.includes('Mohamed bin Zayed University of Artificial Intelligence') && unfoldedCalendar.includes('Abu Dhabi'), "Calendar must include the full venue");
+assert(unfoldedCalendar.includes(`URL:${documentUrl.href}\r\n`), "Calendar must link to the symposium website");
 assert(!hero.includes('Symposium programme') && !hero.includes('View agenda'), "Remove the old hero programme label and agenda action");
 assert(html.includes('2026-11-24T23:59:00+04:00') && html.includes('11:59 PM'), "The abstract deadline must show 24 November 2026 at 23:59 UAE time");
 assert(!html.includes('href="#"'), "No empty placeholder links");

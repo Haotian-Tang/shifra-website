@@ -16,7 +16,10 @@ import { sitePath, contentUrl } from '../lib/urls';
       <h1 id="event-title" class="home-title"><span>{event.name}</span><span>{event.theme}</span></h1>
       <p class="event-date"><time datetime={event.date}>{event.displayDate}</time></p>
       <p class="event-location"><span>{event.venue}</span> · <span>{event.institution}</span></p>
-      <div class="home-actions"><a class="primary-button" href={sitePath('#registration')}>Register for our symposium</a></div>
+      <div class="home-actions">
+        <a class="primary-button" href={sitePath('#registration')}>Register for our symposium</a>
+        <a class="secondary-button" href={sitePath('downloads/shifra-symposium.ics')} download="SHIFRA-Symposium.ics" type="text/calendar">Add to calendar</a>
+      </div>
       <p class="home-registration-note">You can submit your abstract here when you register.</p>
       <p class="abstract-deadline">Abstract submission deadline: <time datetime="2026-11-24T23:59:00+04:00">Tuesday, 24 November 2026, 11:59 PM</time> · UAE time (GST, UTC+4)</p>
     </div>
