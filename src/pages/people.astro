@@ -4,7 +4,7 @@ import PersonCard from '../components/PersonCard.astro';
 import SpeakersSection from '../components/SpeakersSection.astro';
 import { event, organizers } from '../data/event';
 ---
-<Layout title="Committee & Speakers" description={`Meet the organizing committee and speakers of the ${event.name}, ${event.displayDate} in ${event.city}.`} pagePath="people/">
+<Layout title="Committee & Speakers" description={`Meet the organizing committee of the ${event.name}, ${event.displayDate} in ${event.city}. Speaker names will be announced once confirmed.`} pagePath="people/">
   <div class="page-heading people-heading container"><h1>Committee &amp; Speakers</h1></div>
   <section id="organizing-committee" class="home-section single-page-section committee-section container" aria-labelledby="committee-title">
     <h2 id="committee-title" class="section-title">Organizing Committee</h2>

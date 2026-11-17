@@ -34,7 +34,7 @@ export const event = {
   divisionShort: "BLS",
   programmeStatus: "Symposium programme",
   confirmationNote:
-    "The guest of honour and selected-speaker assignments are subject to confirmation.",
+    "Speaker names will be announced once confirmed. The guest of honour and selected-speaker assignments remain subject to confirmation.",
   introduction:
     "SHIFRA brings students, researchers, and invited guests together to explore the intersection of genomics and artificial intelligence. The symposium creates a shared space for scientific exchange across disciplines and career stages.",
   story:
@@ -87,14 +87,5 @@ export const organizers: Person[] = [
   },
 ];
 
-export const speakers: Speaker[] = [
-  { name: "TBA", initials: "TBA", title: null, affiliation: null, talkTitle: "Keynote: TBA", biography: null, portrait: null, profileUrl: null },
-  { name: "Dr. Shadab Khan", initials: "SK", title: "Senior Scientist", affiliation: "ADIA Lab", talkTitle: "From the Emirati Genome to AI-Driven Precision Medicine: The Future of Healthcare in the UAE", biography: null, portrait: null, profileUrl: null },
-  { name: "Hala Alsaleh", initials: "HA", title: "Master’s Student; Former Research Scientist (Genetics), M42", affiliation: "MBZUAI", talkTitle: "UAE Sports Genomics: A Pioneering Study of Genetic Markers Associated with Athletic Performance, Strength, Endurance, and Injury Risk", biography: null, portrait: null, profileUrl: null },
-  { name: "Dr. Nancy ElNaker", initials: "NE", title: "Senior Applied Scientist", affiliation: "Inception", talkTitle: "When Plants Become Medicine: From Genetic Engineering to Nanotechnology and AI", biography: null, portrait: null, profileUrl: null },
-  { name: "Dr. Shalini Behl", initials: "SB", title: "Senior Research Scientist", affiliation: "M42", talkTitle: "Cancer Genomics and Genetic Risk Stratification in the United Arab Emirates", biography: null, portrait: null, profileUrl: null },
-  { name: "Dr. Budour Alkaf", initials: "BA", title: "Senior Bioinformatician", affiliation: "M42", talkTitle: "The Emirati Genome Program Enables Population-wide Penetrance Estimation and Novel Discovery for Inherited Retinal Disease", biography: null, portrait: null, profileUrl: null },
-  { name: "Dr. Thyago Cardoso", initials: "TC", title: "Manager, Commercial Research and Development", affiliation: "M42", talkTitle: "Plant Genome Sequencing to Safeguard Native UAE Species", biography: null, portrait: null, profileUrl: null },
-  { name: "Dr. Juliana Ferreira", initials: "JF", title: "Research Associate", affiliation: "NYU Abu Dhabi", talkTitle: "Plant Genomics and Biodiversity Research in the UAE", biography: null, portrait: null, profileUrl: null },
-  { name: "Dr. Tania Tahtouh", initials: "TT", title: "Assistant Professor of Biomedical Sciences", affiliation: "Abu Dhabi University", talkTitle: "AI-Powered Wellness: Tailored Dietary Support for Chronic Disease Management", biography: null, portrait: null, profileUrl: null },
-];
+// Publish speaker profiles only after formal confirmation.
+export const speakers: Speaker[] = [];

@@ -33,7 +33,7 @@ These commands build local files; they do not activate the domain or DNS.
 
 ## Content and page structure
 
-The home page contains About, Agenda, Registration, Location, Acknowledgement, and Countdown. The hero has one **Register for our symposium** action and displays the abstract deadline: **Tuesday, 24 November 2026 at 11:59 PM UAE time (GST, UTC+4)**. The two navigation links are **Home** and **Committee & Speakers**; committee and speaker cards live at `people/`. Printing the agenda hides the other home sections. The updated programme follows the organiser-supplied **SHIFRA Symposium.pdf** of 17 November 2026: 22 entries, three scientific sessions, 08:30–16:00 UAE time, and nine named scientific speakers.
+The home page contains About, Agenda, Registration, Location, Acknowledgement, and Countdown. The hero has one **Register for our symposium** action and displays the abstract deadline: **Tuesday, 24 November 2026 at 11:59 PM UAE time (GST, UTC+4)**. The two navigation links are **Home** and **Committee & Speakers**; committee and speaker cards live at `people/`. Printing the agenda hides the other home sections. The updated programme follows the organiser-supplied **SHIFRA Symposium.pdf** of 17 November 2026: 22 entries, three scientific sessions, 08:30–16:00 UAE time, with speaker names withheld until formally confirmed.
 
 | Content                                                   | File / setting                                                                               |
 | --------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
@@ -42,7 +42,7 @@ The home page contains About, Agenda, Registration, Location, Acknowledgement, a
 | Public enquiries                                          | `event.contactEmail` → `hala.alsaleh@mbzuai.ac.ae`                                           |
 | Agenda times, durations, titles, notes                    | `src/data/agenda.ts` → `agenda`                                                              |
 | Organizers and optional profiles                          | `src/data/event.ts` → `organizers`                                                           |
-| Confirmed speakers                                        | `src/data/event.ts` → `speakers` (nine programme speakers)                                   |
+| Confirmed speakers                                        | `src/data/event.ts` → `speakers` (empty until formal confirmation)                                   |
 | Registration intake                                      | `src/data/registration.ts` and `integrations/google-apps-script/`                             |
 | Symposium banner and poster                               | `event.banner` and `event.poster`                                                            |
 | Approved logos                                            | `public/images/logos/`, `Brand.astro`, and `Header.astro`                                    |

@@ -90,7 +90,8 @@ const peopleUrl = new URL(basePath + 'people/', siteOrigin);
 assert.equal((people.match(/<h1(?:\s|>)/g) || []).length, 1, "The people page needs one main title");
 assert(people.includes(`rel="canonical" href="${peopleUrl.href}"`), "People canonical URL missing");
 for (const section of ['organizing-committee', 'speakers']) assert(people.includes(`id="${section}"`), `People page is missing ${section}`);
-assert.equal((people.match(/class="person-panel speaker-panel"/g) || []).length, 9, "All nine speakers must render on the people page");
+assert.equal((people.match(/class="person-panel speaker-panel"/g) || []).length, 0, "Unconfirmed speaker profiles must not be published");
+assert(people.includes("Speaker names will be announced once confirmed."), "Display the speaker confirmation notice");
 for (const match of people.matchAll(/\b(?:href|src)="([^"]+)"/g)) await verifyUrl(match[1], peopleUrl);
 assert(
   html.includes("mbzuai-navy-blue.jpg") &&
@@ -185,5 +186,5 @@ for (const time of [
 for (const name of ["Hala Alsaleh", "Haotian Tang", "Eduardo Beltrame"])
   assert(people.includes(name));
 console.log(
-  `Verified 2 content pages, 5 legacy section redirects, 22 UAE-time agenda entries, 9 speakers, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
+  `Verified 2 content pages, 5 legacy section redirects, 22 UAE-time agenda entries, pending-speaker notice, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
 );
