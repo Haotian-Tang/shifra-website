@@ -1052,8 +1052,7 @@ main:focus {
     line-height: 20px;
   }
   .agenda-footnote {
-    font-size: 10px;
-    padding-top: 12px;
+    display: none;
   }
   .people-grid,
   .speaker-grid {
