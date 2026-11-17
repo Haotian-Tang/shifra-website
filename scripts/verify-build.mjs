@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import { basePath, siteOrigin } from "../site.config.mjs";
+import { registrationUrl } from "../src/data/registration.ts";
 
 const directory = path.resolve(process.env.BUILD_DIR || "dist");
 const redirects = {
@@ -78,19 +79,12 @@ assert(
     !html.includes("mbzuai-original.jpg"),
   "Use the supplied current MBZUAI logo",
 );
-assert.equal(
-  (html.match(/<form\b/g) || []).length,
-  0,
-  "Abstracts are collected by email, without an upload form",
-);
-assert(
-  html.includes("mailto:") && html.includes("SHIFRA%20abstract%20submission"),
-  "Abstract email action missing",
-);
-assert(
-  html.includes("rolling basis") && html.includes("selected talks"),
-  "Abstract review and presentation options must be clear",
-);
+assert(registrationUrl, "Configure the deployed Apps Script registration URL before publishing");
+const intake = new URL(registrationUrl);
+assert(intake.protocol === "https:" && intake.hostname === "script.google.com" && intake.pathname.endsWith("/exec"), "Registration must use the production Apps Script web app URL");
+assert(html.includes(`src="${registrationUrl}"`) && html.includes('title="Register for SHIFRA"'), "Registration intake frame missing");
+assert(!html.includes("SHIFRA%20abstract%20submission") && !html.includes("srcdoc="), "Do not publish the retired email intake or the disconnected preview form");
+assert(html.includes("Print agenda") && html.includes("selected talk"), "Print action and presentation options must remain available");
 const footer = html.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];
 assert(
   footer && !/<a\b/.test(footer),
@@ -138,27 +132,32 @@ await walk(directory);
 const agenda = html;
 assert.equal(
   (agenda.match(/class="agenda-entry"/g) || []).length,
-  17,
-  "All 17 programme entries must render",
+  22,
+  "All 22 updated programme entries must render",
 );
 for (const time of [
   "08:30",
   "09:00",
   "09:10",
-  "09:40",
-  "10:00",
+  "09:25",
+  "09:50",
   "10:20",
-  "10:40",
-  "11:40",
-  "12:00",
-  "12:20",
-  "12:40",
+  "10:45",
+  "11:00",
+  "11:10",
+  "12:10",
   "13:00",
+  "13:20",
+  "13:40",
   "14:00",
-  "14:15",
+  "14:10",
+  "14:20",
   "14:30",
-  "14:45",
-  "15:00",
+  "14:40",
+  "14:55",
+  "15:15",
+  "15:35",
+  "15:55",
 ]) {
   assert(
     agenda.includes(`T${time}:00+04:00`),
@@ -168,5 +167,5 @@ for (const time of [
 for (const name of ["Hala Alsaleh", "Haotian Tang", "Eduardo Beltrame"])
   assert(html.includes(name));
 console.log(
-  `Verified 1 content page, 5 legacy section redirects, 17 UAE-time agenda entries, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
+  `Verified 1 content page, 5 legacy section redirects, 22 UAE-time agenda entries, production registration intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
 );

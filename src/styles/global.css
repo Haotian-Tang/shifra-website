@@ -506,6 +506,7 @@ main:focus {
 }
 .agenda-time time {
   display: block;
+  white-space: nowrap;
   font-size: 18.75px;
   font-weight: 700;
   line-height: 26.785714px;
@@ -534,6 +535,14 @@ main:focus {
   padding-top: 25px;
   border-top: 1px solid #eeeeee;
   font-size: 13px;
+}
+.agenda-session-label {
+  grid-column: 1 / -1;
+  margin: -4px 0 25px;
+  font-size: 20px;
+  line-height: 1.45;
+  font-weight: 700;
+  color: #102b20;
 }
 
 .site-footer {
@@ -899,10 +908,32 @@ main:focus {
   display: none;
 }
 
-/* Abstracts are submitted by email, without a form or attachment receiver. */
+/* The Google-hosted registration form keeps submissions outside the public site. */
 .section-anchor {
   display: block;
   height: 0;
+}
+.registration-intro {
+  max-width: 760px;
+  margin: -15px auto 20px;
+  text-align: center;
+  font-size: 19px;
+}
+.registration-embed {
+  max-width: 768px;
+  margin-inline: auto;
+}
+.registration-embed iframe {
+  display: block;
+  width: 100%;
+  min-height: 380px;
+  border: 0;
+  background: #ffffff;
+}
+.registration-window {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 16px;
 }
 .abstract-callout {
   max-width: 760px;
@@ -1001,13 +1032,13 @@ main:focus {
     margin-top: 5px;
   }
   .programme-section .agenda-entry {
-    grid-template-columns: 80px minmax(0, 1fr);
+    grid-template-columns: 100px minmax(0, 1fr);
     gap: 15px;
     padding: 12px 0;
     break-inside: avoid;
   }
   .agenda-time time {
-    font-size: 15px;
+    font-size: 13px;
     line-height: 21px;
   }
   .agenda-time span,
@@ -1027,6 +1058,12 @@ main:focus {
   .people-grid,
   .speaker-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .agenda-session-label {
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0 0 12px;
+    break-after: avoid;
   }
   .person-panel {
     break-inside: avoid;

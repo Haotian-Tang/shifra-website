@@ -33,16 +33,17 @@ These commands build local files; they do not activate the domain or DNS.
 
 ## Content and page structure
 
-The page contains About, Agenda, Abstract submission, Organizing Committee, Speakers, Location, Acknowledgement, and Countdown. Hero buttons jump to sections without a tab strip or separate content pages. Printing the agenda hides all other sections.
+The page contains About, Agenda, Registration, Organizing Committee, Speakers, Location, Acknowledgement, and Countdown. Hero buttons jump to sections without a tab strip or separate content pages. Printing the agenda hides all other sections. The updated programme follows the organiser-supplied **SHIFRA Symposium.pdf** of 17 November 2026: 22 entries, three scientific sessions, 08:30–16:00 UAE time, and nine named scientific speakers.
 
 | Content                                                   | File / setting                                                                               |
 | --------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | Event date, venue, introduction, contact, acknowledgement | `src/data/event.ts` → `event`                                                                |
-| Abstract recipient                                        | `event.abstractSubmissionEmail` → `haotian.tang@mbzuai.ac.ae`                                |
+| Registration and abstract storage                         | Private Google Sheets and Drive via the configured Apps Script web app                     |
 | Public enquiries                                          | `event.contactEmail` → `hala.alsaleh@mbzuai.ac.ae`                                           |
 | Agenda times, durations, titles, notes                    | `src/data/agenda.ts` → `agenda`                                                              |
 | Organizers and optional profiles                          | `src/data/event.ts` → `organizers`                                                           |
-| Confirmed speakers                                        | `src/data/event.ts` → `speakers` (currently empty)                                           |
+| Confirmed speakers                                        | `src/data/event.ts` → `speakers` (nine programme speakers)                                   |
+| Registration intake                                      | `src/data/registration.ts` and `integrations/google-apps-script/`                             |
 | Symposium banner and poster                               | `event.banner` and `event.poster`                                                            |
 | Approved logos                                            | `public/images/logos/`, `Brand.astro`, and `Header.astro`                                    |
 | Campus map                                                | `event.mapsUrl` and `event.mapsEmbedUrl`                                                     |
@@ -54,15 +55,15 @@ Missing fields remain `null` or empty arrays. No unconfirmed speakers, portraits
 
 The venue is **Lecture Hall 1 & 2**, Mohamed bin Zayed University of Artificial Intelligence, **Abu Dhabi, UAE**. All programme times and the countdown use **Asia/Dubai — GST, UTC+4**. The countdown targets **27 November 2026 at 08:30** and does not convert to the visitor's local time zone. Campus location follows the [university's official map link](https://mbzuai.ac.ae/about-us), without claiming a separate room-level pin.
 
-## Abstract submission by email
+## Registration and abstract submissions
 
-The **Submit an abstract** section replaces poster-file registration. Applicants email **haotian.tang@mbzuai.ac.ae**, with their name, affiliation, abstract title and text, and any preference for a poster or talk. The action opens a normal email message with a helpful subject and template; the website does not send email automatically.
+The **Register** section collects name, email, affiliation, and participation type: **Audience** or **I want to submit an abstract**. The abstract option reveals a text box and a local document upload. Applicants can provide text, an attachment, or both. Submissions are considered for posters and selected talks on a rolling basis.
 
-The page explicitly states that abstracts are considered for **poster presentations and selected talks**, reviewed **on a rolling basis**, and that organizers respond by email. No word limit, submission deadline, or attachment format is invented.
+An owner-deployed Google Apps Script intake stores each submission in a restricted Google Drive folder and appends a row to the private registration spreadsheet. The workbook has **Registrations** and **Speakers** tabs. Existing programme speakers are recorded separately from people who have registered; unknown speaker emails remain blank. Review status and presentation format are organiser fields, and no talk selection is automatic.
 
-There is no form, upload API, file-size limit, attachment storage service, or server-side collection requirement. The site is fully static and can run on GitHub Pages. Previously collected local files remain outside the source checkout and are not published or deleted by this change.
+The website remains static on GitHub Pages; Google hosts the intake. Files are limited to PDF, Word, or text documents of up to 10 MB. Submitted text and files stay in Drive, outside the public repository and published static build. The former local upload receiver is not used. See the [intake setup](integrations/google-apps-script/README.md) for deployment and permission details. Website success depends on a confirmed server response; repeated retries retain a request ID.
 
-The compact footer has no links and retains Hala's email as plain text for enquiries. Email opt-out HTML comments preserve readable email actions on the temporary Cloudflare preview, including without JavaScript.
+The compact footer has no links and retains Hala's email as plain text for enquiries.
 
 ## Existing shared links
 
@@ -73,10 +74,10 @@ Five small redirect documents preserve old URLs without duplicating content:
 | `agenda/`               | `#agenda`                                                |
 | `organizing-committee/` | `#organizing-committee`                                  |
 | `speakers/`             | `#speakers`                                              |
-| `registration/`         | `#registration`, an alias in the abstract section        |
-| `registration/poster/`  | `#poster-registration`, an alias in the abstract section |
+| `registration/`         | `#registration`                                         |
+| `registration/poster/`  | `#poster-registration`, an alias in the registration section |
 
-The preferred new submission link is `#abstract-submission`. Redirects stay on the current origin, including temporary previews, and use the main page as their canonical URL. Section links and email actions work without JavaScript; JavaScript is used only for printing and the countdown.
+The preferred registration link is `#registration`; `#abstract-submission` remains an alias. Redirects stay on the current origin and use the main page as their canonical URL. Registration uses JavaScript in the Google-hosted form; the direct-window link is available if embedding is unavailable.
 
 ## GitHub Pages publication
 

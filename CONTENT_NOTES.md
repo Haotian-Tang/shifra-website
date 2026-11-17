@@ -1,27 +1,15 @@
 # Content confirmation notes
 
-Public copy follows the detailed provisional timetable. No source proposal or internal invitation planning is included in this repository.
-
-- The proposal describes a “half-day”, but the timetable extends into the afternoon. Public copy uses **symposium**.
-- The narrative refers to two scientific sessions, whereas the detailed programme names four. Follow the detailed programme; do not state a conflicting session count in the overview.
-- The narrative places posters immediately before lunch. Follow the detailed timetable instead: pitches at 10:20, coffee and posters at 10:40, lunch at 13:00.
-- Closing remarks start at 15:00 and have a duration of ten minutes; a contradictory standalone “End — 15:00” row has been omitted. The duration implies **15:10**, pending organizer confirmation. The public site displays start times and durations, without advertising a definitive event end time.
-- Original talk numbering skips from 2 to 4. Use the supplied session-based labels, without inventing a missing talk or slot.
-- The four afternoon selected talks are not explicitly identified as student talks. Their labels remain neutral.
-- Closing remarks are a ten-minute conclusion, not a confirmed closing keynote. Eduardo Beltrame's closing assignment remains provisional.
-- The proposed date is **27 November 2026**. The organizers have updated the venue to **Lecture Hall 1 & 2, MBZUAI, Abu Dhabi, UAE**. The Google Maps campus location follows MBZUAI’s official site; it does not independently map the individual lecture halls.
-- All times use **Asia/Dubai — GST, UTC+4**. This is a location-based implementation choice; the proposal did not explicitly give a time zone. No visitor-local conversion occurs.
-- Speaker and presenter assignments remain subject to confirmation. No confirmed speaker roster, biographies, portraits, or general-attendance registration URL was supplied. These fields remain empty in typed content data. The organizer supplied `hala.alsaleh@mbzuai.ac.ae` as the public contact address.
-- Organizers appear in the supplied order with equal weight: **Hala Alsaleh**, **Haotian Tang**, **Eduardo Beltrame**. No individual roles, titles, or affiliations are inferred.
-- Prospective invitees and organizations are not confirmed participants or sponsors. No unconfirmed special/royal guest, organization name, logo, or internal invitation detail is published.
-- The speaker section uses a compact announcement until confirmed speaker details are supplied, without implying a final number of speakers.
-- **shifra.ae** is a future domain, not a current live canonical. Domain activation and DNS remain a separate later step.
-
-- The SHIFRA logo and the newer **MBZUAI_Logo_EN_Navy_Blue_RGB.jpg** supplied on 16 November 2026 are approved for the page header. Their original JPEGs are retained unchanged; the outdated light/dark-blue university logo is removed. The supplied logo lettering is retained as artwork. All editable English text now uses Nunito Sans, including the main title.
-- The banner and official symposium poster supplied on 17 November 2026 replace the placeholders. The banner spans the viewport, and the poster preview links to the unchanged original PDF. The supplied poster advertises 08:00–16:00; the existing provisional timetable and countdown remain unchanged by this asset update.
-- The requested countdown derives its start from the first timetable entry: **08:30, 27 November 2026, UAE time**.
-
-- The site now has one content page. Former tab URLs forward to their matching sections, and abstract submission instructions sit between the agenda and organizing committee.
-
-- Abstracts, rather than finished posters, are requested by email at **haotian.tang@mbzuai.ac.ae**. They are reviewed on a rolling basis and may be selected for poster presentations or talks; organizers respond by email. The former upload form is retired.
-- **hala.alsaleh@mbzuai.ac.ae** remains the general-enquiries contact in the footer.
+- The programme now follows the organiser-supplied **SHIFRA Symposium.pdf**, provided on 17 November 2026, rather than the earlier provisional proposal. It contains 22 time slots and three scientific sessions, from 08:30 to 16:00 on 27 November 2026, UAE time (GST, UTC+4).
+- All entries retain their supplied times, durations, presentation titles, speakers, and affiliations. Lunch is scheduled for 12:10–13:00; the note that food service begins at 12:00 is retained. Cake cutting is 11:00–11:10, posters 11:10–12:10, and the afternoon coffee break 14:40–14:55.
+- The opening address is listed generically as a guest-of-honour slot. Attendance, name, and official title are still to be confirmed. No speculative royal identity or title is published.
+- The four selected-speaker slots are ten minutes each, 14:00–14:40. Their presenters and titles remain to be confirmed by the organisers.
+- Nine named scientific speakers and their roles, affiliations, and talk titles come from the new document, pages 2–3. Unprovided portraits, profile URLs, and emails are not invented. The spreadsheet's Speakers tab records programme participation; it does not imply those people have completed registration.
+- The venue remains **Lecture Hall 1 & 2**, Mohamed bin Zayed University of Artificial Intelligence, Abu Dhabi, UAE. The map identifies the university campus rather than an independently verified room-level pin.
+- The countdown targets the start of registration: 08:30 on 27 November 2026, UAE time, without converting to the visitor's time zone.
+- Organisers remain Hala Alsaleh, Haotian Tang, and Eduardo Beltrame. The current SHIFRA and navy MBZUAI header logos remain the approved assets.
+- The banner and official poster supplied on 17 November 2026 remain unchanged artwork. The poster retains its printed 08:00–16:00 event window; the agenda follows the newer document's 08:30–16:00 timetable. The banner spans the viewport, and the poster preview links to the original PDF.
+- Register replaces the email-only abstract callout. It records name, email, affiliation, and Audience or abstract-submission participation. Abstract applicants may provide text, a local document, or both. Acceptance and selection for posters or talks are organiser decisions; the form only confirms receipt.
+- Registration data and uploads are stored in an owner-restricted subfolder of SHIFRA in Google Drive, with a private registration spreadsheet. Public publicity-folder permissions must not be inherited by the intake data. The Google intake runs as the owner and returns no participant lists or private storage links to visitors.
+- Hala's enquiry address remains **hala.alsaleh@mbzuai.ac.ae** in the compact, link-free footer. Registration does not send automatic email.
+- **shifra.ae** remains a separate DNS task; this change does not claim that the custom domain has been connected.

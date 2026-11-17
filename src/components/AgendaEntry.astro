@@ -1,10 +1,15 @@
 ---
 import type { AgendaEntry } from '../data/agenda';
 import { event } from '../data/event';
+import { sessions } from '../data/agenda';
 interface Props { entry: AgendaEntry; }
 const { entry } = Astro.props;
+const [hours, minutes] = entry.start.split(':').map(Number);
+const endMinutes = hours * 60 + minutes + entry.duration;
+const end = `${String(Math.floor(endMinutes / 60)).padStart(2, '0')}:${String(endMinutes % 60).padStart(2, '0')}`;
 ---
 <li class="agenda-entry" data-category={entry.category}>
-  <div class="agenda-time"><time datetime={`${event.date}T${entry.start}:00${event.utcOffset}`}>{entry.start}</time><span>{entry.duration} min</span></div>
-  <div class="agenda-content"><h3>{entry.title}</h3>{entry.notes && <p>{entry.notes}</p>}</div>
+  {entry.session && <p class="agenda-session-label">Session {entry.session}: {sessions[entry.session]}</p>}
+  <div class="agenda-time"><time datetime={`${event.date}T${entry.start}:00${event.utcOffset}`}>{entry.start}–{end}</time><span>{entry.duration} min</span></div>
+  <div class="agenda-content"><h3>{entry.title}</h3>{entry.speaker && <p class="agenda-speaker"><strong>{entry.speaker}</strong>{entry.affiliation && <><br />{entry.affiliation}</>}</p>}{entry.notes && <p>{entry.notes}</p>}</div>
 </li>

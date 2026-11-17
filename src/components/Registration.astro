@@ -1,0 +1,25 @@
+---
+import { registrationUrl } from '../data/registration';
+import registrationPreview from '../../integrations/google-apps-script/Registration.html?raw';
+---
+<section id="registration" class="home-section single-page-section registration-section container" aria-labelledby="registration-title">
+  <span id="abstract-submission" class="section-anchor" aria-hidden="true"></span>
+  <span id="poster-registration" class="section-anchor" aria-hidden="true"></span>
+  <h2 id="registration-title" class="section-title">Register</h2>
+  <p class="registration-intro">Join SHIFRA as an audience member, or submit an abstract for consideration for a poster presentation or a selected talk.</p>
+  <div class="registration-embed">
+    <iframe title="Register for SHIFRA" src={registrationUrl || undefined} srcdoc={registrationUrl ? undefined : registrationPreview} width="760" height="900" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  </div>
+  {registrationUrl && <p class="registration-window"><a href={registrationUrl} target="_blank" rel="noopener noreferrer">Open registration in a new window <span aria-hidden="true">↗</span></a></p>}
+</section>
+<script>
+  const frame = document.querySelector<HTMLIFrameElement>('.registration-embed iframe');
+  if (frame) window.addEventListener('message', (event: MessageEvent) => {
+    const localPreview = event.origin === window.location.origin && event.source === frame.contentWindow;
+    let googleFrame = false;
+    try { const origin = new URL(event.origin); googleFrame = origin.protocol === 'https:' && (origin.hostname === 'script.google.com' || origin.hostname.endsWith('.googleusercontent.com')); } catch {}
+    if ((!localPreview && !googleFrame) || event.data?.type !== 'SHIFRA_REGISTRATION_HEIGHT') return;
+    const height = event.data.height;
+    if (typeof height === 'number' && Number.isFinite(height) && height >= 200 && height <= 2400) frame.style.height = `${Math.max(380, Math.ceil(height) + 64)}px`;
+  });
+</script>

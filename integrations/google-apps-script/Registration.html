@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}body{margin:0;padding:12px 4px 20px;font-family:'Nunito Sans','Segoe UI',Arial,sans-serif;color:#28362f;background:#fff;font-size:18px;line-height:1.6}p,h3,fieldset{margin:0}form{padding:28px;border:1px solid #d9e0db;border-radius:8px;background:#fafbf9}.fields{display:grid;gap:20px}label,.field-label,legend{display:block;font-weight:700;color:#102b20}input[type=text],input[type=email],textarea,input[type=file]{font:inherit;width:100%;margin-top:7px;padding:11px 12px;color:#28362f;border:1px solid #bdcbbf;border-radius:5px;background:white}textarea{resize:vertical;min-height:190px}fieldset{min-width:0;padding:0;border:0}legend{padding:0;margin-bottom:10px}.choices{display:grid;gap:10px}.choice{font-weight:400;display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid #d9e0db;border-radius:5px;background:#fff;cursor:pointer}.choice:has(input:checked){border-color:#165747;background:#edf4ee}.choice input{margin:0;accent-color:#165747;width:18px;height:18px;flex-shrink:0}#abstract-fields{border-top:1px solid #d9e0db;padding-top:24px;margin-top:24px}#abstract-fields h3{font-size:21px;margin-bottom:8px}.hint{font-size:15px;color:#526357;margin:5px 0 0}.abstract-intro{margin-bottom:20px}.required{font-size:14px;font-weight:400}.privacy{font-size:14px;color:#526357;margin-top:22px}button{font:inherit;font-weight:700;border-radius:28px;border:1px solid #102b20;background:#102b20;color:#fff;padding:11px 24px;cursor:pointer;margin-top:22px}button:disabled{opacity:.65;cursor:wait}button:hover{background:#214a38}input:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid #165747;outline-offset:3px}.status{margin-top:18px;overflow-wrap:anywhere}.error{color:#a52525}.success{border:1px solid #bdcbbf;border-radius:8px;padding:28px;background:#edf4ee}.success h3{font-size:25px;margin-bottom:12px}.success p+p{margin-top:10px}[hidden]{display:none!important}.trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}@media(max-width:500px){body{font-size:17px}form,.success{padding:20px}input[type=file]{font-size:14px}.choice{padding:12px 10px}}
+  </style>
+</head>
+<body>
+  <form id="registration-form">
+    <input type="hidden" name="requestId" id="request-id">
+    <div class="trap" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+    <div class="fields">
+      <label for="full-name">Name <span class="required">(required)</span><input id="full-name" name="fullName" type="text" autocomplete="name" maxlength="200" required></label>
+      <label for="email">Email <span class="required">(required)</span><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required></label>
+      <label for="affiliation">Affiliation <span class="required">(required)</span><input id="affiliation" name="affiliation" type="text" autocomplete="organization" maxlength="300" required></label>
+      <fieldset><legend>How would you like to take part?</legend><div class="choices">
+        <label class="choice"><input name="participation" type="radio" value="audience" checked>Audience</label>
+        <label class="choice"><input name="participation" type="radio" value="abstract">I want to submit an abstract</label>
+      </div></fieldset>
+    </div>
+    <fieldset id="abstract-fields" hidden disabled>
+      <h3>Your abstract</h3>
+      <p class="hint abstract-intro">Paste your abstract or upload a document. You can also provide both. Abstracts are reviewed on a rolling basis for poster presentations and selected talks.</p>
+      <div class="fields">
+        <label for="abstract-title">Abstract title <span class="required">(optional)</span><input id="abstract-title" name="abstractTitle" type="text" maxlength="500"></label>
+        <label for="abstract-text">Abstract text<textarea id="abstract-text" name="abstractText" maxlength="30000" rows="7" aria-describedby="abstract-help"></textarea></label>
+        <label for="attachment">Upload your abstract<input id="attachment" name="attachment" type="file" accept=".pdf,.doc,.docx,.txt" aria-describedby="file-help"></label>
+      </div>
+      <p id="file-help" class="hint">PDF, Word (.doc or .docx), or text (.txt). Maximum file size: 10 MB.</p>
+      <p id="abstract-help" class="hint">Provide abstract text or an attachment before submitting.</p>
+    </fieldset>
+    <p class="privacy">Your information will be used by the SHIFRA organisers to manage attendance and review abstracts.</p>
+    <button id="submit-button" type="submit">Register</button>
+    <p id="form-status" class="status" role="status" aria-live="polite"></p>
+  </form>
+  <div id="registration-success" class="success" role="status" aria-live="polite" hidden tabindex="-1"><h3>You're registered for SHIFRA.</h3><p id="success-detail"></p><p>Registration reference: <strong id="registration-reference"></strong></p><p>27 November 2026 · Lecture Hall 1 &amp; 2<br>Mohamed bin Zayed University of Artificial Intelligence, Abu Dhabi, UAE</p></div>
+  <script>
+    const form=document.getElementById('registration-form');
+    const fields=document.getElementById('abstract-fields');
+    const abstract=document.getElementById('abstract-text');
+    const attachment=document.getElementById('attachment');
+    const button=document.getElementById('submit-button');
+    const status=document.getElementById('form-status');
+    document.getElementById('request-id').value=crypto.randomUUID();
+    function resize(){window.top.postMessage({type:'SHIFRA_REGISTRATION_HEIGHT',height:Math.ceil(document.body.getBoundingClientRect().height)},'*');}
+    new ResizeObserver(resize).observe(document.body);
+    function updateChoice(){const wantsAbstract=form.elements.participation.value==='abstract';fields.hidden=!wantsAbstract;fields.disabled=!wantsAbstract;abstract.setCustomValidity('');attachment.setCustomValidity('');button.textContent=wantsAbstract?'Register & submit abstract':'Register';resize();}
+    form.querySelectorAll('[name=participation]').forEach(radio=>radio.addEventListener('change',updateChoice));
+    abstract.addEventListener('input',()=>abstract.setCustomValidity(''));
+    attachment.addEventListener('change',()=>{abstract.setCustomValidity('');attachment.setCustomValidity('');});
+    let attempt=0;
+    form.addEventListener('submit',event=>{
+      event.preventDefault();
+      const wantsAbstract=form.elements.participation.value==='abstract';
+      const file=attachment.files[0];
+      abstract.setCustomValidity(wantsAbstract&&!abstract.value.trim()&&!file?'Please paste your abstract or upload a document.':'');
+      attachment.setCustomValidity(wantsAbstract&&file&&(file.size>10*1024*1024||! /\.(pdf|doc|docx|txt)$/i.test(file.name))?'Choose a PDF, Word document, or text file of 10 MB or less.':'');
+      if(!form.reportValidity())return;
+      if(!window.google||!google.script||!google.script.run){status.className='status error';status.textContent='Preview only. Registration has not been saved.';resize();return;}
+      const current=++attempt;
+      button.disabled=true;button.textContent='Saving your registration…';status.className='status';status.textContent='Please keep this page open until your registration is confirmed.';
+      const timer=setTimeout(()=>{if(current!==attempt)return;button.disabled=false;button.textContent='Try again';status.className='status error';status.textContent='We are still waiting for confirmation. You can try again safely; your registration reference prevents duplicate records.';resize();},120000);
+      function fail(error){if(current!==attempt)return;clearTimeout(timer);button.disabled=false;button.textContent='Try again';status.className='status error';status.textContent=error&&error.message||'We could not confirm your registration. Please try again.';resize();}
+      google.script.run.withSuccessHandler(result=>{
+        if(current!==attempt)return;clearTimeout(timer);
+        if(!result||result.ok!==true||!result.registrationId){fail(new Error('We could not confirm your registration. Please try again.'));return;}
+        form.hidden=true;document.getElementById('registration-reference').textContent=result.registrationId;
+        document.getElementById('success-detail').textContent=result.participation==='abstract'?'Your registration and abstract have been received. The organisers will respond by email after reviewing your abstract.':'Your attendance has been recorded. We look forward to seeing you.';
+        const success=document.getElementById('registration-success');success.hidden=false;success.focus();resize();
+      }).withFailureHandler(fail).submitRegistration(form);
+    });
+    updateChoice();window.addEventListener('load',resize);
+  </script>
+</body>
+</html>

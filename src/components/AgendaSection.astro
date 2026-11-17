@@ -8,9 +8,10 @@ import { agenda } from '../data/agenda';
   <div class="agenda-section">
     <div class="agenda-summary">
       <h3><time datetime={event.date}>{event.displayDate}</time></h3>
+      <p>08:30–16:00 · {event.venue}</p>
       <p>{event.timezoneLabel}</p>
       <p><strong>{event.programmeStatus}</strong><br />{event.confirmationNote}</p>
-      <button class="print-button" type="button" hidden>Print agenda</button>
+      <button class="print-button" type="button">Print agenda</button>
     </div>
     <ol class="agenda-list">{agenda.map(entry => <AgendaEntry entry={entry} />)}</ol>
     <p class="agenda-footnote">All times are shown in UAE time — GST, UTC+4 ({event.timezone}).</p>
@@ -19,7 +20,6 @@ import { agenda } from '../data/agenda';
 <script>
   const printButton = document.querySelector<HTMLButtonElement>('.print-button');
   if (printButton) {
-    printButton.hidden = false;
     printButton.addEventListener('click', () => window.print());
   }
 </script>
