@@ -80,13 +80,13 @@ The preferred new submission link is `#abstract-submission`. Redirects stay on t
 
 ## GitHub Pages publication
 
-Repository: `git@github.com:halalsaleh7212-spec/shifra-website.git`.
+Repository: `git@github.com:Haotian-Tang/shifra-website.git` (transferred to Haotian-Tang).
 
 The workflow in `.github/workflows/deploy.yml` runs on **main** and supports manual dispatch. It installs pinned dependencies, checks types, reads the configured Pages origin/base, builds and validates the static output, uploads the Pages artifact, and deploys through the `github-pages` environment.
 
 A repository administrator must first open **Settings → Pages → Build and deployment → Source: GitHub Actions**. Source write access alone does not provide this setting. Private-repository Pages availability depends on the owner's GitHub plan; see [GitHub Pages availability and setup](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
 
-After Pages is enabled, run or rerun **Build and deploy SHIFRA to GitHub Pages**. The successful deployment's **View deployment** link is the verified public URL. `https://halalsaleh7212-spec.github.io/shifra-website/` is the repository-derived default address, not proof of an active deployment.
+After Pages is enabled, run or rerun **Build and deploy SHIFRA to GitHub Pages**. The successful deployment's **View deployment** link is the verified public URL. `https://haotian-tang.github.io/shifra-website/` is the repository-derived default address; its actual availability must be checked after deployment. The default GitHub Pages origin is normalized to HTTPS even when Pages metadata still reports HTTP after a domain change.
 
 `site.config.mjs` derives the repository from the actual remote or CI metadata. The workflow prefers the URL returned by `configure-pages`, so project paths, private Pages origins, and a later custom domain use the appropriate asset paths. No upload-service variable or Node receiver is required.
 
@@ -94,7 +94,9 @@ After Pages is enabled, run or rerun **Build and deploy SHIFRA to GitHub Pages**
 
 An administrator must add **shifra.ae** in the repository's **Settings → Pages → Custom domain** before changing its DNS. Then update the domain's DNS provider to GitHub Pages records as described in [GitHub's custom-domain guide](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site).
 
-For this domain, the observed nameservers on 16 November 2026 are `dns1.aeserver.com`, `dns2.aeserver.com`, and `dns3.aeserver.com`. The existing apex A record is `165.22.30.248`, and `www` currently aliases `shifra.ae`. AEserver documents its DNS editor at [AEserver DNS Management](https://www.aeserver.com/support/dns-management-tool-manage-dns-records/).
+On 17 November 2026, public DNS still uses `dns1.aeserver.com`, `dns2.aeserver.com`, and `dns3.aeserver.com`, with apex A `165.22.30.248` and `www` aliasing `shifra.ae`. AEserver marks the domain **Transferred** and disables its management, while the Hostinger owner's transfer overview still says **Transferring**. No DNS records were changed during this check. The failed custom-domain binding was removed from Pages so the site can publish at its default GitHub URL while domain management is unavailable.
+
+Once the transfer is complete, confirm which nameservers are authoritative and configure the active DNS zone. If moving DNS to Hostinger, use the nameservers assigned in its dashboard and preserve unrelated records before switching. See [Hostinger DNS management](https://www.hostinger.com/support/how-to-use-hostingers-dns-zone-editor/). Restore the Pages custom-domain binding before directing the public domain to GitHub.
 
 Use these website records when the Pages domain is configured:
 
@@ -104,9 +106,9 @@ Use these website records when the Pages domain is configured:
 | A     | @    | 185.199.109.153               |
 | A     | @    | 185.199.110.153               |
 | A     | @    | 185.199.111.153               |
-| CNAME | www  | halalsaleh7212-spec.github.io |
+| CNAME | www  | haotian-tang.github.io         |
 
-Replace the old website A record and the `www` alias as appropriate, while retaining unrelated email and verification records. The current AEserver nameservers can remain in use. If `SITE_URL` is set manually, use `https://shifra.ae/` once the domain is configured; otherwise the workflow derives the custom origin from Pages. Enable **Enforce HTTPS** when GitHub makes the certificate available.
+Replace the old website A record and the `www` alias as appropriate, while retaining unrelated email and verification records. AEserver nameservers can remain only if that provider continues to offer an editable DNS zone after the transfer. If `SITE_URL` is set manually, use `https://shifra.ae/` once the domain is configured; otherwise the workflow derives the custom origin from Pages. Enable **Enforce HTTPS** when GitHub makes the certificate available.
 
 For an Actions deployment, a `CNAME` file alone does not configure the domain; GitHub's Pages setting and DNS must both be configured. This source does not claim that DNS or the custom domain is already active.
 
