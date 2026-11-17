@@ -18,7 +18,7 @@ function submitRegistration(form) {
   const type = String(form.participation || '');
   const requestId = String(form.requestId || '');
   if (!name || !affiliation || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Please enter your name, a valid email address, and affiliation.');
-  if (!['audience', 'abstract'].includes(type) || !/^[a-f0-9-]{36}$/i.test(requestId) || form.website) throw new Error('Please reload the form and try again.');
+  if (!['audience', 'abstract'].includes(type) || !/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(requestId) || form.website) throw new Error('Please reload the form and try again.');
   const abstractTitle = type === 'abstract' ? text_(form.abstractTitle, 500) : '';
   const abstractText = type === 'abstract' ? text_(form.abstractText, 30000) : '';
   const upload = type === 'abstract' && form.attachment && typeof form.attachment.getBytes === 'function' ? form.attachment : null;
@@ -39,7 +39,7 @@ function submitRegistration(form) {
       const match = sheet.getRange(2, 13, count - 1, 1).createTextFinder(requestId).matchEntireCell(true).findNext();
       if (match) return {ok: true, registrationId: sheet.getRange(match.getRow(), 1).getValue(), participation: sheet.getRange(match.getRow(), 6).getValue() === 'Abstract submission' ? 'abstract' : 'audience', duplicate: true};
     }
-    const id = 'SHIFRA-' + requestId.replace(/-/g, '').slice(0, 12).toUpperCase();
+    const id = 'SHIFRA-' + requestId.toUpperCase();
     const root = DriveApp.getFolderById(REGISTRATION_STORE.folderId);
     const folderName = id + ' ' + safeName_(name);
     const existing = root.getFoldersByName(folderName);
