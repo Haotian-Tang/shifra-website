@@ -61,7 +61,7 @@ The **Register for our symposium** section collects first name, last name, email
 
 An owner-deployed Google Apps Script intake stores each submission in a restricted Google Drive folder and appends a row to the private registration spreadsheet. The workbook has **Registrations** and **Speakers** tabs. Existing programme speakers are recorded separately from people who have registered; unknown speaker emails remain blank. Review status and presentation format are organiser fields, and no talk selection is automatic.
 
-The static website is published at [shifra-symposium-uae.netlify.app](https://shifra-symposium-uae.netlify.app/), with GitHub Pages retained as a fallback; Google hosts the intake. The proposed university hostname `shifra.mbzuai.ac.ae` is pending MBZUAI IT's DNS configuration and is not yet live. See [Netlify setup](NETLIFY_SETUP.md) for the deployment and custom-domain steps. Files are limited to PDF, Word, or text documents of up to 10 MB. Submitted text and files stay in Drive, outside the public repository and published static build. The former local upload receiver is not used. See the [intake setup](integrations/google-apps-script/README.md) for deployment and permission details. Website success depends on a confirmed server response; repeated retries retain a request ID.
+The static website is published at [shifra-symposium-uae.netlify.app](https://shifra-symposium-uae.netlify.app/), with GitHub Pages retained as a fallback; Google hosts the intake. Netlify has `shifra.ae` configured as the primary domain; DNS and HTTPS are still being verified. The optional university hostname `shifra.mbzuai.ac.ae` is not yet live and requires coordination with the university's existing Netlify team and MBZUAI IT. See [Netlify setup](NETLIFY_SETUP.md) for deployment and domain configuration. Files are limited to PDF, Word, or text documents of up to 10 MB. Submitted text and files stay in Drive, outside the public repository and published static build. The former local upload receiver is not used. See the [intake setup](integrations/google-apps-script/README.md) for deployment and permission details. Website success depends on a confirmed server response; repeated retries retain a request ID.
 
 The compact footer has no links and retains Hala's email as plain text for enquiries.
 
@@ -93,25 +93,11 @@ After Pages is enabled, run or rerun **Build and deploy SHIFRA to GitHub Pages**
 
 ## Connect shifra.ae
 
-An administrator must add **shifra.ae** in the repository's **Settings → Pages → Custom domain** before changing its DNS. Then update the domain's DNS provider to GitHub Pages records as described in [GitHub's custom-domain guide](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site).
+The owner confirmed that the transfer to Hostinger is complete. Netlify project **shifra-symposium-uae** now has **shifra.ae** configured as its primary domain, with **www.shifra.ae** redirecting to it. DNS and HTTPS must be verified before announcing the domain as live.
 
-On 17 November 2026, public DNS still uses `dns1.aeserver.com`, `dns2.aeserver.com`, and `dns3.aeserver.com`, with apex A `165.22.30.248` and `www` aliasing `shifra.ae`. AEserver marks the domain **Transferred** and disables its management, while the Hostinger owner's transfer overview still says **Transferring**. No DNS records were changed during this check. The failed custom-domain binding was removed from Pages so the site can publish at its default GitHub URL while domain management is unavailable.
+Use the website DNS targets shown by Netlify in the authoritative DNS zone, preserving email and verification records. The Netlify production context sets `SITE_URL=https://shifra.ae/`; manual uploads require the same explicit build variable. See [Netlify setup](NETLIFY_SETUP.md) for the full deployment and domain checks.
 
-Once the transfer is complete, confirm which nameservers are authoritative and configure the active DNS zone. If moving DNS to Hostinger, use the nameservers assigned in its dashboard and preserve unrelated records before switching. See [Hostinger DNS management](https://www.hostinger.com/support/how-to-use-hostingers-dns-zone-editor/). Restore the Pages custom-domain binding before directing the public domain to GitHub.
-
-Use these website records when the Pages domain is configured:
-
-| Type  | Host | Value                         |
-| ----- | ---- | ----------------------------- |
-| A     | @    | 185.199.108.153               |
-| A     | @    | 185.199.109.153               |
-| A     | @    | 185.199.110.153               |
-| A     | @    | 185.199.111.153               |
-| CNAME | www  | haotian-tang.github.io         |
-
-Replace the old website A record and the `www` alias as appropriate, while retaining unrelated email and verification records. AEserver nameservers can remain only if that provider continues to offer an editable DNS zone after the transfer. If `SITE_URL` is set manually, use `https://shifra.ae/` once the domain is configured; otherwise the workflow derives the custom origin from Pages. Enable **Enforce HTTPS** when GitHub makes the certificate available.
-
-For an Actions deployment, a `CNAME` file alone does not configure the domain; GitHub's Pages setting and DNS must both be configured. This source does not claim that DNS or the custom domain is already active.
+Keep GitHub Pages on `https://haotian-tang.github.io/shifra-website/` as a fallback. Do not add `shifra.ae` to GitHub Pages while Netlify hosts it. The default GitHub Pages base path and its deployment workflow are unchanged.
 
 ## Assets and typography
 
