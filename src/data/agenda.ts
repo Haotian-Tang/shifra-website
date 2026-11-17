@@ -20,7 +20,7 @@ export const agenda: AgendaEntry[] = [
   { start: "08:30", duration: 30, title: "Registration and Welcome Reception", notes: "All attendees", category: "Arrival" },
   { start: "09:00", duration: 10, title: "Official Opening, Welcome and Vision of SHIFRA", speaker: "Hala Alsaleh; Haotian Tang; Eduardo Beltrame", notes: null, category: "Welcome" },
   { start: "09:10", duration: 15, title: "Opening Address", notes: "Guest of honour · Attendance, name and official title to be confirmed", category: "Welcome" },
-  { start: "09:25", duration: 25, title: "Keynote: The Future of Scientific Research and Precision Medicine in the UAE", speaker: "Dr. Shahrukh Hashmi", affiliation: "Department of Health – Abu Dhabi", notes: null, category: "Keynote" },
+  { start: "09:25", duration: 25, title: "Keynote: TBA", speaker: "TBA", notes: null, category: "Keynote" },
   { start: "09:50", duration: 30, session: 1, title: "From the Emirati Genome to AI-Driven Precision Medicine: The Future of Healthcare in the UAE", speaker: "Dr. Shadab Khan", affiliation: "ADIA Lab", notes: null, category: "Talk" },
   { start: "10:20", duration: 25, title: "UAE Sports Genomics: A Pioneering Study of Genetic Markers Associated with Athletic Performance, Strength, Endurance, and Injury Risk", speaker: "Hala Alsaleh", affiliation: "M42 / MBZUAI", notes: null, category: "Talk" },
   { start: "10:45", duration: 15, title: "One-Minute Poster Pitches", notes: "Student presenters", category: "Posters" },

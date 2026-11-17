@@ -88,7 +88,7 @@ export const organizers: Person[] = [
 ];
 
 export const speakers: Speaker[] = [
-  { name: "Dr. Shahrukh Hashmi", initials: "SH", title: "Director of Research", affiliation: "Department of Health – Abu Dhabi", talkTitle: "The Future of Scientific Research and Precision Medicine in the UAE", biography: null, portrait: null, profileUrl: null },
+  { name: "TBA", initials: "TBA", title: null, affiliation: null, talkTitle: "Keynote: TBA", biography: null, portrait: null, profileUrl: null },
   { name: "Dr. Shadab Khan", initials: "SK", title: "Senior Scientist", affiliation: "ADIA Lab", talkTitle: "From the Emirati Genome to AI-Driven Precision Medicine: The Future of Healthcare in the UAE", biography: null, portrait: null, profileUrl: null },
   { name: "Hala Alsaleh", initials: "HA", title: "Master’s Student; Former Research Scientist (Genetics), M42", affiliation: "MBZUAI", talkTitle: "UAE Sports Genomics: A Pioneering Study of Genetic Markers Associated with Athletic Performance, Strength, Endurance, and Injury Risk", biography: null, portrait: null, profileUrl: null },
   { name: "Dr. Nancy ElNaker", initials: "NE", title: "Senior Applied Scientist", affiliation: "Inception", talkTitle: "When Plants Become Medicine: From Genetic Engineering to Nanotechnology and AI", biography: null, portrait: null, profileUrl: null },
