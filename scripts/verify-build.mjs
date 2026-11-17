@@ -53,8 +53,9 @@ assert(
   "Home and Committee & Speakers navigation must be available",
 );
 const hero = html.match(/<section class="home-hero"[\s\S]*?<\/section>/)?.[0];
-assert(hero && (hero.match(/<a\b/g) || []).length === 2 && hero.includes('Register for our symposium') && hero.includes('Add to calendar'), "The hero must offer registration and a calendar download");
-assert(hero.includes(`href="${basePath}downloads/shifra-symposium.ics"`) && hero.includes('download="SHIFRA-Symposium.ics"'), "The calendar action must download the event file");
+assert(hero && (hero.match(/<a\b/g) || []).length === 1 && hero.includes('Register for our symposium') && !hero.includes('Add to calendar'), "Keep the hero focused on registration");
+const agendaSection = html.match(/<section id="agenda"[\s\S]*?<\/section>/)?.[0];
+assert(agendaSection && agendaSection.includes('Print agenda') && agendaSection.includes('Add to calendar') && agendaSection.includes(`href="${basePath}downloads/shifra-symposium.ics"`) && agendaSection.includes('download="SHIFRA-Symposium.ics"'), "The agenda must offer printing and the calendar download");
 const calendar = await readFile(path.join(directory, 'downloads/shifra-symposium.ics'), 'utf8');
 const unfoldedCalendar = calendar.replace(/\r\n[ \t]/g, '');
 assert(calendar.endsWith('\r\n') && !/(?<!\r)\n/.test(calendar), "Calendar must use CRLF line endings");

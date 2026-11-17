@@ -498,7 +498,7 @@ main:focus {
   font-size: 18.75px;
   font-weight: 700;
   line-height: 26.785714px;
-  padding-right: 150px;
+  padding-right: 310px;
 }
 .agenda-summary p {
   margin-top: 8px;
@@ -506,10 +506,16 @@ main:focus {
 .agenda-summary p + p {
   margin-top: 12px;
 }
-.print-button {
+.agenda-actions {
   position: absolute;
   top: 0;
   right: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.agenda-action {
+  display: inline-block;
   padding: 6px 12px;
   border: 1px solid var(--border);
   border-radius: 4px;
@@ -519,8 +525,9 @@ main:focus {
   font-size: 15px;
   line-height: 21.428571px;
 }
-.print-button:hover {
+.agenda-action:hover {
   background: #f6f6f6;
+  text-decoration: none;
 }
 .agenda-list {
   list-style: none;
@@ -845,7 +852,7 @@ main:focus {
   .agenda-summary h3 {
     padding-right: 0;
   }
-  .print-button {
+  .agenda-actions {
     position: static;
     margin-top: 15px;
   }
@@ -1031,7 +1038,7 @@ main:focus {
   }
   .site-header,
   .site-footer,
-  .print-button,
+  .agenda-actions,
   .skip-link {
     display: none !important;
   }

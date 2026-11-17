@@ -2,6 +2,7 @@
 import AgendaEntry from './AgendaEntry.astro';
 import { event } from '../data/event';
 import { agenda } from '../data/agenda';
+import { sitePath } from '../lib/urls';
 ---
 <section id="agenda" class="home-section single-page-section programme-section container" aria-labelledby="agenda-title">
   <h2 id="agenda-title" class="section-title"><span class="print-only">{event.name} · </span>Agenda</h2>
@@ -11,7 +12,10 @@ import { agenda } from '../data/agenda';
       <p>08:30–16:00 · {event.venue}</p>
       <p>{event.timezoneLabel}</p>
       <p><strong>{event.programmeStatus}</strong><br />{event.confirmationNote}</p>
-      <button class="print-button" type="button">Print agenda</button>
+      <div class="agenda-actions">
+        <button class="agenda-action print-button" type="button">Print agenda</button>
+        <a class="agenda-action" href={sitePath('downloads/shifra-symposium.ics')} download="SHIFRA-Symposium.ics" type="text/calendar">Add to calendar</a>
+      </div>
     </div>
     <ol class="agenda-list">{agenda.map(entry => <AgendaEntry entry={entry} />)}</ol>
     <p class="agenda-footnote">All times are shown in UAE time — GST, UTC+4 ({event.timezone}).</p>
