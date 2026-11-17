@@ -3,6 +3,8 @@ const REGISTRATION_STORE = {
   spreadsheetId: '__SPREADSHEET_ID__',
   folderId: '__SUBMISSION_FOLDER_ID__',
 };
+// The full 11:59 PM minute on 24 November is included (UAE / GST, UTC+4).
+const ABSTRACT_CUTOFF = Date.parse('2026-11-25T00:00:00+04:00');
 
 function doGet() {
   return HtmlService.createHtmlOutputFromFile('Registration')
@@ -12,7 +14,16 @@ function doGet() {
 }
 
 function submitRegistration(form) {
-  const name = text_(form.fullName, 200);
+  const receivedAt = new Date();
+  const firstName = text_(form.firstName, 100);
+  const lastName = text_(form.lastName, 100);
+  const hasSplitName = form.firstName !== undefined || form.lastName !== undefined;
+  // Preserve submissions from an older form that was already open during deployment.
+  const name = hasSplitName ? [firstName, lastName].filter(Boolean).join(' ') : text_(form.fullName, 200);
+  const gender = text_(form.gender, 50);
+  const title = text_(form.title, 80);
+  if (hasSplitName && (!firstName || !lastName)) throw new Error('Please enter your first name and last name.');
+  if (!['', 'Female', 'Male', 'Non-binary', 'Prefer not to say'].includes(gender)) throw new Error('Please choose a gender option from the list, or leave it blank.');
   const email = text_(form.email, 254).toLowerCase();
   const affiliation = text_(form.affiliation, 300);
   const type = String(form.participation || '');
@@ -33,11 +44,16 @@ function submitRegistration(form) {
   try {
     const book = SpreadsheetApp.openById(REGISTRATION_STORE.spreadsheetId);
     const sheet = book.getSheetByName('Registrations');
-    if (!sheet || sheet.getRange('A1').getValue() !== 'Registration ID' || sheet.getRange('M1').getValue() !== 'Request ID') throw new Error('Registration storage is not configured.');
+    if (!sheet || sheet.getRange('A1').getValue() !== 'Registration ID' || sheet.getRange('M1').getValue() !== 'Request ID' || sheet.getRange('N1').getValue() !== 'First name' || sheet.getRange('O1').getValue() !== 'Last name' || sheet.getRange('P1').getValue() !== 'Gender' || sheet.getRange('Q1').getValue() !== 'Title') throw new Error('Registration storage is not configured.');
     const count = sheet.getLastRow();
     if (count > 1) {
       const match = sheet.getRange(2, 13, count - 1, 1).createTextFinder(requestId).matchEntireCell(true).findNext();
       if (match) return {ok: true, registrationId: sheet.getRange(match.getRow(), 1).getValue(), participation: sheet.getRange(match.getRow(), 6).getValue() === 'Abstract submission' ? 'abstract' : 'audience', duplicate: true};
+    }
+    if (type === 'abstract' && receivedAt.getTime() >= ABSTRACT_CUTOFF) {
+      const deadlineError = new Error('Abstract submissions closed on Tuesday, 24 November 2026 at 11:59 PM UAE time (GST, UTC+4). You can still register as an audience member.');
+      deadlineError.code = 'ABSTRACT_DEADLINE';
+      throw deadlineError;
     }
     const id = 'SHIFRA-' + requestId.toUpperCase();
     const root = DriveApp.getFolderById(REGISTRATION_STORE.folderId);
@@ -53,11 +69,11 @@ function submitRegistration(form) {
       const file = matches.hasNext() ? matches.next() : folder.createFile(upload.setName(savedFileName));
       attachmentUrl = file.getUrl();
     }
-    const now = new Date();
-    const metadata = {registrationId: id, requestId, submittedAt: now.toISOString(), name, email, affiliation, participation: type, abstractTitle, abstractText, originalFileName: originalName, savedFileName, attachmentUrl};
+    const now = receivedAt;
+    const metadata = {registrationId: id, requestId, submittedAt: now.toISOString(), name, firstName, lastName, gender, title, email, affiliation, participation: type, abstractTitle, abstractText, originalFileName: originalName, savedFileName, attachmentUrl};
     saveText_(folder, 'registration.json', JSON.stringify(metadata, null, 2));
     if (abstractText) saveText_(folder, 'abstract.txt', (abstractTitle ? abstractTitle + '\n\n' : '') + abstractText);
-    const row = [id, now, name, email, affiliation, type === 'abstract' ? 'Abstract submission' : 'Audience', abstractTitle, abstractText, attachmentUrl, folder.getUrl(), type === 'abstract' ? 'Pending review' : 'Registered', '', requestId];
+    const row = [id, now, name, email, affiliation, type === 'abstract' ? 'Abstract submission' : 'Audience', abstractTitle, abstractText, attachmentUrl, folder.getUrl(), type === 'abstract' ? 'Pending review' : 'Registered', '', requestId, firstName, lastName, gender, title];
     const rowNumber = sheet.getLastRow() + 1;
     sheet.getRange(rowNumber, 1, 1, row.length).setValues([row.map(v => typeof v === 'string' ? safeCell_(v) : v)]);
     sheet.getRange(rowNumber, 2).setNumberFormat('yyyy-mm-dd hh:mm:ss');
@@ -66,6 +82,7 @@ function submitRegistration(form) {
     SpreadsheetApp.flush();
     return {ok: true, registrationId: id, participation: type};
   } catch (error) {
+    if (error && error.code === 'ABSTRACT_DEADLINE') throw error;
     console.error('Registration save failed: ' + String(error && error.message || error));
     throw new Error('We could not confirm your registration. Your entries are still here; please try again. If the problem continues, contact hala.alsaleh@mbzuai.ac.ae.');
   } finally {

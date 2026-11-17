@@ -2,6 +2,7 @@
 import Brand from './Brand.astro';
 import { event } from '../data/event';
 import { sitePath } from '../lib/urls';
+const peoplePage = Astro.url.pathname.replace(/\/$/, '') === sitePath('people').replace(/\/$/, '');
 ---
 <header class="site-header">
   <svg class="logo-filters" width="0" height="0" aria-hidden="true" focusable="false"><defs>
@@ -11,4 +12,8 @@ import { sitePath } from '../lib/urls';
     <a class="brand-link" href={sitePath()} aria-label="SHIFRA Symposium home"><Brand /></a>
     <a class="institution-link" href="https://mbzuai.ac.ae/" target="_blank" rel="noopener noreferrer" aria-label={event.institution}><span class="logo-frame institution-logo"><img src={sitePath('images/logos/mbzuai-navy-blue.jpg')} alt={event.institution} width="1651" height="554" /></span></a>
   </div>
+  <nav class="site-navigation container" aria-label="Main navigation">
+    <a href={sitePath()} aria-current={!peoplePage ? 'page' : undefined}>Home</a>
+    <a href={sitePath('people/')} aria-current={peoplePage ? 'page' : undefined}>Committee &amp; Speakers</a>
+  </nav>
 </header>

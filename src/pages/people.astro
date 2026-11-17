@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PersonCard from '../components/PersonCard.astro';
+import SpeakersSection from '../components/SpeakersSection.astro';
+import { event, organizers } from '../data/event';
+---
+<Layout title="Committee & Speakers" description={`Meet the organizing committee and speakers of the ${event.name}, ${event.displayDate} in ${event.city}.`} pagePath="people/">
+  <div class="page-heading people-heading container"><h1>Committee &amp; Speakers</h1></div>
+  <section id="organizing-committee" class="home-section single-page-section committee-section container" aria-labelledby="committee-title">
+    <h2 id="committee-title" class="section-title">Organizing Committee</h2>
+    <div class="people-grid">{organizers.map(person => <PersonCard person={person} />)}</div>
+  </section>
+  <SpeakersSection />
+</Layout>

@@ -2,6 +2,7 @@ node_modules/
 dist/
 dist-root/
 dist-preview/
+dist-netlify/
 .local/
 .astro/
 .env

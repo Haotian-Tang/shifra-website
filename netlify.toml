@@ -1,0 +1,7 @@
+[build]
+  command = "pnpm build && pnpm verify"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "24"
+  PNPM_VERSION = "11.25.0"

@@ -4,9 +4,9 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { event } from '../data/event';
 import { sitePath } from '../lib/urls';
-interface Props { title: string; description: string; }
-const { title, description } = Astro.props;
-const canonical = new URL(sitePath(), Astro.site);
+interface Props { title: string; description: string; pagePath?: string; }
+const { title, description, pagePath = '' } = Astro.props;
+const canonical = new URL(sitePath(pagePath), Astro.site);
 const socialImage = new URL(sitePath('images/shifra-social.png'), Astro.site);
 ---
 <!doctype html>
@@ -34,7 +34,7 @@ const socialImage = new URL(sitePath('images/shifra-social.png'), Astro.site);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
   </head>
-  <body class="single-page-site">
+  <body class={pagePath ? 'people-page' : 'single-page-site'}>
     <a class="skip-link" href="#main">Skip to content</a>
     <Header />
     <main id="main" tabindex="-1"><slot /></main>

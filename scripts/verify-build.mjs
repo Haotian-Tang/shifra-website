@@ -6,11 +6,11 @@ import { registrationUrl } from "../src/data/registration.ts";
 
 const directory = path.resolve(process.env.BUILD_DIR || "dist");
 const redirects = {
-  "agenda/": "agenda",
-  "organizing-committee/": "organizing-committee",
-  "speakers/": "speakers",
-  "registration/": "registration",
-  "registration/poster/": "poster-registration",
+  "agenda/": "#agenda",
+  "organizing-committee/": "people/#organizing-committee",
+  "speakers/": "people/#speakers",
+  "registration/": "#registration",
+  "registration/poster/": "#poster-registration",
 };
 const mainFile = path.join(directory, "index.html");
 let checked = 0;
@@ -46,13 +46,16 @@ const documentUrl = new URL(basePath, siteOrigin);
 assert.equal(
   (html.match(/<h1(?:\s|>)/g) || []).length,
   1,
-  "The single page needs one main title",
+  "The home page needs one main title",
 );
 assert(
-  !html.includes('id="main-navigation"') &&
-    !html.includes('class="menu-toggle"'),
-  "Separate page tabs and mobile navigation must be removed",
+  html.includes('aria-label="Main navigation"') && html.includes(`href="${basePath}people/"`),
+  "Home and Committee & Speakers navigation must be available",
 );
+const hero = html.match(/<section class="home-hero"[\s\S]*?<\/section>/)?.[0];
+assert(hero && (hero.match(/<a\b/g) || []).length === 1 && hero.includes('Register for our symposium'), "The hero must have one registration action");
+assert(!hero.includes('Symposium programme') && !hero.includes('View agenda'), "Remove the old hero programme label and agenda action");
+assert(html.includes('2026-11-24T23:59:00+04:00') && html.includes('11:59 PM'), "The abstract deadline must show 24 November 2026 at 23:59 UAE time");
 assert(!html.includes('href="#"'), "No empty placeholder links");
 assert(
   html.includes('lang="ar"') && html.includes('dir="rtl"'),
@@ -69,11 +72,17 @@ for (const section of [
   "abstract-submission",
   "registration",
   "poster-registration",
-  "organizing-committee",
-  "speakers",
   "location",
 ])
   assert(html.includes(`id="${section}"`), `Missing section ${section}`);
+assert(!html.includes('id="organizing-committee"') && !html.includes('id="speakers"'), "Committee and speakers belong on their separate page");
+const people = await readFile(path.join(directory, 'people/index.html'), 'utf8');
+const peopleUrl = new URL(basePath + 'people/', siteOrigin);
+assert.equal((people.match(/<h1(?:\s|>)/g) || []).length, 1, "The people page needs one main title");
+assert(people.includes(`rel="canonical" href="${peopleUrl.href}"`), "People canonical URL missing");
+for (const section of ['organizing-committee', 'speakers']) assert(people.includes(`id="${section}"`), `People page is missing ${section}`);
+assert.equal((people.match(/class="person-panel speaker-panel"/g) || []).length, 9, "All nine speakers must render on the people page");
+for (const match of people.matchAll(/\b(?:href|src)="([^"]+)"/g)) await verifyUrl(match[1], peopleUrl);
 assert(
   html.includes("mbzuai-navy-blue.jpg") &&
     !html.includes("mbzuai-original.jpg"),
@@ -95,14 +104,14 @@ for (const match of html.matchAll(/\b(?:href|src)="([^"]+)"/g))
 const social = html.match(/property="og:image" content="([^"]+)"/);
 assert(social, "Social graphic missing");
 await verifyUrl(social[1], documentUrl);
-for (const [route, section] of Object.entries(redirects)) {
+for (const [route, destination] of Object.entries(redirects)) {
   const redirect = await readFile(
     path.join(directory, route, "index.html"),
     "utf8",
   );
   assert(
     redirect.includes('http-equiv="refresh"') &&
-      redirect.includes(`0;url=${basePath}#${section}`),
+      redirect.includes(`0;url=${basePath}${destination}`),
     `Legacy route must lead to its section: ${route}`,
   );
   assert(
@@ -165,7 +174,7 @@ for (const time of [
   );
 }
 for (const name of ["Hala Alsaleh", "Haotian Tang", "Eduardo Beltrame"])
-  assert(html.includes(name));
+  assert(people.includes(name));
 console.log(
-  `Verified 1 content page, 5 legacy section redirects, 22 UAE-time agenda entries, production registration intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
+  `Verified 2 content pages, 5 legacy section redirects, 22 UAE-time agenda entries, 9 speakers, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
 );

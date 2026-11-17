@@ -1,6 +1,6 @@
 # SHIFRA Symposium
 
-A single-page static Astro + TypeScript website for **SHIFRA | شيفرة · UAE Genomics × AI**. All event content is in one scrolling document, with the supplied SHIFRA and current navy MBZUAI logos. English titles and reading text use locally served **Nunito Sans**; Arabic fallback text uses Noto Sans Arabic.
+A static Astro + TypeScript website for **SHIFRA | شيفرة · UAE Genomics × AI**, with a scrolling home page and a separate **Committee & Speakers** page. Both pages use the supplied SHIFRA and current navy MBZUAI logos. English titles and reading text use locally served **Nunito Sans**; Arabic fallback text uses Noto Sans Arabic.
 
 ## Development and preview
 
@@ -33,7 +33,7 @@ These commands build local files; they do not activate the domain or DNS.
 
 ## Content and page structure
 
-The page contains About, Agenda, Registration, Organizing Committee, Speakers, Location, Acknowledgement, and Countdown. Hero buttons jump to sections without a tab strip or separate content pages. Printing the agenda hides all other sections. The updated programme follows the organiser-supplied **SHIFRA Symposium.pdf** of 17 November 2026: 22 entries, three scientific sessions, 08:30–16:00 UAE time, and nine named scientific speakers.
+The home page contains About, Agenda, Registration, Location, Acknowledgement, and Countdown. The hero has one **Register for our symposium** action and displays the abstract deadline: **Tuesday, 24 November 2026 at 11:59 PM UAE time (GST, UTC+4)**. The two navigation links are **Home** and **Committee & Speakers**; committee and speaker cards live at `people/`. Printing the agenda hides the other home sections. The updated programme follows the organiser-supplied **SHIFRA Symposium.pdf** of 17 November 2026: 22 entries, three scientific sessions, 08:30–16:00 UAE time, and nine named scientific speakers.
 
 | Content                                                   | File / setting                                                                               |
 | --------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
@@ -57,11 +57,11 @@ The venue is **Lecture Hall 1 & 2**, Mohamed bin Zayed University of Artificial 
 
 ## Registration and abstract submissions
 
-The **Register** section collects name, email, affiliation, and participation type: **Audience** or **I want to submit an abstract**. The abstract option reveals a text box and a local document upload. Applicants can provide text, an attachment, or both. Submissions are considered for posters and selected talks on a rolling basis.
+The **Register for our symposium** section collects first name, last name, email, affiliation, optional gender and title, and participation type: **Audience** or **I want to submit an abstract**. The abstract option reveals a text box and a local document upload. Applicants can provide text, an attachment, or both. Submissions are considered for posters and selected talks on a rolling basis. The abstract deadline is **Tuesday, 24 November 2026 at 11:59 PM UAE time (GST, UTC+4)**; audience registration remains available after that deadline.
 
 An owner-deployed Google Apps Script intake stores each submission in a restricted Google Drive folder and appends a row to the private registration spreadsheet. The workbook has **Registrations** and **Speakers** tabs. Existing programme speakers are recorded separately from people who have registered; unknown speaker emails remain blank. Review status and presentation format are organiser fields, and no talk selection is automatic.
 
-The website remains static on GitHub Pages; Google hosts the intake. Files are limited to PDF, Word, or text documents of up to 10 MB. Submitted text and files stay in Drive, outside the public repository and published static build. The former local upload receiver is not used. See the [intake setup](integrations/google-apps-script/README.md) for deployment and permission details. Website success depends on a confirmed server response; repeated retries retain a request ID.
+The static website is published at [shifra-symposium-uae.netlify.app](https://shifra-symposium-uae.netlify.app/), with GitHub Pages retained as a fallback; Google hosts the intake. The proposed university hostname `shifra.mbzuai.ac.ae` is pending MBZUAI IT's DNS configuration and is not yet live. See [Netlify setup](NETLIFY_SETUP.md) for the deployment and custom-domain steps. Files are limited to PDF, Word, or text documents of up to 10 MB. Submitted text and files stay in Drive, outside the public repository and published static build. The former local upload receiver is not used. See the [intake setup](integrations/google-apps-script/README.md) for deployment and permission details. Website success depends on a confirmed server response; repeated retries retain a request ID.
 
 The compact footer has no links and retains Hala's email as plain text for enquiries.
 
@@ -72,12 +72,12 @@ Five small redirect documents preserve old URLs without duplicating content:
 | Former URL              | Current section                                          |
 | ----------------------- | -------------------------------------------------------- |
 | `agenda/`               | `#agenda`                                                |
-| `organizing-committee/` | `#organizing-committee`                                  |
-| `speakers/`             | `#speakers`                                              |
+| `organizing-committee/` | `people/#organizing-committee`                           |
+| `speakers/`             | `people/#speakers`                                       |
 | `registration/`         | `#registration`                                         |
 | `registration/poster/`  | `#poster-registration`, an alias in the registration section |
 
-The preferred registration link is `#registration`; `#abstract-submission` remains an alias. Redirects stay on the current origin and use the main page as their canonical URL. Registration uses JavaScript in the Google-hosted form; the direct-window link is available if embedding is unavailable.
+The preferred registration link is `#registration`; `#abstract-submission` remains an alias. Redirects stay on the current origin and use the appropriate home or people page as their canonical URL. Registration uses JavaScript in the Google-hosted form; the direct-window link is available if embedding is unavailable.
 
 ## GitHub Pages publication
 
