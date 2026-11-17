@@ -157,15 +157,14 @@ main:focus {
   transform: none;
   filter: none;
 }
-/* Compact symposium banner below the two-logo header, within the page's content width. */
+/* The supplied artwork spans the viewport below the two-logo header. */
 .event-banner {
+  width: 100%;
   margin-top: 8px;
 }
 .banner-panel {
-  max-width: 860px;
-  height: 160px;
-  margin-inline: auto;
-  border: 1px solid var(--border);
+  width: 100%;
+  height: clamp(160px, 21vw, 300px);
   background: #f6f8f5;
   display: flex;
   align-items: center;
@@ -178,6 +177,7 @@ main:focus {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 50% 20%;
 }
 .home-hero {
   position: relative;
@@ -273,8 +273,9 @@ main:focus {
 }
 .poster-frame {
   width: 100%;
-  aspect-ratio: 2 / 3;
+  aspect-ratio: 1273 / 1800;
   border: 1px solid var(--border);
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -625,10 +626,9 @@ main:focus {
   width: 100%;
   display: flex;
   flex-direction: column;
-  flex: 1;
 }
 .about-poster .poster-frame {
-  flex: 1;
+  flex: none;
 }
 .about-poster h3 {
   font-family: var(--body-font);
@@ -821,10 +821,12 @@ main:focus {
 }
 @media (max-width: 767px) {
   .banner-panel {
-    height: 112px;
+    height: clamp(160px, 40vw, 220px);
     font-size: 18px;
     text-align: center;
-    padding-inline: 18px;
+  }
+  .banner-panel img {
+    object-position: 50% 28%;
   }
   .about-layout {
     grid-template-columns: minmax(0, 1fr);

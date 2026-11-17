@@ -10,8 +10,8 @@ import { event, organizers } from '../data/event';
 import { sitePath, contentUrl } from '../lib/urls';
 ---
 <Layout title={event.theme} description={`SHIFRA Symposium brings genomics and artificial intelligence into conversation. ${event.displayDate} at ${event.venue}, ${event.institution}, ${event.city}. Explore the provisional programme and abstract submissions for posters and selected talks.`}>
-  <div class="event-banner container">
-    <div class="banner-panel">{event.banner.image ? <img src={contentUrl(event.banner.image)} alt={event.banner.alt} width="1440" height="280" /> : <span>Symposium banner coming soon</span>}</div>
+  <div class="event-banner">
+    <div class="banner-panel">{event.banner.image ? <img src={contentUrl(event.banner.image)} alt={event.banner.alt} width="2400" height="1350" fetchpriority="high" decoding="async" /> : <span>Symposium banner coming soon</span>}</div>
   </div>
   <section class="home-hero" aria-labelledby="event-title">
     <div class="home-intro container">

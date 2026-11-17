@@ -45,13 +45,13 @@ export const event = {
   contactEmail: "hala.alsaleh@mbzuai.ac.ae" as string | null,
   abstractSubmissionEmail: "haotian.tang@mbzuai.ac.ae",
   banner: {
-    image: null as string | null,
-    alt: "SHIFRA Symposium banner",
+    image: "images/shifra-banner.webp" as string | null,
+    alt: "Genomics and AI artwork featuring a neural human silhouette, DNA, insects, and a plant",
   },
   poster: {
-    image: null as string | null,
-    alt: "SHIFRA Symposium poster",
-    download: null as string | null,
+    image: "images/shifra-poster.webp" as string | null,
+    alt: "SHIFRA UAE Genomics and AI Symposium poster, 27 November 2026 at Mohamed bin Zayed University of Artificial Intelligence",
+    download: "downloads/SHIFRA_Poster.pdf" as string | null,
   },
   acknowledgement: [
     "We are grateful to Eduardo Beltrame for his all-round support of SHIFRA.",

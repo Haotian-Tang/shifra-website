@@ -50,7 +50,7 @@ The page contains About, Agenda, Abstract submission, Organizing Committee, Spea
 | Sharing graphic                                           | `public/images/shifra-social.svg` and PNG rendition                                          |
 | Deployment URL and base path                              | `site.config.mjs` and the optional full `SITE_URL` environment variable                      |
 
-Missing fields remain `null` or empty arrays. No unconfirmed speakers, portraits, biographies, sponsor marks, or personal roles are invented. Organizer cards show the supplied names in order. The final symposium banner and public poster remain labeled placeholders until approved images are supplied.
+Missing fields remain `null` or empty arrays. No unconfirmed speakers, portraits, biographies, sponsor marks, or personal roles are invented. Organizer cards show the supplied names in order. The banner and poster supplied on 17 November 2026 are displayed on the page. The banner spans the full viewport width; the poster preview opens the original, downloadable PDF.
 
 The venue is **Lecture Hall 1 & 2**, Mohamed bin Zayed University of Artificial Intelligence, **Abu Dhabi, UAE**. All programme times and the countdown use **Asia/Dubai — GST, UTC+4**. The countdown targets **27 November 2026 at 08:30** and does not convert to the visitor's local time zone. Campus location follows the [university's official map link](https://mbzuai.ac.ae/about-us), without claiming a separate room-level pin.
 
@@ -115,5 +115,7 @@ For an Actions deployment, a `CNAME` file alone does not configure the domain; G
 ## Assets and typography
 
 The current navy MBZUAI JPEG is copied byte for byte from the supplied file and displayed at its native aspect ratio, without a color filter or crop. The SHIFRA logo retains its supplied lettering, with a browser filter to remove its JPEG black matte. Both logos have alternative text.
+
+`public/images/shifra-banner.webp` is an optimized rendition of the supplied `Banner.png`. The poster preview in `public/images/shifra-poster.webp` is rendered from the supplied PDF. `public/downloads/SHIFRA_Poster.pdf` retains the original PDF byte for byte for viewing and download. The poster is shown at its original aspect ratio without cropping.
 
 All editable English text, including the Home title, uses Nunito Sans. The title is weight 700; reading text remains comfortable at 18 px, with About text at 20 px on desktop and 19 px on mobile. The former Bodoni Moda font and dependency are removed. Current font notices are in `licenses/`. See `CONTENT_NOTES.md` for remaining organizer content decisions.

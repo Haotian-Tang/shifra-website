@@ -11,14 +11,14 @@ Public copy follows the detailed provisional timetable. No source proposal or in
 - Closing remarks are a ten-minute conclusion, not a confirmed closing keynote. Eduardo Beltrame's closing assignment remains provisional.
 - The proposed date is **27 November 2026**. The organizers have updated the venue to **Lecture Hall 1 & 2, MBZUAI, Abu Dhabi, UAE**. The Google Maps campus location follows MBZUAI’s official site; it does not independently map the individual lecture halls.
 - All times use **Asia/Dubai — GST, UTC+4**. This is a location-based implementation choice; the proposal did not explicitly give a time zone. No visitor-local conversion occurs.
-- Speaker and presenter assignments remain subject to confirmation. No confirmed speaker roster, biographies, portraits, general-attendance registration URL, or finished poster was supplied. These fields remain empty in typed content data. The organizer supplied `hala.alsaleh@mbzuai.ac.ae` as the public contact address.
+- Speaker and presenter assignments remain subject to confirmation. No confirmed speaker roster, biographies, portraits, or general-attendance registration URL was supplied. These fields remain empty in typed content data. The organizer supplied `hala.alsaleh@mbzuai.ac.ae` as the public contact address.
 - Organizers appear in the supplied order with equal weight: **Hala Alsaleh**, **Haotian Tang**, **Eduardo Beltrame**. No individual roles, titles, or affiliations are inferred.
 - Prospective invitees and organizations are not confirmed participants or sponsors. No unconfirmed special/royal guest, organization name, logo, or internal invitation detail is published.
 - The speaker section uses a compact announcement until confirmed speaker details are supplied, without implying a final number of speakers.
 - **shifra.ae** is a future domain, not a current live canonical. Domain activation and DNS remain a separate later step.
 
 - The SHIFRA logo and the newer **MBZUAI_Logo_EN_Navy_Blue_RGB.jpg** supplied on 16 November 2026 are approved for the page header. Their original JPEGs are retained unchanged; the outdated light/dark-blue university logo is removed. The supplied logo lettering is retained as artwork. All editable English text now uses Nunito Sans, including the main title.
-- The restored symposium banner and official symposium poster remain labeled placeholders until final image assets are supplied.
+- The banner and official symposium poster supplied on 17 November 2026 replace the placeholders. The banner spans the viewport, and the poster preview links to the unchanged original PDF. The supplied poster advertises 08:00–16:00; the existing provisional timetable and countdown remain unchanged by this asset update.
 - The requested countdown derives its start from the first timetable entry: **08:30, 27 November 2026, UAE time**.
 
 - The site now has one content page. Former tab URLs forward to their matching sections, and abstract submission instructions sit between the agenda and organizing committee.

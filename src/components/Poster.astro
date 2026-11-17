@@ -3,8 +3,14 @@ import { event } from '../data/event';
 import { contentUrl } from '../lib/urls';
 ---
 <figure class="poster-block">
-  <div class="poster-frame">
-    {event.poster.image ? <img src={contentUrl(event.poster.image)} alt={event.poster.alt} width="600" height="900" loading="lazy" /> : <p>Poster coming soon</p>}
-  </div>
-  {event.poster.download && <figcaption><a href={contentUrl(event.poster.download)} download>Download poster</a></figcaption>}
+  {event.poster.image && event.poster.download ? (
+    <a class="poster-frame" href={contentUrl(event.poster.download)} target="_blank" rel="noopener noreferrer" aria-label="View the SHIFRA symposium poster (PDF, opens in a new tab)">
+      <img src={contentUrl(event.poster.image)} alt={event.poster.alt} width="1273" height="1800" loading="lazy" decoding="async" />
+    </a>
+  ) : (
+    <div class="poster-frame">
+      {event.poster.image ? <img src={contentUrl(event.poster.image)} alt={event.poster.alt} width="1273" height="1800" loading="lazy" decoding="async" /> : <p>Poster coming soon</p>}
+    </div>
+  )}
+  {event.poster.download && <figcaption><a href={contentUrl(event.poster.download)} download>Download poster (PDF)</a></figcaption>}
 </figure>
