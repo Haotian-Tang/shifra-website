@@ -21,6 +21,8 @@ import registrationPreview from '../../integrations/google-apps-script/Registrat
     try { const origin = new URL(event.origin); googleFrame = origin.protocol === 'https:' && (origin.hostname === 'script.google.com' || origin.hostname.endsWith('.googleusercontent.com')); } catch {}
     if ((!localPreview && !googleFrame) || event.data?.type !== 'SHIFRA_REGISTRATION_HEIGHT') return;
     const height = event.data.height;
-    if (typeof height === 'number' && Number.isFinite(height) && height >= 200 && height <= 2400) frame.style.height = `${Math.max(380, Math.ceil(height) + 64)}px`;
+    // The expanded abstract form includes speaker interest and recording consent;
+    // allow their wrapped text on narrow phones while keeping resize messages bounded.
+    if (typeof height === 'number' && Number.isFinite(height) && height >= 200 && height <= 4000) frame.style.height = `${Math.max(380, Math.ceil(height) + 64)}px`;
   });
 </script>

@@ -5,6 +5,8 @@ const REGISTRATION_STORE = {
 };
 // The full 11:59 PM minute on 24 November is included (UAE / GST, UTC+4).
 const ABSTRACT_CUTOFF = Date.parse('2026-11-25T00:00:00+04:00');
+const RECORDING_CONSENT_VERSION = 'recording-v1';
+const RECORDING_CONSENT_TEXT = 'I understand that the SHIFRA Symposium may be audio- and video-recorded. I consent to the recording of my participation and to the use of these recordings by the SHIFRA organisers for symposium documentation and educational purposes.';
 
 function doGet() {
   return HtmlService.createHtmlOutputFromFile('Registration')
@@ -30,6 +32,17 @@ function submitRegistration(form) {
   const requestId = String(form.requestId || '');
   if (!name || !affiliation || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Please enter your name, a valid email address, and affiliation.');
   if (!['audience', 'abstract'].includes(type) || !/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(requestId) || form.website) throw new Error('Please reload the form and try again.');
+  const formVersion = String(form.formVersion || '');
+  if (!['', '4'].includes(formVersion)) throw new Error('Please reload the form and try again.');
+  const currentForm = formVersion === '4';
+  const talkChoice = String(form.considerForTalk || '');
+  if (currentForm && type === 'abstract' && !['yes', 'no'].includes(talkChoice)) throw new Error('Please choose Yes or No for consideration as a Selected Speaker.');
+  const considerForTalk = type !== 'abstract' ? 'Not applicable' : currentForm ? (talkChoice === 'yes' ? 'Yes' : 'No') : 'Not provided';
+  const consentChoice = String(form.recordingConsent || '');
+  if (currentForm && !['', 'yes'].includes(consentChoice)) throw new Error('Please review the recording consent checkbox and try again.');
+  const recordingConsent = currentForm ? (consentChoice === 'yes' ? 'Yes' : 'No') : 'Not provided';
+  const consentRecordedAt = recordingConsent === 'Yes' ? receivedAt : null;
+  const consentWordingVersion = currentForm ? RECORDING_CONSENT_VERSION : '';
   const abstractTitle = type === 'abstract' ? text_(form.abstractTitle, 500) : '';
   const abstractText = type === 'abstract' ? text_(form.abstractText, 30000) : '';
   const upload = type === 'abstract' && form.attachment && typeof form.attachment.getBytes === 'function' ? form.attachment : null;
@@ -44,7 +57,7 @@ function submitRegistration(form) {
   try {
     const book = SpreadsheetApp.openById(REGISTRATION_STORE.spreadsheetId);
     const sheet = book.getSheetByName('Registrations');
-    if (!sheet || sheet.getRange('A1').getValue() !== 'Registration ID' || sheet.getRange('M1').getValue() !== 'Request ID' || sheet.getRange('N1').getValue() !== 'First name' || sheet.getRange('O1').getValue() !== 'Last name' || sheet.getRange('P1').getValue() !== 'Gender' || sheet.getRange('Q1').getValue() !== 'Title') throw new Error('Registration storage is not configured.');
+    if (!sheet || sheet.getRange('A1').getValue() !== 'Registration ID' || sheet.getRange('M1').getValue() !== 'Request ID' || sheet.getRange('N1').getValue() !== 'First name' || sheet.getRange('O1').getValue() !== 'Last name' || sheet.getRange('P1').getValue() !== 'Gender' || sheet.getRange('Q1').getValue() !== 'Title' || sheet.getRange('R1').getValue() !== 'Consider for 10-min talk' || sheet.getRange('S1').getValue() !== 'Recording consent' || sheet.getRange('T1').getValue() !== 'Consent recorded at (UAE)' || sheet.getRange('U1').getValue() !== 'Consent wording version') throw new Error('Registration storage is not configured.');
     const count = sheet.getLastRow();
     if (count > 1) {
       const match = sheet.getRange(2, 13, count - 1, 1).createTextFinder(requestId).matchEntireCell(true).findNext();
@@ -70,13 +83,14 @@ function submitRegistration(form) {
       attachmentUrl = file.getUrl();
     }
     const now = receivedAt;
-    const metadata = {registrationId: id, requestId, submittedAt: now.toISOString(), name, firstName, lastName, gender, title, email, affiliation, participation: type, abstractTitle, abstractText, originalFileName: originalName, savedFileName, attachmentUrl};
+    const metadata = {registrationId: id, requestId, submittedAt: now.toISOString(), name, firstName, lastName, gender, title, email, affiliation, participation: type, abstractTitle, abstractText, originalFileName: originalName, savedFileName, attachmentUrl, formVersion: formVersion || 'legacy', considerForTalk, recordingConsent, consentRecordedAt: consentRecordedAt ? consentRecordedAt.toISOString() : null, consentWordingVersion, consentWording: currentForm ? RECORDING_CONSENT_TEXT : ''};
     saveText_(folder, 'registration.json', JSON.stringify(metadata, null, 2));
     if (abstractText) saveText_(folder, 'abstract.txt', (abstractTitle ? abstractTitle + '\n\n' : '') + abstractText);
-    const row = [id, now, name, email, affiliation, type === 'abstract' ? 'Abstract submission' : 'Audience', abstractTitle, abstractText, attachmentUrl, folder.getUrl(), type === 'abstract' ? 'Pending review' : 'Registered', '', requestId, firstName, lastName, gender, title];
+    const row = [id, now, name, email, affiliation, type === 'abstract' ? 'Abstract submission' : 'Audience', abstractTitle, abstractText, attachmentUrl, folder.getUrl(), type === 'abstract' ? 'Pending review' : 'Registered', '', requestId, firstName, lastName, gender, title, considerForTalk, recordingConsent, consentRecordedAt || '', consentWordingVersion];
     const rowNumber = sheet.getLastRow() + 1;
     sheet.getRange(rowNumber, 1, 1, row.length).setValues([row.map(v => typeof v === 'string' ? safeCell_(v) : v)]);
     sheet.getRange(rowNumber, 2).setNumberFormat('yyyy-mm-dd hh:mm:ss');
+    sheet.getRange(rowNumber, 20).setNumberFormat('yyyy-mm-dd hh:mm:ss');
     sheet.getRange(rowNumber, 1, 1, row.length).setFontFamily('Arial').setFontSize(11).setVerticalAlignment('top').setWrap(true);
     sheet.setRowHeight(rowNumber, 42);
     SpreadsheetApp.flush();
