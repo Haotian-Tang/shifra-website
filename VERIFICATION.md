@@ -1,29 +1,27 @@
 # SHIFRA release verification
 
-Verified on 16 November 2026 for the single-page email-submission release.
+Verified on 17 November 2026 after the repository transfer and Pages publishing recovery.
 
-## Requested changes
+## Published release
 
-- All editable English text, including the main title, uses locally served Nunito Sans. The main title is weight 700. The thin display font, its dependency, and its font-face declaration are removed. The approved logo artwork remains unchanged.
-- The file-upload form is replaced by a static Submit an abstract section. Its email action addresses **haotian.tang@mbzuai.ac.ae**, with a prefilled subject and an optional information template. The site does not send email automatically.
-- The section clearly states that abstracts are considered for **poster presentations and selected talks**, reviewed **on a rolling basis**, and that organizers respond by email. No submission deadline, word limit, or attachment-format requirement is invented.
-- Hala's address remains the plain-text general-enquiries contact in the compact footer.
+- Repository: `Haotian-Tang/shifra-website`; the authenticated owner has administrator access. The local SSH remote and source fallback both use the transferred repository.
+- Deployed application commit: `5b0ad2f346847745c4e171ffccc7d25567cf2d8d`.
+- [Actions run 44065760147](https://github.com/Haotian-Tang/shifra-website/actions/runs/44065760147): build and deploy both succeeded, including dependency installation, Astro type checking, production build, static-link verification, artifact upload, and deployment.
+- Public website: <https://haotian-tang.github.io/shifra-website/>. An unauthenticated HTTPS request returned 200 directly, with this same URL as its canonical address.
+
+## Recovery
+
+The domain still pointed at an old server while the previous custom-domain binding redirected the default Pages URL to it. AEserver had disabled management after marking the domain Transferred, while Hostinger still reported Transferring. The unavailable custom-domain binding was removed from Pages, the repository address was updated, and the site was rebuilt for the default project path. Default github.io origins are normalized to HTTPS even when Pages metadata retains HTTP after a domain change.
 
 ## Validation
 
-- Astro check: 0 errors, 0 warnings, 0 hints across 26 files.
-- Production project-path and custom-root builds pass. Each validates one content page, five legacy section redirects, all 17 UAE-time agenda entries, canonical metadata, and 24 local asset/link references.
-- The shared preview was reloaded in the actual logged-in Chrome browser. Computed styles confirm Nunito Sans and title weight 700; the document has no forms or file inputs and no horizontal overflow in the checked viewport.
-- A 390-pixel mobile viewport also has no horizontal overflow; the title, logos, venue, and abstract action were inspected visually. The temporary viewport override was reset afterward.
-- The visible section and both email links use the confirmed abstract recipient. The email subject/template and rolling-review/talk-selection wording were inspected in the actual page. No email was sent during verification.
-- Existing section links, legacy URL aliases, campus map, committee, acknowledgement, countdown, and link-free footer remain in the single document.
-- The temporary preview now uses Astro's static preview server. The retired upload endpoint returns HTTP 404. Old local submission files were left untouched outside the source checkout and are not part of the published artifact.
+- A local production build using the HTTP origin reported by the previous Pages metadata passed verification at the normalized HTTPS URL. It validated one content page, five legacy redirects, all 17 UAE-time agenda entries, canonical metadata, and 24 local asset/link references.
+- The actual deployed homepage and all six checked stylesheet, logo, icon, and font references returned 200, including both font files.
+- The public website was opened in Chrome. Both supplied logos loaded successfully, the title computed as locally served Nunito Sans with weight 700, and no horizontal overflow appeared in the checked viewport.
+- The single page has no upload form. The abstract actions address haotian.tang@mbzuai.ac.ae, with an email subject/template; rolling review and consideration for posters and selected talks are explicit. No email was sent during testing.
+- The compact footer retains Hala's plain-text enquiries address. Existing agenda, committee, venue, map, acknowledgement, and countdown remain present.
+- A screenshot of the actual public website was saved outside the source checkout as a user-facing release artifact.
 
-## Publication and domain setup
+## Domain follow-up
 
-- Source publication targets the repository's main branch and its existing GitHub Pages workflow. The current login has source-write access, but GitHub's Pages settings are unavailable to that account; the settings UI was checked directly.
-- The domain currently uses AEserver nameservers, an apex A record of 165.22.30.248, and a www alias to shifra.ae. These DNS records were read but not changed.
-- The AEserver control panel is not logged in. DNS changes therefore require the domain account owner to log in, after the GitHub Pages domain has been configured by a repository administrator.
-- Commit `f83b97c` was pushed successfully to both `codex/shifra-preview` and `main` through SSH. The formal branch now contains the complete website.
-- [Actions run 43833134712](https://github.com/halalsaleh7212-spec/shifra-website/actions/runs/43833134712) installed dependencies and passed the type-check step, then failed at `actions/configure-pages@v5` with `Get Pages site failed` / `Not Found`. Build upload and deployment were skipped. No live GitHub Pages URL or custom-domain deployment is claimed.
-- A repository administrator must enable Pages with GitHub Actions as its publishing source, then run the workflow. The standard `GITHUB_TOKEN` cannot enable Pages through the configure-pages action's optional enablement parameter; no extra credential or broader permission was introduced.
+shifra.ae is not yet connected. Public DNS still uses the three AEserver nameservers, apex A 165.22.30.248, and www CNAME shifra.ae. No DNS records were changed. After domain management becomes available, restore shifra.ae in the repository's Pages settings before directing DNS to GitHub, then rebuild and enable HTTPS when the certificate is ready. The www CNAME target must now be haotian-tang.github.io. See README for the complete records and order of operations.
