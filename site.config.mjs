@@ -20,17 +20,10 @@ export const repository = repositoryFromRemote();
 const [owner, name] = repository.split("/");
 const inferredBase =
   name.toLowerCase() === `${owner.toLowerCase()}.github.io` ? "/" : `/${name}/`;
-// Netlify serves the generated files at the origin root. Preview deployments use
-// their own URL; production uses the configured primary URL (including a custom domain).
-const netlifyUrl = process.env.NETLIFY === "true"
-  ? ((process.env.CONTEXT && process.env.CONTEXT !== "production"
-      ? process.env.DEPLOY_PRIME_URL
-      : process.env.URL) || process.env.URL || process.env.DEPLOY_PRIME_URL)
-  : undefined;
-// SITE_URL is the explicit override for manual uploads, custom domains, and Pages.
+// The Pages workflow sets the production custom domain through SITE_URL.
+// Local builds retain the repository-derived GitHub Pages address by default.
 const deploymentUrl = new URL(
   process.env.SITE_URL ||
-    (netlifyUrl ? `${new URL(netlifyUrl).origin}/` : undefined) ||
     `https://${owner}.github.io${inferredBase}`,
 );
 // GitHub's default Pages domains require HTTPS, even if stale Pages metadata says HTTP.

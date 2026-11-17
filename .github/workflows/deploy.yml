@@ -32,12 +32,12 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Type check
         run: pnpm check
-      - name: Read actual GitHub Pages URL
-        id: pages
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Build and verify static pages
         env:
-          SITE_URL: ${{ vars.SITE_URL || steps.pages.outputs.base_url }}
+          # Keep production canonical URLs secure while Pages provisions HTTPS.
+          SITE_URL: "https://shifra.ae/"
           ASTRO_TELEMETRY_DISABLED: "1"
         run: |
           pnpm build

@@ -61,7 +61,7 @@ The **Register for our symposium** section collects first name, last name, email
 
 An owner-deployed Google Apps Script intake stores each submission in a restricted Google Drive folder and appends a row to the private registration spreadsheet. The workbook has **Registrations** and **Speakers** tabs. Existing programme speakers are recorded separately from people who have registered; unknown speaker emails remain blank. Review status and presentation format are organiser fields, and no talk selection is automatic.
 
-The static website is published at [shifra-symposium-uae.netlify.app](https://shifra-symposium-uae.netlify.app/), with GitHub Pages retained as a fallback; Google hosts the intake. Netlify has `shifra.ae` configured as the primary domain; DNS and HTTPS are still being verified. The optional university hostname `shifra.mbzuai.ac.ae` is not yet live and requires coordination with the university's existing Netlify team and MBZUAI IT. See [Netlify setup](NETLIFY_SETUP.md) for deployment and domain configuration. Files are limited to PDF, Word, or text documents of up to 10 MB. Submitted text and files stay in Drive, outside the public repository and published static build. The former local upload receiver is not used. See the [intake setup](integrations/google-apps-script/README.md) for deployment and permission details. Website success depends on a confirmed server response; repeated retries retain a request ID.
+The static website uses **GitHub Pages**, with **https://shifra.ae/** as its production URL; the custom-domain cutover, DNS and HTTPS must be verified before announcing it as live. Google hosts the intake. Netlify is no longer the production target, and the earlier university-hostname proposal is not required. See [GitHub Pages publication](#github-pages-publication) for deployment and domain configuration. Files are limited to PDF, Word, or text documents of up to 10 MB. Submitted text and files stay in Drive, outside the public repository and published static build. The former local upload receiver is not used. See the [intake setup](integrations/google-apps-script/README.md) for deployment and permission details. Website success depends on a confirmed server response; repeated retries retain a request ID.
 
 The compact footer has no links and retains Hala's email as plain text for enquiries.
 
@@ -83,21 +83,29 @@ The preferred registration link is `#registration`; `#abstract-submission` remai
 
 Repository: `git@github.com:Haotian-Tang/shifra-website.git` (transferred to Haotian-Tang).
 
-The workflow in `.github/workflows/deploy.yml` runs on **main** and supports manual dispatch. It installs pinned dependencies, checks types, reads the configured Pages origin/base, builds and validates the static output, uploads the Pages artifact, and deploys through the `github-pages` environment.
+The workflow in `.github/workflows/deploy.yml` runs on **main** and supports manual dispatch. It installs pinned dependencies, checks types, configures Pages, builds and validates the static output, uploads the Pages artifact, and deploys through the `github-pages` environment. Its production build explicitly sets `SITE_URL=https://shifra.ae/`, keeping assets at `/` and canonical/sharing URLs on HTTPS even while GitHub provisions the domain certificate.
 
 A repository administrator must first open **Settings → Pages → Build and deployment → Source: GitHub Actions**. Source write access alone does not provide this setting. Private-repository Pages availability depends on the owner's GitHub plan; see [GitHub Pages availability and setup](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
 
-After Pages is enabled, run or rerun **Build and deploy SHIFRA to GitHub Pages**. The successful deployment's **View deployment** link is the verified public URL. `https://haotian-tang.github.io/shifra-website/` is the repository-derived default address; its actual availability must be checked after deployment. The default GitHub Pages origin is normalized to HTTPS even when Pages metadata still reports HTTP after a domain change.
+After Pages is enabled and the custom domain is configured, run or rerun **Build and deploy SHIFRA to GitHub Pages**. Check the successful deployment's **View deployment** link and confirm HTTPS works at `https://shifra.ae/`. `https://haotian-tang.github.io/shifra-website/` remains the repository-derived local-build default; GitHub may redirect that address to the configured custom domain.
 
-`site.config.mjs` derives the repository from the actual remote or CI metadata. The workflow prefers the URL returned by `configure-pages`, so project paths, private Pages origins, and a later custom domain use the appropriate asset paths. No upload-service variable or Node receiver is required.
+`site.config.mjs` derives the repository from the actual remote or CI metadata when no `SITE_URL` override is set. The production workflow pins the approved custom domain instead of relying on temporarily stale Pages URL metadata. Change that workflow value if the production hostname changes. No upload-service variable or Node receiver is required.
 
 ## Connect shifra.ae
 
-The owner confirmed that the transfer to Hostinger is complete. Netlify project **shifra-symposium-uae** now has **shifra.ae** configured as its primary domain, with **www.shifra.ae** redirecting to it. DNS and HTTPS must be verified before announcing the domain as live.
+The owner confirmed that the domain transfer to Hostinger is complete and selected **GitHub Pages** as the website host. Add **shifra.ae** in the repository's **Settings → Pages → Custom domain**, then configure these website records in the authoritative DNS zone:
 
-Use the website DNS targets shown by Netlify in the authoritative DNS zone, preserving email and verification records. The Netlify production context sets `SITE_URL=https://shifra.ae/`; manual uploads require the same explicit build variable. See [Netlify setup](NETLIFY_SETUP.md) for the full deployment and domain checks.
+| Type  | Host | Value                  |
+| ----- | ---- | ---------------------- |
+| A     | @    | 185.199.108.153         |
+| A     | @    | 185.199.109.153         |
+| A     | @    | 185.199.110.153         |
+| A     | @    | 185.199.111.153         |
+| CNAME | www  | haotian-tang.github.io  |
 
-Keep GitHub Pages on `https://haotian-tang.github.io/shifra-website/` as a fallback. Do not add `shifra.ae` to GitHub Pages while Netlify hosts it. The default GitHub Pages base path and its deployment workflow are unchanged.
+Replace obsolete website A/AAAA/ALIAS records that conflict with GitHub Pages, while preserving unrelated email and verification records. Confirm the active nameservers match the DNS zone being edited. Follow [GitHub's custom-domain guide](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site); an Actions deployment requires the Pages setting and DNS configuration, not just a `CNAME` file in the repository.
+
+The Pages custom domain and all five Hostinger website records have been saved, and the former Netlify custom-domain bindings have been removed. After DNS validation succeeds and GitHub provisions the certificate, enable **Enforce HTTPS**. Verify `https://shifra.ae/`, its assets and registration form, and the `www` redirect. This source configuration alone does not confirm that public DNS or HTTPS is ready.
 
 ## Assets and typography
 
