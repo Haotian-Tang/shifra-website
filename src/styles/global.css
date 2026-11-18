@@ -180,7 +180,8 @@ main:focus {
 }
 .banner-panel {
   width: 100%;
-  height: clamp(160px, 21vw, 300px);
+  /* Reveal more of the 16:9 artwork without cropping its sides on phones. */
+  height: min(56.25vw, clamp(220px, 34vw, 480px));
   background: #f6f8f5;
   display: flex;
   align-items: center;
@@ -870,7 +871,6 @@ main:focus {
 }
 @media (max-width: 767px) {
   .banner-panel {
-    height: clamp(160px, 40vw, 220px);
     font-size: 18px;
     text-align: center;
   }

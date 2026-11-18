@@ -17,41 +17,8 @@ function doGet() {
 
 function submitRegistration(form) {
   const receivedAt = new Date();
-  const firstName = text_(form.firstName, 100);
-  const lastName = text_(form.lastName, 100);
-  const hasSplitName = form.firstName !== undefined || form.lastName !== undefined;
-  // Preserve submissions from an older form that was already open during deployment.
-  const name = hasSplitName ? [firstName, lastName].filter(Boolean).join(' ') : text_(form.fullName, 200);
-  const gender = text_(form.gender, 50);
-  const title = text_(form.title, 80);
-  if (hasSplitName && (!firstName || !lastName)) throw new Error('Please enter your first name and last name.');
-  if (!['', 'Female', 'Male', 'Non-binary', 'Prefer not to say'].includes(gender)) throw new Error('Please choose a gender option from the list, or leave it blank.');
-  const email = text_(form.email, 254).toLowerCase();
-  const affiliation = text_(form.affiliation, 300);
-  const type = String(form.participation || '');
-  const requestId = String(form.requestId || '');
-  if (!name || !affiliation || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Please enter your name, a valid email address, and affiliation.');
-  if (!['audience', 'abstract'].includes(type) || !/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(requestId) || form.website) throw new Error('Please reload the form and try again.');
-  const formVersion = String(form.formVersion || '');
-  if (!['', '4'].includes(formVersion)) throw new Error('Please reload the form and try again.');
-  const currentForm = formVersion === '4';
-  const talkChoice = String(form.considerForTalk || '');
-  if (currentForm && type === 'abstract' && !['yes', 'no'].includes(talkChoice)) throw new Error('Please choose Yes or No for consideration as a Selected Speaker.');
-  const considerForTalk = type !== 'abstract' ? 'Not applicable' : currentForm ? (talkChoice === 'yes' ? 'Yes' : 'No') : 'Not provided';
-  const consentChoice = String(form.recordingConsent || '');
-  if (currentForm && !['', 'yes'].includes(consentChoice)) throw new Error('Please review the recording consent checkbox and try again.');
-  const recordingConsent = currentForm ? (consentChoice === 'yes' ? 'Yes' : 'No') : 'Not provided';
-  const consentRecordedAt = recordingConsent === 'Yes' ? receivedAt : null;
-  const consentWordingVersion = currentForm ? RECORDING_CONSENT_VERSION : '';
-  const abstractTitle = type === 'abstract' ? text_(form.abstractTitle, 500) : '';
-  const abstractText = type === 'abstract' ? text_(form.abstractText, 30000) : '';
-  const upload = type === 'abstract' && form.attachment && typeof form.attachment.getBytes === 'function' ? form.attachment : null;
-  const bytes = upload ? upload.getBytes() : [];
-  const originalName = bytes.length ? upload.getName() : '';
-  const extension = originalName.split('.').pop().toLowerCase();
-  if (bytes.length > 10 * 1024 * 1024) throw new Error('The attachment must be 10 MB or smaller.');
-  if (bytes.length && !['pdf', 'doc', 'docx', 'txt'].includes(extension)) throw new Error('Please upload a PDF, Word document, or text file.');
-  if (type === 'abstract' && !abstractText && !bytes.length) throw new Error('Please paste your abstract or upload an abstract document.');
+  const requestId = String(form && form.requestId || '');
+  if (!form || !/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(requestId) || form.website) throw new Error('Please reload the form and try again.');
   const lock = LockService.getScriptLock();
   if (!lock.tryLock(30000)) throw new Error('Registration is busy. Please try again in a moment.');
   try {
@@ -63,6 +30,42 @@ function submitRegistration(form) {
       const match = sheet.getRange(2, 13, count - 1, 1).createTextFinder(requestId).matchEntireCell(true).findNext();
       if (match) return {ok: true, registrationId: sheet.getRange(match.getRow(), 1).getValue(), participation: sheet.getRange(match.getRow(), 6).getValue() === 'Abstract submission' ? 'abstract' : 'audience', duplicate: true};
     }
+    // Existing receipts remain retrievable, but only the current form can create a record.
+    const formVersion = String(form.formVersion || '');
+    if (formVersion !== '5') inputError_('This registration form has been updated. Please reload the page and complete the current form.');
+    const firstName = text_(form.firstName, 100);
+    const lastName = text_(form.lastName, 100);
+    const name = [firstName, lastName].join(' ');
+    if (!firstName || !lastName) inputError_('Please enter your first name and last name.');
+    const gender = text_(form.gender, 50);
+    if (!['Female', 'Male', 'Non-binary', 'Prefer not to say'].includes(gender)) inputError_('Please choose a gender option. You may select Prefer not to say.');
+    const title = text_(form.title, 80);
+    const email = text_(form.email, 254).toLowerCase();
+    const affiliation = text_(form.affiliation, 300);
+    if (!affiliation || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) inputError_('Please enter a valid email address and affiliation.');
+    const type = String(form.participation || '');
+    if (!['audience', 'abstract'].includes(type)) inputError_('Please choose how you would like to take part.');
+    if (String(form.recordingConsent || '') !== 'yes') inputError_('Recording consent is required to register. Please review and select the recording consent checkbox.');
+    const recordingConsent = 'Yes';
+    const consentRecordedAt = receivedAt;
+    const consentWordingVersion = RECORDING_CONSENT_VERSION;
+    const talkChoice = String(form.considerForTalk || '');
+    if (type === 'abstract' && !['yes', 'no'].includes(talkChoice)) inputError_('Please choose Yes or No for consideration as a Selected Speaker.');
+    const considerForTalk = type === 'abstract' ? (talkChoice === 'yes' ? 'Yes' : 'No') : 'Not applicable';
+    const abstractTitle = type === 'abstract' ? text_(form.abstractTitle, 500) : '';
+    if (type === 'abstract' && !abstractTitle) inputError_('Please enter your abstract title.');
+    const abstractMethod = type === 'abstract' ? String(form.abstractMethod || '') : '';
+    if (type === 'abstract' && !['text', 'upload'].includes(abstractMethod)) inputError_('Please choose Text or Upload your abstract.');
+    // Only the selected method is read and persisted; inactive inputs cannot satisfy it.
+    const abstractText = abstractMethod === 'text' ? text_(form.abstractText, 30000) : '';
+    const upload = abstractMethod === 'upload' && form.attachment && typeof form.attachment.getBytes === 'function' ? form.attachment : null;
+    const bytes = upload ? upload.getBytes() : [];
+    const originalName = bytes.length ? upload.getName() : '';
+    const extension = originalName.split('.').pop().toLowerCase();
+    if (abstractMethod === 'text' && !abstractText) inputError_('Please enter your abstract text.');
+    if (abstractMethod === 'upload' && !bytes.length) inputError_('Please upload your abstract document.');
+    if (bytes.length > 10 * 1024 * 1024) inputError_('The attachment must be 10 MB or smaller.');
+    if (bytes.length && !['pdf', 'doc', 'docx', 'txt'].includes(extension)) inputError_('Please upload a PDF, Word document, or text file.');
     if (type === 'abstract' && receivedAt.getTime() >= ABSTRACT_CUTOFF) {
       const deadlineError = new Error('Abstract submissions closed on Tuesday, 24 November 2026 at 11:59 PM UAE time (GST, UTC+4). You can still register as an audience member.');
       deadlineError.code = 'ABSTRACT_DEADLINE';
@@ -83,7 +86,7 @@ function submitRegistration(form) {
       attachmentUrl = file.getUrl();
     }
     const now = receivedAt;
-    const metadata = {registrationId: id, requestId, submittedAt: now.toISOString(), name, firstName, lastName, gender, title, email, affiliation, participation: type, abstractTitle, abstractText, originalFileName: originalName, savedFileName, attachmentUrl, formVersion: formVersion || 'legacy', considerForTalk, recordingConsent, consentRecordedAt: consentRecordedAt ? consentRecordedAt.toISOString() : null, consentWordingVersion, consentWording: currentForm ? RECORDING_CONSENT_TEXT : ''};
+    const metadata = {registrationId: id, requestId, submittedAt: now.toISOString(), name, firstName, lastName, gender, title, email, affiliation, participation: type, abstractTitle, abstractText, originalFileName: originalName, savedFileName, attachmentUrl, formVersion, abstractMethod, considerForTalk, recordingConsent, consentRecordedAt: consentRecordedAt.toISOString(), consentWordingVersion, consentWording: RECORDING_CONSENT_TEXT, consentRequired: true, consentDefaultChecked: true};
     saveText_(folder, 'registration.json', JSON.stringify(metadata, null, 2));
     if (abstractText) saveText_(folder, 'abstract.txt', (abstractTitle ? abstractTitle + '\n\n' : '') + abstractText);
     const row = [id, now, name, email, affiliation, type === 'abstract' ? 'Abstract submission' : 'Audience', abstractTitle, abstractText, attachmentUrl, folder.getUrl(), type === 'abstract' ? 'Pending review' : 'Registered', '', requestId, firstName, lastName, gender, title, considerForTalk, recordingConsent, consentRecordedAt || '', consentWordingVersion];
@@ -96,7 +99,7 @@ function submitRegistration(form) {
     SpreadsheetApp.flush();
     return {ok: true, registrationId: id, participation: type};
   } catch (error) {
-    if (error && error.code === 'ABSTRACT_DEADLINE') throw error;
+    if (error && ['ABSTRACT_DEADLINE', 'REGISTRATION_INPUT'].includes(error.code)) throw error;
     console.error('Registration save failed: ' + String(error && error.message || error));
     throw new Error('We could not confirm your registration. Your entries are still here; please try again. If the problem continues, contact hala.alsaleh@mbzuai.ac.ae.');
   } finally {
@@ -106,8 +109,13 @@ function submitRegistration(form) {
 
 function text_(value, limit) {
   const text = String(value || '').trim();
-  if (text.length > limit) throw new Error('One of your entries is too long. Please shorten it and try again.');
+  if (text.length > limit) inputError_('One of your entries is too long. Please shorten it and try again.');
   return text;
+}
+function inputError_(message) {
+  const error = new Error(message);
+  error.code = 'REGISTRATION_INPUT';
+  throw error;
 }
 function safeName_(value) { return String(value).replace(/[\\/:*?"<>|\u0000-\u001f]/g, '-').slice(0, 150); }
 function safeCell_(value) { return /^[=+\-@]/.test(value) ? "'" + value : value; }

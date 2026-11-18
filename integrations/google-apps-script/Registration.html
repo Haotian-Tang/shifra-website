@@ -13,14 +13,14 @@
 <body>
   <form id="registration-form">
     <input type="hidden" name="requestId" id="request-id">
-    <input type="hidden" name="formVersion" value="4">
+    <input type="hidden" name="formVersion" value="5">
     <div class="trap" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
     <div class="fields">
       <div class="name-fields">
         <label for="first-name">First name <span class="required">(required)</span><input id="first-name" name="firstName" type="text" autocomplete="given-name" maxlength="100" required></label>
         <label for="last-name">Last name <span class="required">(required)</span><input id="last-name" name="lastName" type="text" autocomplete="family-name" maxlength="100" required></label>
       </div>
-      <label for="gender">Gender <span class="required">(optional)</span><select id="gender" name="gender"><option value="">Select an option</option><option>Female</option><option>Male</option><option>Non-binary</option><option>Prefer not to say</option></select></label>
+      <label for="gender">Gender <span class="required">(required)</span><select id="gender" name="gender" required><option value="">Select an option</option><option>Female</option><option>Male</option><option>Non-binary</option><option>Prefer not to say</option></select></label>
       <label for="title">Title <span class="required">(optional)</span><input id="title" name="title" type="text" autocomplete="honorific-prefix" maxlength="80" placeholder="e.g. Dr, Prof, Mr, Ms"></label>
       <label for="email">Email <span class="required">(required)</span><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required></label>
       <label for="affiliation">Affiliation <span class="required">(required)</span><input id="affiliation" name="affiliation" type="text" autocomplete="organization" maxlength="300" required></label>
@@ -32,14 +32,17 @@
     <p class="deadline"><strong>Abstract submission deadline:</strong> Tuesday, 24 November 2026 at 11:59 PM UAE time (GST, UTC+4).</p>
     <fieldset id="abstract-fields" hidden disabled>
       <h3>Your abstract</h3>
-      <p class="hint abstract-intro">Paste your abstract or upload a document. You can also provide both. Abstracts are reviewed on a rolling basis for poster presentations and selected talks.</p>
+      <p class="hint abstract-intro">Choose Text to enter your abstract, or Upload your abstract to attach a document. Abstracts are reviewed on a rolling basis for poster presentations and selected talks.</p>
       <div class="fields">
-        <label for="abstract-title">Abstract title <span class="required">(optional)</span><input id="abstract-title" name="abstractTitle" type="text" maxlength="500"></label>
-        <label for="abstract-text">Abstract text<textarea id="abstract-text" name="abstractText" maxlength="30000" rows="7" aria-describedby="abstract-help"></textarea></label>
-        <label for="attachment">Upload your abstract<input id="attachment" name="attachment" type="file" accept=".pdf,.doc,.docx,.txt" aria-describedby="file-help"></label>
+        <label for="abstract-title">Abstract title <span class="required">(required)</span><input id="abstract-title" name="abstractTitle" type="text" maxlength="500" required></label>
+        <fieldset><legend>How would you like to submit your abstract? <span class="required">(required)</span></legend><div class="choices">
+          <label class="choice"><input type="radio" name="abstractMethod" value="text" required>Text</label>
+          <label class="choice"><input type="radio" name="abstractMethod" value="upload" required>Upload your abstract</label>
+        </div></fieldset>
+        <div id="abstract-text-field" hidden><label for="abstract-text">Abstract text <span class="required">(required)</span><textarea id="abstract-text" name="abstractText" maxlength="30000" rows="7" aria-describedby="abstract-help" disabled></textarea></label></div>
+        <div id="abstract-upload-field" hidden><label for="attachment">Upload your abstract <span class="required">(required)</span><input id="attachment" name="attachment" type="file" accept=".pdf,.doc,.docx,.txt" aria-describedby="file-help" disabled></label><p id="file-help" class="hint">PDF, Word (.doc or .docx), or text (.txt). Maximum file size: 10 MB.</p></div>
       </div>
-      <p id="file-help" class="hint">PDF, Word (.doc or .docx), or text (.txt). Maximum file size: 10 MB.</p>
-      <p id="abstract-help" class="hint">Provide abstract text or an attachment before submitting.</p>
+      <p id="abstract-help" class="hint">Complete the input for your selected submission method before submitting.</p>
       <fieldset class="talk-options" aria-describedby="talk-help">
         <legend>Would you like to be considered as a Selected Speaker for a 10-minute presentation? <span class="required">(required)</span></legend>
         <p id="talk-help" class="hint">Expressing interest does not guarantee selection. The organisers will review abstracts and confirm selected speakers by email.</p>
@@ -50,8 +53,8 @@
       </fieldset>
     </fieldset>
     <fieldset class="recording-consent">
-      <legend>Recording consent <span class="required">(optional)</span></legend>
-      <label class="choice"><input type="checkbox" id="recording-consent" name="recordingConsent" value="yes"><span>I understand that the SHIFRA Symposium may be audio- and video-recorded. I consent to the recording of my participation and to the use of these recordings by the SHIFRA organisers for symposium documentation and educational purposes.</span></label>
+      <legend>Recording consent <span class="required">(required)</span></legend>
+      <label class="choice"><input type="checkbox" id="recording-consent" name="recordingConsent" value="yes" checked required><span>I understand that the SHIFRA Symposium may be audio- and video-recorded. I consent to the recording of my participation and to the use of these recordings by the SHIFRA organisers for symposium documentation and educational purposes.</span></label>
     </fieldset>
     <p class="privacy">Your information will be used by the SHIFRA organisers to manage attendance and review abstracts.</p>
     <button id="submit-button" type="submit">Register</button>
@@ -68,17 +71,32 @@
     document.getElementById('request-id').value=crypto.randomUUID();
     function resize(){window.top.postMessage({type:'SHIFRA_REGISTRATION_HEIGHT',height:Math.ceil(document.body.getBoundingClientRect().height)},'*');}
     new ResizeObserver(resize).observe(document.body);
-    function updateChoice(){const wantsAbstract=form.elements.participation.value==='abstract';fields.hidden=!wantsAbstract;fields.disabled=!wantsAbstract;abstract.setCustomValidity('');attachment.setCustomValidity('');button.textContent=wantsAbstract?'Register & submit abstract':'Register';resize();}
+    function updateMethod(){
+      const wantsAbstract=form.elements.participation.value==='abstract';
+      const method=form.elements.abstractMethod.value;
+      const useText=wantsAbstract&&method==='text';
+      const useUpload=wantsAbstract&&method==='upload';
+      document.getElementById('abstract-text-field').hidden=!useText;
+      document.getElementById('abstract-upload-field').hidden=!useUpload;
+      abstract.disabled=!useText;abstract.required=useText;
+      attachment.disabled=!useUpload;attachment.required=useUpload;
+      abstract.setCustomValidity('');attachment.setCustomValidity('');resize();
+    }
+    function updateChoice(){const wantsAbstract=form.elements.participation.value==='abstract';fields.hidden=!wantsAbstract;fields.disabled=!wantsAbstract;button.textContent=wantsAbstract?'Register & submit abstract':'Register';updateMethod();}
     form.querySelectorAll('[name=participation]').forEach(radio=>radio.addEventListener('change',updateChoice));
+    form.querySelectorAll('[name=abstractMethod]').forEach(radio=>radio.addEventListener('change',updateMethod));
     abstract.addEventListener('input',()=>abstract.setCustomValidity(''));
     attachment.addEventListener('change',()=>{abstract.setCustomValidity('');attachment.setCustomValidity('');});
+    ['first-name','last-name','affiliation','abstract-title'].forEach(id=>document.getElementById(id).addEventListener('input',event=>event.target.setCustomValidity('')));
     let attempt=0;
     form.addEventListener('submit',event=>{
       event.preventDefault();
       const wantsAbstract=form.elements.participation.value==='abstract';
+      const method=form.elements.abstractMethod.value;
       const file=attachment.files[0];
-      abstract.setCustomValidity(wantsAbstract&&!abstract.value.trim()&&!file?'Please paste your abstract or upload a document.':'');
-      attachment.setCustomValidity(wantsAbstract&&file&&(file.size>10*1024*1024||! /\.(pdf|doc|docx|txt)$/i.test(file.name))?'Choose a PDF, Word document, or text file of 10 MB or less.':'');
+      abstract.setCustomValidity(wantsAbstract&&method==='text'&&!abstract.value.trim()?'Please enter your abstract text.':'');
+      attachment.setCustomValidity(wantsAbstract&&method==='upload'&&(!file||file.size===0||file.size>10*1024*1024||! /\.(pdf|doc|docx|txt)$/i.test(file.name))?'Choose a non-empty PDF, Word document, or text file of 10 MB or less.':'');
+      ['first-name','last-name','affiliation','abstract-title'].forEach(id=>{const input=document.getElementById(id);input.setCustomValidity((id!=='abstract-title'||wantsAbstract)&&!input.value.trim()?'Please complete this required field.':'');});
       if(!form.reportValidity())return;
       if(!window.google||!google.script||!google.script.run){status.className='status error';status.textContent='Preview only. Registration has not been saved.';resize();return;}
       const current=++attempt;
