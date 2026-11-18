@@ -43,8 +43,8 @@ export const event = {
     "Poster presentations and one-minute pitches give emerging researchers a place to share their work and receive feedback. Informal conversations make room for new connections and future collaborations across our growing genomics and AI community.",
   contactEmail: "hala.alsaleh@mbzuai.ac.ae" as string | null,
   banner: {
-    image: "images/shifra-banner.webp" as string | null,
-    alt: "Genomics and AI artwork featuring a neural human silhouette, DNA, insects, and a plant",
+    image: "images/shifra-banner-branded.webp" as string | null,
+    alt: "SHIFRA — UAE Genomics & AI Symposium, with the English and Arabic wordmark over genomics artwork featuring a neural human silhouette, DNA, insects, and a plant",
   },
   poster: {
     image: "images/shifra-poster.webp" as string | null,
