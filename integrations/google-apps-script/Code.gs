@@ -8,11 +8,48 @@ const ABSTRACT_CUTOFF = Date.parse('2026-11-25T00:00:00+04:00');
 const RECORDING_CONSENT_VERSION = 'recording-v1';
 const RECORDING_CONSENT_TEXT = 'I understand that the SHIFRA Symposium may be audio- and video-recorded. I consent to the recording of my participation and to the use of these recordings by the SHIFRA organisers for symposium documentation and educational purposes.';
 
-function doGet() {
+function doGet(e) {
+  if (e && e.parameter && e.parameter.view === 'site-counter') return siteCounterResponse_(e.parameter.nonce);
   return HtmlService.createHtmlOutputFromFile('Registration')
     .setTitle('Register for SHIFRA')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function siteCounterResponse_(nonce) {
+  const payload = {type: 'shifra:page-views', nonce: '', ok: false};
+  // Only a fixed-length random hexadecimal value is echoed into this response.
+  if (typeof nonce === 'string' && /^[a-f0-9]{32}$/.test(nonce)) {
+    payload.nonce = nonce;
+    try {
+      payload.count = incrementSitePageViews_();
+      payload.ok = true;
+    } catch (error) {
+      // An optional counter failure must not affect registration or invent a total.
+    }
+  }
+  const html = '<!doctype html><html><head><meta charset="utf-8"></head><body><script>window.top.postMessage(' + JSON.stringify(payload) + ',"https://shifra.ae");</script></body></html>';
+  return HtmlService.createHtmlOutput(html)
+    .setTitle('SHIFRA page views')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function incrementSitePageViews_() {
+  const lock = LockService.getScriptLock();
+  // Registration uses this same lock; never queue counter requests behind it.
+  if (!lock.tryLock(100)) throw new Error('Page counter is busy.');
+  try {
+    const properties = PropertiesService.getScriptProperties();
+    const raw = properties.getProperty('SHIFRA_PAGE_VIEWS_V1');
+    if (raw !== null && (typeof raw !== 'string' || !/^(0|[1-9][0-9]*)$/.test(raw))) throw new Error('Invalid page count.');
+    const count = raw === null ? 0 : Number(raw);
+    if (!Number.isSafeInteger(count) || count < 0 || count >= Number.MAX_SAFE_INTEGER) throw new Error('Invalid page count.');
+    const next = count + 1;
+    properties.setProperty('SHIFRA_PAGE_VIEWS_V1', String(next));
+    return next;
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 function submitRegistration(form) {

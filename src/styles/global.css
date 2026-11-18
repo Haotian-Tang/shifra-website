@@ -611,6 +611,12 @@ main:focus {
 .footer-contact {
   overflow-wrap: anywhere;
 }
+.site-footer .page-views {
+  margin-top: 9px;
+  font-size: 11px;
+  color: #6b766f;
+  font-variant-numeric: tabular-nums;
+}
 
 /* Home introduction and poster sit together, before location and thanks. */
 .home-actions {

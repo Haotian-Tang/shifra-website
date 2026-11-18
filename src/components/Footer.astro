@@ -1,8 +1,10 @@
 ---
 import { event } from '../data/event';
+import PageViews from './PageViews.astro';
 ---
 <footer class="site-footer container">
   <p><strong>{event.name}</strong> · {event.displayDate}</p>
   <p>{event.venue} · {event.institution} · {event.city}</p>
   {event.contactEmail && <p class="footer-contact"><Fragment set:html="<!--email_off-->" />Contact: <span>{event.contactEmail}</span><Fragment set:html="<!--/email_off-->" /></p>}
+  <PageViews />
 </footer>
