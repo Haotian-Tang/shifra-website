@@ -2,6 +2,7 @@ export interface Person {
   name: string;
   initials: string;
   title: string | null;
+  academicTitle?: string;
   affiliation: string | null;
   biography: string | null;
   portrait: string | null;
@@ -63,6 +64,7 @@ export const organizers: Person[] = [
     name: "Hala Alsaleh",
     initials: "HA",
     title: "Founder",
+    academicTitle: "MSc Student",
     affiliation: null,
     biography: null,
     portrait: "images/committee/hala-alsaleh.webp",
@@ -71,7 +73,8 @@ export const organizers: Person[] = [
   {
     name: "Haotian Tang",
     initials: "HT",
-    title: "Organizer",
+    title: "Co-founder",
+    academicTitle: "PhD Student",
     affiliation: null,
     biography: null,
     portrait: "images/committee/haotian-tang.webp",
@@ -81,6 +84,7 @@ export const organizers: Person[] = [
     name: "Eduardo Beltrame",
     initials: "EB",
     title: "Director",
+    academicTitle: "Prof.",
     affiliation: null,
     biography: null,
     portrait: "images/committee/eduardo-beltrame.webp",

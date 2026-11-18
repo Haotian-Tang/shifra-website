@@ -7,6 +7,7 @@ const { person } = Astro.props;
 <article class="person-panel">
   {person.portrait && <div class="person-portrait"><img src={contentUrl(person.portrait)} alt={person.name} width="240" height="240" loading="lazy" /></div>}
   <h3 class="person-name">{person.profileUrl ? <a href={contentUrl(person.profileUrl)}>{person.name}</a> : person.name}</h3>
+  {person.academicTitle && <p>{person.academicTitle}</p>}
   <p>{person.title || 'Organizing Committee'}</p>
   {person.affiliation && <p>{person.affiliation}</p>}
   {person.biography && <p class="person-bio">{person.biography}</p>}
