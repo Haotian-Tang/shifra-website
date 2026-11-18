@@ -61,7 +61,7 @@ const unfoldedCalendar = calendar.replace(/\r\n[ \t]/g, '');
 assert(calendar.endsWith('\r\n') && !/(?<!\r)\n/.test(calendar), "Calendar must use CRLF line endings");
 assert(calendar.split('\r\n').every(line => Buffer.byteLength(line, 'utf8') <= 75), "Calendar lines must be folded within 75 UTF-8 octets");
 assert.equal((unfoldedCalendar.match(/^BEGIN:VEVENT$/gm) || []).length, 1, "Calendar must contain one symposium event");
-assert(unfoldedCalendar.includes('DTSTART:20261127T043000Z\r\n') && unfoldedCalendar.includes('DTEND:20261127T120000Z\r\n'), "Calendar must represent 27 November, 08:30–16:00 UAE time");
+assert(unfoldedCalendar.includes('DTSTART:20261127T043000Z\r\n') && unfoldedCalendar.includes('DTEND:20261127T121500Z\r\n'), "Calendar must represent 27 November, 08:30–16:15 UAE time");
 assert(unfoldedCalendar.includes('LOCATION:Lecture Hall 1 & 2') && unfoldedCalendar.includes('Mohamed bin Zayed University of Artificial Intelligence') && unfoldedCalendar.includes('Abu Dhabi'), "Calendar must include the full venue");
 assert(unfoldedCalendar.includes(`URL:${documentUrl.href}\r\n`), "Calendar must link to the symposium website");
 assert(!hero.includes('Symposium programme') && !hero.includes('View agenda'), "Remove the old hero programme label and agenda action");
@@ -174,10 +174,10 @@ for (const time of [
   "14:20",
   "14:30",
   "14:40",
-  "14:55",
-  "15:15",
-  "15:35",
-  "15:55",
+  "15:10",
+  "15:30",
+  "15:50",
+  "16:10",
 ]) {
   assert(
     agenda.includes(`T${time}:00+04:00`),
