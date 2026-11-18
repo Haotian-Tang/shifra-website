@@ -9,7 +9,10 @@ import { sitePath, contentUrl } from '../lib/urls';
 ---
 <Layout title={event.theme} description={`SHIFRA Symposium brings genomics and artificial intelligence into conversation. ${event.displayDate} at ${event.venue}, ${event.institution}, ${event.city}. Explore the programme and register to attend or submit an abstract for posters and selected talks.`}>
   <div class="event-banner">
-    <div class="banner-panel">{event.banner.image ? <img src={contentUrl(event.banner.image)} alt={event.banner.alt} width="2400" height="1350" fetchpriority="high" decoding="async" /> : <span>Symposium banner coming soon</span>}</div>
+    <div class="banner-panel">{event.banner.image ? <picture>
+      <source media="(max-width: 767px)" srcset={contentUrl(event.banner.mobileImage)} width="2400" height="1350" />
+      <img src={contentUrl(event.banner.image)} alt={event.banner.alt} width="2172" height="724" fetchpriority="high" decoding="async" />
+    </picture> : <span>Symposium banner coming soon</span>}</div>
   </div>
   <section class="home-hero" aria-labelledby="event-title">
     <div class="home-intro container">
