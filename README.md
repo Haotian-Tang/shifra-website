@@ -33,7 +33,7 @@ These commands build local files; they do not activate the domain or DNS.
 
 ## Content and page structure
 
-The home page contains About, Agenda, Registration, Location, Acknowledgement, and Countdown. The hero has one **Register for our symposium** action and displays the abstract deadline: **Tuesday, 24 November 2026 at 11:59 PM UAE time (GST, UTC+4)**. The two navigation links are **Home** and **Committee & Speakers**; committee and speaker cards live at `people/`. Printing the agenda hides the other home sections. The updated programme follows the organiser-supplied **SHIFRA Symposium.pdf** of 17 November 2026: 22 entries, three scientific sessions, 08:30–16:15 UAE time, with speaker names withheld until formally confirmed.
+The home page contains About, Agenda, Registration, Location, Acknowledgement, and Countdown. The hero has one **Register for our symposium** action and displays the abstract deadline: **Tuesday, 24 November 2026 at 11:59 PM UAE time (GST, UTC+4)**. The two navigation links are **Home** and **Committee & Speakers**; committee and speaker cards live at `people/`. Printing the agenda hides the other home sections. The updated programme follows the organiser-supplied **SHIFRA Symposium.pdf** of 17 November 2026: 19 displayed entries, including one 40-minute block for four selected-speaker talks, three scientific sessions, 08:30–16:15 UAE time, with speaker names withheld until formally confirmed.
 
 | Content                                                   | File / setting                                                                               |
 | --------------------------------------------------------- | -------------------------------------------------------------------------------------------- |

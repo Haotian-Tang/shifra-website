@@ -152,8 +152,8 @@ await walk(directory);
 const agenda = html;
 assert.equal(
   (agenda.match(/class="agenda-entry"/g) || []).length,
-  22,
-  "All 22 updated programme entries must render",
+  19,
+  "All 19 updated programme entries must render",
 );
 for (const time of [
   "08:30",
@@ -170,9 +170,6 @@ for (const time of [
   "13:20",
   "13:40",
   "14:00",
-  "14:10",
-  "14:20",
-  "14:30",
   "14:40",
   "15:10",
   "15:30",
@@ -187,5 +184,5 @@ for (const time of [
 for (const name of ["Hala Alsaleh", "Haotian Tang", "Eduardo Beltrame"])
   assert(people.includes(name));
 console.log(
-  `Verified 2 content pages, 5 legacy section redirects, 22 UAE-time agenda entries, pending-speaker notice, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
+  `Verified 2 content pages, 5 legacy section redirects, 19 UAE-time agenda entries, pending-speaker notice, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
 );
