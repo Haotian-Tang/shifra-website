@@ -10,7 +10,7 @@ const peoplePage = Astro.url.pathname.replace(/\/$/, '') === sitePath('people').
   </defs></svg>
   <div class="container header-brand">
     <a class="brand-link" href={sitePath()} aria-label="SHIFRA Symposium home"><Brand /></a>
-    <a class="institution-link" href="https://mbzuai.ac.ae/" target="_blank" rel="noopener noreferrer" aria-label={event.institution}><span class="logo-frame institution-logo"><img src={sitePath('images/logos/mbzuai-navy-blue.jpg')} alt={event.institution} width="1651" height="554" /></span></a>
+    <a class="institution-link" href="https://mbzuai.ac.ae/research/divisions/biological-life-sciences-division" target="_blank" rel="noopener noreferrer" aria-label={`${event.institution} — ${event.division}`}><span class="logo-frame institution-logo"><img src={sitePath('images/logos/mbzuai-bls.png')} alt={`${event.institution} — ${event.division}`} width="3614" height="574" /></span></a>
   </div>
   <nav class="site-navigation container" aria-label="Main navigation">
     <a href={sitePath()} aria-current={!peoplePage ? 'page' : undefined}>Home</a>

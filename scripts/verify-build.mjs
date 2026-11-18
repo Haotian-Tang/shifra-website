@@ -95,9 +95,9 @@ assert.equal((people.match(/class="person-panel speaker-panel"/g) || []).length,
 assert(people.includes("Speaker names will be announced once confirmed."), "Display the speaker confirmation notice");
 for (const match of people.matchAll(/\b(?:href|src)="([^"]+)"/g)) await verifyUrl(match[1], peopleUrl);
 assert(
-  html.includes("mbzuai-navy-blue.jpg") &&
-    !html.includes("mbzuai-original.jpg"),
-  "Use the supplied current MBZUAI logo",
+  html.includes("mbzuai-bls.png") &&
+    html.includes('href="https://mbzuai.ac.ae/research/divisions/biological-life-sciences-division"'),
+  "Use the supplied MBZUAI BLS logo linked to the division website",
 );
 assert(registrationUrl, "Configure the deployed Apps Script registration URL before publishing");
 const intake = new URL(registrationUrl);
