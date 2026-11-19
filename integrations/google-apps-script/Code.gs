@@ -9,11 +9,79 @@ const RECORDING_CONSENT_VERSION = 'recording-v1';
 const RECORDING_CONSENT_TEXT = 'I understand that the SHIFRA Symposium may be audio- and video-recorded. I consent to the recording of my participation and to the use of these recordings by the SHIFRA organisers for symposium documentation and educational purposes.';
 
 function doGet(e) {
+  if (e && e.parameter && e.parameter.view === 'unique-counter') return uniqueCounterResponse_(e.parameter.nonce, e.parameter.visitor);
   if (e && e.parameter && e.parameter.view === 'site-counter') return siteCounterResponse_(e.parameter.nonce);
   return HtmlService.createHtmlOutputFromFile('Registration')
     .setTitle('Register for SHIFRA')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function uniqueCounterResponse_(nonce, visitor) {
+  const payload = {type: 'shifra:unique-visitors', nonce: '', ok: false};
+  if (typeof nonce === 'string' && nonce.length === 32 && /^[a-f0-9]{32}$/.test(nonce)) {
+    payload.nonce = nonce;
+    const readOnly = visitor === undefined || visitor === null || visitor === '';
+    if (readOnly || (typeof visitor === 'string' && visitor.length === 32 && /^[a-f0-9]{32}$/.test(visitor))) {
+      try {
+        payload.count = uniqueVisitorTotal_(readOnly ? null : visitor);
+        payload.ok = true;
+      } catch (error) {
+        // Preserve existing totals on failure; never manufacture a replacement identity.
+      }
+    }
+  }
+  const html = '<!doctype html><html><head><meta charset="utf-8"></head><body><script>window.top.postMessage(' + JSON.stringify(payload) + ',"https://shifra.ae");</script></body></html>';
+  return HtmlService.createHtmlOutput(html)
+    .setTitle('SHIFRA unique visitors')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+function uniqueVisitorTotal_(visitor) {
+  const hash = visitor === null ? null : Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, visitor)
+    .map(b => ('0' + ((b + 256) % 256).toString(16)).slice(-2)).join('').slice(0, 32);
+  const prefix = 'SHIFRA_UNIQUE_VISITORS_V1_';
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(100)) throw new Error('Visitor counter is busy.');
+  try {
+    const properties = PropertiesService.getScriptProperties();
+    const stored = properties.getProperties();
+    const shards = Object.create(null);
+    let count = 0;
+    let storageBytes = 0;
+    for (const name of Object.keys(stored)) {
+      if (!name.startsWith(prefix)) continue;
+      const shard = name.slice(prefix.length);
+      if (shard.length !== 2 || !/^[a-f0-9]{2}$/.test(shard)) throw new Error('Invalid visitor shard.');
+      const raw = stored[name];
+      if (typeof raw !== 'string' || raw.length > 8000) throw new Error('Invalid visitor shard.');
+      const hashes = JSON.parse(raw);
+      if (!Array.isArray(hashes)) throw new Error('Invalid visitor shard.');
+      const seen = new Set();
+      for (const value of hashes) {
+        if (typeof value !== 'string' || value.length !== 32 || !/^[a-f0-9]{32}$/.test(value) || !value.startsWith(shard) || seen.has(value)) throw new Error('Invalid visitor shard.');
+        seen.add(value);
+      }
+      // Validated hexadecimal JSON and fixed property names contain only ASCII.
+      storageBytes += name.length + raw.length;
+      if (storageBytes > 400000) throw new Error('Visitor counter storage is full.');
+      shards[shard] = hashes;
+      count += hashes.length;
+    }
+    if (hash === null) return count;
+    const shard = hash.slice(0, 2);
+    const hashes = shards[shard] || [];
+    if (hashes.includes(hash)) return count;
+    const name = prefix + shard;
+    const next = JSON.stringify(hashes.concat(hash));
+    const priorBytes = Object.prototype.hasOwnProperty.call(stored, name) ? name.length + stored[name].length : 0;
+    if (next.length > 8000 || storageBytes - priorBytes + name.length + next.length > 400000) throw new Error('Visitor counter storage is full.');
+    // The count is derived from these sets, so a single shard write is atomic.
+    properties.setProperty(name, next);
+    return count + 1;
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 function siteCounterResponse_(nonce) {

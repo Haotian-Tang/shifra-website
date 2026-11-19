@@ -611,7 +611,7 @@ main:focus {
 .footer-contact {
   overflow-wrap: anywhere;
 }
-.site-footer .page-views {
+.site-footer .visitor-count {
   margin-top: 9px;
   font-size: 11px;
   color: #6b766f;

@@ -1,0 +1,64 @@
+---
+import { registrationUrl } from '../data/registration';
+---
+<p
+  class="visitor-count"
+  data-visitor-counter
+  data-counter-url={registrationUrl}
+  title="Approximate unique browsers since 19 November 2026. Refreshes and page navigation do not add visitors. Another device, browser, or cleared browser data may count again."
+  hidden
+>Unique visitors: <span data-visitor-total></span></p>
+
+<script>
+  import { getVisitorIdentity, randomVisitorToken } from '../lib/visitorIdentity';
+
+  async function showVisitorCount() {
+    const counter = document.querySelector<HTMLElement>('[data-visitor-counter]');
+    const endpoint = counter?.dataset.counterUrl;
+    // Preview builds must never increment the production total.
+    if (!counter || !endpoint || window.location.origin !== 'https://shifra.ae') return;
+    const visitor = await getVisitorIdentity();
+    const nonce = randomVisitorToken();
+    const url = new URL(endpoint);
+    url.searchParams.set('view', 'unique-counter');
+    url.searchParams.set('nonce', nonce);
+    // With storage disabled, read the total without inventing a new identity
+    // on every refresh. The server deduplicates all requests with a stored ID.
+    if (visitor) url.searchParams.set('visitor', visitor);
+
+    const frame = document.createElement('iframe');
+    frame.hidden = true;
+    frame.title = 'Anonymous unique-visitor counter';
+    frame.tabIndex = -1;
+    frame.setAttribute('aria-hidden', 'true');
+    frame.referrerPolicy = 'no-referrer';
+
+    const cleanup = () => {
+      window.removeEventListener('message', receiveCount);
+      window.clearTimeout(timeout);
+      frame.remove();
+    };
+    const receiveCount = (event: MessageEvent) => {
+      // Apps Script nests the HTML inside a googleusercontent.com frame.
+      // Verify its origin plus this request's random nonce, not the wrapper's window.
+      if (!/^https:\/\/[a-z0-9-]+\.googleusercontent\.com$/i.test(event.origin)) return;
+      const data = event.data;
+      if (!data || data.type !== 'shifra:unique-visitors' || data.nonce !== nonce) return;
+      if (data.ok === true && Number.isSafeInteger(data.count) && data.count >= 0) {
+        const total = counter.querySelector('[data-visitor-total]');
+        if (total) {
+          total.textContent = data.count.toLocaleString('en-US');
+          counter.hidden = false;
+        }
+      }
+      cleanup();
+    };
+    window.addEventListener('message', receiveCount);
+    const timeout = window.setTimeout(cleanup, 20000);
+    // Count even if visitors never scroll to the footer. Each request uses the
+    // same browser ID, including after a refresh or an interrupted response.
+    frame.src = url.href;
+    counter.after(frame);
+  }
+  void showVisitorCount().catch(() => { /* Optional counter stays hidden. */ });
+</script>
