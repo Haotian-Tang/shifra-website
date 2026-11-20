@@ -163,7 +163,7 @@ function submitRegistration(form) {
     if (type === 'abstract' && !['text', 'upload'].includes(abstractMethod)) inputError_('Please choose Text or Upload your abstract.');
     // Only the selected method is read and persisted; inactive inputs cannot satisfy it.
     const abstractText = abstractMethod === 'text' ? text_(form.abstractText, 30000) : '';
-    const upload = abstractMethod === 'upload' && form.attachment && typeof form.attachment.getBytes === 'function' ? form.attachment : null;
+    const upload = abstractMethod === 'upload' ? registrationUpload_(form) : null;
     const bytes = upload ? upload.getBytes() : [];
     const originalName = bytes.length ? upload.getName() : '';
     const extension = originalName.split('.').pop().toLowerCase();
@@ -210,6 +210,37 @@ function submitRegistration(form) {
   } finally {
     lock.releaseLock();
   }
+}
+
+function registrationUpload_(form) {
+  // Older open forms send a native Blob; the current client sends an ordinary RPC object.
+  if (!Object.prototype.hasOwnProperty.call(form, 'attachmentData')) {
+    return form.attachment && typeof form.attachment.getBytes === 'function' ? form.attachment : null;
+  }
+  const data = form.attachmentData;
+  const unreadable = 'The attachment could not be read. Please select the file again and retry.';
+  if (!data || typeof data !== 'object' || Array.isArray(data) || typeof data.name !== 'string' || !data.name.trim() || data.name.length > 500 || typeof data.base64 !== 'string') inputError_(unreadable);
+  const types = {pdf: 'application/pdf', doc: 'application/msword', docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', txt: 'text/plain'};
+  const extension = data.name.split('.').pop().toLowerCase();
+  if (!Object.prototype.hasOwnProperty.call(types, extension)) inputError_('Please upload a PDF, Word document, or text file.');
+  const encoded = data.base64;
+  const maxBytes = 10 * 1024 * 1024;
+  if (!encoded.length) inputError_('Please upload your abstract document.');
+  if (encoded.length > Math.ceil(maxBytes / 3) * 4) inputError_('The attachment must be 10 MB or smaller.');
+  const padding = encoded.endsWith('==') ? 2 : encoded.endsWith('=') ? 1 : 0;
+  const bodyLength = encoded.length - padding;
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+  // Reject data URLs, whitespace, misplaced padding, and non-canonical padding bits.
+  // A simple character class avoids deep regex backtracking on large attachments.
+  if (encoded.length % 4 !== 0 || /[^A-Za-z0-9+\/]/.test(encoded.slice(0, bodyLength)) ||
+      (padding && (alphabet.indexOf(encoded.charAt(bodyLength - 1)) & (padding === 2 ? 15 : 3)) !== 0)) inputError_(unreadable);
+  const expectedBytes = encoded.length / 4 * 3 - padding;
+  if (expectedBytes > maxBytes) inputError_('The attachment must be 10 MB or smaller.');
+  let bytes;
+  try { bytes = Utilities.base64Decode(encoded); }
+  catch (error) { inputError_(unreadable); }
+  if (!bytes || bytes.length !== expectedBytes) inputError_(unreadable);
+  return Utilities.newBlob(bytes, types[extension], data.name);
 }
 
 function text_(value, limit) {

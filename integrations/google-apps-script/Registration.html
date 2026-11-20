@@ -89,8 +89,85 @@
     attachment.addEventListener('change',()=>{abstract.setCustomValidity('');attachment.setCustomValidity('');});
     ['first-name','last-name','affiliation','abstract-title'].forEach(id=>document.getElementById(id).addEventListener('input',event=>event.target.setCustomValidity('')));
     let attempt=0;
-    form.addEventListener('submit',event=>{
+    let busy=false;
+    let pendingPayload=null;
+    let originalControls=null;
+    function lockInputs(){
+      originalControls=Array.from(form.querySelectorAll('input,select,textarea,fieldset,button'),control=>({control,disabled:control.disabled}));
+      originalControls.forEach(({control})=>{control.disabled=true;});
+    }
+    function unlockInputs(){
+      if(originalControls)originalControls.forEach(({control,disabled})=>{control.disabled=disabled;});
+      originalControls=null;
+    }
+    function readAttachment(file){
+      return new Promise((resolve,reject)=>{
+        const reader=new FileReader();
+        reader.onerror=reader.onabort=()=>reject(new Error('We could not read your file. Please select the PDF, Word document, or text file again. Nothing has been submitted.'));
+        reader.onload=()=>{
+          const encoded=typeof reader.result==='string'?reader.result:'';
+          const marker=encoded.indexOf(';base64,');
+          if(marker<0){reject(new Error('We could not read your file. Please select it again. Nothing has been submitted.'));return;}
+          resolve(Object.freeze({name:file.name,base64:encoded.slice(marker+8)}));
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+    function editableError(error){
+      // Only explicit validation rejections are known to precede every storage write.
+      const message=String(error&&error.message||'').replace(/^Error: /,'');
+      const messages=[
+        'This registration form has been updated. Please reload the page and complete the current form.',
+        'Please enter your first name and last name.',
+        'Please choose a gender option. You may select Prefer not to say.',
+        'Please enter a valid email address and affiliation.',
+        'Please choose how you would like to take part.',
+        'Recording consent is required to register. Please review and select the recording consent checkbox.',
+        'Please choose Yes or No for consideration as a Selected Speaker.',
+        'Please enter your abstract title.',
+        'Please choose Text or Upload your abstract.',
+        'Please enter your abstract text.',
+        'Please upload your abstract document.',
+        'The attachment must be 10 MB or smaller.',
+        'Please upload a PDF, Word document, or text file.',
+        'The attachment could not be read. Please select the file again and retry.',
+        'One of your entries is too long. Please shorten it and try again.',
+        'Abstract submissions closed on Tuesday, 24 November 2026 at 11:59 PM UAE time (GST, UTC+4). You can still register as an audience member.'
+      ];
+      return messages.includes(message)?message:'';
+    }
+    function sendRegistration(){
+      const payload=pendingPayload;
+      const current=++attempt;
+      busy=true;button.disabled=true;button.textContent='Saving your registration…';status.className='status';
+      status.textContent='Please keep this page open until your registration is confirmed.';
+      const reference='SHIFRA-'+payload.requestId.toUpperCase();
+      const timer=setTimeout(()=>fail(null),120000);
+      function fail(error){
+        if(current!==attempt)return;
+        clearTimeout(timer);busy=false;
+        const validation=editableError(error);
+        if(validation){pendingPayload=null;unlockInputs();}
+        button.disabled=false;button.textContent=validation?'Try again':'Retry this registration';status.className='status error';
+        status.textContent=validation||'We could not confirm receipt. Please keep this page open and use Retry this registration to resend the same details safely. Do not start a second registration. If the problem continues, contact hala.alsaleh@mbzuai.ac.ae and quote '+reference+'.';
+        resize();
+      }
+      try{
+        // A plain object uses Apps Script RPC instead of its native form-upload fetch path.
+        google.script.run.withSuccessHandler(result=>{
+          if(current!==attempt)return;
+          if(!result||result.ok!==true||result.registrationId!==reference){fail(null);return;}
+          clearTimeout(timer);busy=false;pendingPayload=null;originalControls=null;
+          form.hidden=true;document.getElementById('registration-reference').textContent=result.registrationId;
+          document.getElementById('success-detail').textContent=result.participation==='abstract'?'Your registration and abstract have been received. The organisers will respond by email after reviewing your abstract.':'Your attendance has been recorded. We look forward to seeing you.';
+          const success=document.getElementById('registration-success');success.hidden=false;success.focus();resize();
+        }).withFailureHandler(fail).submitRegistration(payload);
+      }catch(error){fail(error);}
+    }
+    form.addEventListener('submit',async event=>{
       event.preventDefault();
+      if(busy)return;
+      if(pendingPayload){sendRegistration();return;}
       const wantsAbstract=form.elements.participation.value==='abstract';
       const method=form.elements.abstractMethod.value;
       const file=attachment.files[0];
@@ -99,18 +176,27 @@
       ['first-name','last-name','affiliation','abstract-title'].forEach(id=>{const input=document.getElementById(id);input.setCustomValidity((id!=='abstract-title'||wantsAbstract)&&!input.value.trim()?'Please complete this required field.':'');});
       if(!form.reportValidity())return;
       if(!window.google||!google.script||!google.script.run){status.className='status error';status.textContent='Preview only. Registration has not been saved.';resize();return;}
-      const current=++attempt;
-      button.disabled=true;button.textContent='Saving your registration…';status.className='status';status.textContent='Please keep this page open until your registration is confirmed.';
-      const timer=setTimeout(()=>{if(current!==attempt)return;button.disabled=false;button.textContent='Try again';status.className='status error';status.textContent='We are still waiting for confirmation. You can try again safely; your registration reference prevents duplicate records.';resize();},120000);
-      function fail(error){if(current!==attempt)return;clearTimeout(timer);button.disabled=false;button.textContent='Try again';status.className='status error';status.textContent=error&&error.message||'We could not confirm your registration. Please try again.';resize();}
-      google.script.run.withSuccessHandler(result=>{
-        if(current!==attempt)return;clearTimeout(timer);
-        if(!result||result.ok!==true||!result.registrationId){fail(new Error('We could not confirm your registration. Please try again.'));return;}
-        form.hidden=true;document.getElementById('registration-reference').textContent=result.registrationId;
-        document.getElementById('success-detail').textContent=result.participation==='abstract'?'Your registration and abstract have been received. The organisers will respond by email after reviewing your abstract.':'Your attendance has been recorded. We look forward to seeing you.';
-        const success=document.getElementById('registration-success');success.hidden=false;success.focus();resize();
-      }).withFailureHandler(fail).submitRegistration(form);
+      const payload={};
+      ['requestId','formVersion','website','firstName','lastName','gender','title','email','affiliation','participation'].forEach(name=>{payload[name]=form.elements[name].value;});
+      payload.recordingConsent=form.elements.recordingConsent.checked?'yes':'';
+      if(wantsAbstract){
+        payload.abstractTitle=form.elements.abstractTitle.value;
+        payload.abstractMethod=method;
+        payload.considerForTalk=form.elements.considerForTalk.value;
+        if(method==='text')payload.abstractText=abstract.value;
+      }
+      // Capture values and the File before disabling controls; retries reuse this snapshot.
+      lockInputs();busy=true;button.textContent='Preparing your registration…';status.className='status';status.textContent='Please keep this page open.';resize();
+      try{
+        if(wantsAbstract&&method==='upload')payload.attachmentData=await readAttachment(file);
+        pendingPayload=Object.freeze(payload);
+      }catch(error){
+        busy=false;unlockInputs();button.textContent='Try again';status.className='status error';
+        status.textContent=error&&error.message||'We could not read your file. Please select it again. Nothing has been submitted.';resize();return;
+      }
+      sendRegistration();
     });
+    window.addEventListener('beforeunload',event=>{if(busy||pendingPayload){event.preventDefault();event.returnValue='';}});
     updateChoice();window.addEventListener('load',resize);
   </script>
 </body>
