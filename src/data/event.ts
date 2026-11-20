@@ -49,9 +49,9 @@ export const event = {
     alt: "SHIFRA — UAE Genomics & AI Symposium, with the English and Arabic wordmark over genomics artwork featuring a neural human silhouette, DNA, insects, and a plant",
   },
   poster: {
-    image: "images/shifra-poster-2026-11-19.webp" as string | null,
+    image: "images/shifra-poster-v3.webp" as string | null,
     alt: "SHIFRA UAE Genomics and AI Symposium poster, 27 November 2026, 8:30 AM to 4:15 PM, MBZUAI Lecture Halls 1 & 2, with a registration QR code and student organisers Hala Alsaleh and Haotian Tang",
-    download: "downloads/SHIFRA_Poster_2026-11-19.pdf" as string | null,
+    download: "downloads/SHIFRA_Poster_V3.pdf" as string | null,
   },
   acknowledgement: [
     "We are grateful to Eduardo Beltrame for his all-round support of SHIFRA.",
