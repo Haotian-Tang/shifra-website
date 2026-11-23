@@ -1,7 +1,7 @@
 ---
 import AgendaEntry from './AgendaEntry.astro';
 import { event } from '../data/event';
-import { agenda } from '../data/agenda';
+import { agenda, programmeStart, programmeEnd } from '../data/agenda';
 import { sitePath } from '../lib/urls';
 ---
 <section id="agenda" class="home-section single-page-section programme-section container" aria-labelledby="agenda-title">
@@ -9,7 +9,7 @@ import { sitePath } from '../lib/urls';
   <div class="agenda-section">
     <div class="agenda-summary">
       <h3><time datetime={event.date}>{event.displayDate}</time></h3>
-      <p>08:30–16:15 · {event.venue}</p>
+      <p>{programmeStart}–{programmeEnd} · {event.venue}</p>
       <p>{event.timezoneLabel}</p>
       <p><strong>{event.programmeStatus}</strong><br />{event.confirmationNote}</p>
       <div class="agenda-actions">

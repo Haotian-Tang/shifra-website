@@ -11,6 +11,7 @@ export interface Person {
 
 export interface Speaker extends Person {
   talkTitle: string | null;
+  role: 'Keynote Speaker' | 'Speaker' | 'Panel Discussion';
 }
 
 export const event = {
@@ -35,7 +36,7 @@ export const event = {
   divisionShort: "BLS",
   programmeStatus: "Symposium programme",
   confirmationNote:
-    "Speaker names will be announced once confirmed. The guest of honour and selected-speaker assignments remain subject to confirmation.",
+    "The programme is subject to change. The guest of honour, TBA slot and selected-speaker assignments remain subject to confirmation.",
   introduction:
     "SHIFRA brings students, researchers, and invited guests together to explore the intersection of genomics and artificial intelligence. The symposium creates a shared space for scientific exchange across disciplines and career stages.",
   story:
@@ -92,5 +93,75 @@ export const organizers: Person[] = [
   },
 ];
 
-// Publish speaker profiles only after formal confirmation.
-export const speakers: Speaker[] = [];
+// Speaker roster approved by the organisers on 23 November 2026.
+// Danial is omitted pending a full name; Shadab Khan and Boulbaba Ben Amor are not speaking.
+export const speakers: Speaker[] = [
+  {
+    name: 'Dr. Shahrukh Hashmi', initials: 'SH', role: 'Keynote Speaker',
+    title: 'Director of Research', affiliation: 'Department of Health – Abu Dhabi',
+    biography: null, portrait: 'images/speakers/shahrukh-hashmi.webp',
+    profileUrl: 'https://www.linkedin.com/in/shahrukh-hashmi-7ba60027/',
+    talkTitle: 'The Future of Scientific Research and Precision Medicine in the UAE',
+  },
+  {
+    name: 'Dr. Budour Alkaf', initials: 'BA', role: 'Speaker',
+    title: 'Senior Bioinformatician', affiliation: 'M42', biography: null,
+    portrait: 'images/speakers/budour-alkaf.jpg',
+    profileUrl: 'https://www.linkedin.com/in/budour-alkaf-phd-87aa4284/',
+    talkTitle: 'The Emirati Genome Program Enables Population-wide Penetrance Estimation and Novel Discovery for Inherited Retinal Disease',
+  },
+  {
+    name: 'Dr. Shalini Behl', initials: 'SB', role: 'Speaker',
+    title: 'Senior Research Scientist', affiliation: 'M42', biography: null,
+    portrait: 'images/speakers/shalini-behl.jpg',
+    profileUrl: 'https://www.linkedin.com/in/shalini-behl-b30a0b46/',
+    talkTitle: 'Cancer Genomics and Genetic Risk Stratification in the United Arab Emirates',
+  },
+  {
+    name: 'Mohammed Sayeed', initials: 'MS', role: 'Speaker',
+    title: null, affiliation: 'Inception', biography: null,
+    portrait: null, profileUrl: null,
+    talkTitle: 'From the Emirati Genome to AI-Driven Precision Medicine: The Future of Healthcare in the UAE',
+  },
+  {
+    name: 'Dr. Thyago Cardoso', initials: 'TC', role: 'Speaker',
+    title: 'Manager, Commercial Research and Development', affiliation: 'M42', biography: null,
+    portrait: 'images/speakers/thyago-cardoso.jpg',
+    profileUrl: 'https://www.linkedin.com/in/dr-thyago-cardoso-7181741b3/',
+    talkTitle: 'Plant Genome Sequencing to Safeguard Native UAE Species',
+  },
+  {
+    name: 'Hala Alsaleh', initials: 'HA', role: 'Speaker',
+    title: 'MSc Student', affiliation: 'MBZUAI', biography: null,
+    portrait: 'images/committee/hala-alsaleh.webp', profileUrl: null,
+    talkTitle: 'UAE Sports Genomics: A Pioneering Study of Genetic Markers Associated with Athletic Performance, Strength, Endurance, and Injury Risk',
+  },
+  {
+    name: 'Dr. Tania Tahtouh', initials: 'TT', role: 'Speaker',
+    title: 'Assistant Professor of Biomedical Sciences', affiliation: 'Abu Dhabi University', biography: null,
+    portrait: 'images/speakers/tania-tahtouh.jpg',
+    profileUrl: 'https://www.linkedin.com/in/tania-tahtouh-ph-d-fhea-2b5a5826/',
+    talkTitle: 'AI-Powered Wellness: Tailored Dietary Support for Chronic Disease Management',
+  },
+  {
+    name: 'Dr. Nancy ElNaker', initials: 'NE', role: 'Speaker',
+    title: 'Senior Applied Scientist', affiliation: 'Inception', biography: null,
+    portrait: 'images/speakers/nancy-elnaker.jpg',
+    profileUrl: 'https://www.linkedin.com/in/dr-nancy-a-elnaker-phd-6794b450/',
+    talkTitle: 'When Plants Become Medicine: From Genetic Engineering to Nanotechnology and AI',
+  },
+  {
+    name: 'Dr. Juliana Ferreira', initials: 'JF', role: 'Speaker',
+    title: 'Research Associate', affiliation: 'NYU Abu Dhabi', biography: null,
+    portrait: 'images/speakers/juliana-ferreira.jpg',
+    profileUrl: 'https://www.linkedin.com/in/juliana-ferreira-6238a7a0/',
+    talkTitle: 'Plant Genomics and Biodiversity Research in the UAE',
+  },
+  {
+    name: 'Dr. Mohammed Ghazal', initials: 'MG', role: 'Panel Discussion',
+    title: null, affiliation: 'Abu Dhabi University', biography: null,
+    portrait: 'images/speakers/mohammed-ghazal.webp',
+    profileUrl: 'https://www.linkedin.com/in/mohammed-ghazal-60291475/',
+    talkTitle: null,
+  },
+];

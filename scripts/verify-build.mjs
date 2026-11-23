@@ -3,6 +3,8 @@ import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import { basePath, siteOrigin } from "../site.config.mjs";
 import { registrationUrl } from "../src/data/registration.ts";
+import { speakers } from "../src/data/event.ts";
+import { agenda as programme } from "../src/data/agenda.ts";
 
 const directory = path.resolve(process.env.BUILD_DIR || "dist");
 const redirects = {
@@ -61,7 +63,7 @@ const unfoldedCalendar = calendar.replace(/\r\n[ \t]/g, '');
 assert(calendar.endsWith('\r\n') && !/(?<!\r)\n/.test(calendar), "Calendar must use CRLF line endings");
 assert(calendar.split('\r\n').every(line => Buffer.byteLength(line, 'utf8') <= 75), "Calendar lines must be folded within 75 UTF-8 octets");
 assert.equal((unfoldedCalendar.match(/^BEGIN:VEVENT$/gm) || []).length, 1, "Calendar must contain one symposium event");
-assert(unfoldedCalendar.includes('DTSTART:20261127T043000Z\r\n') && unfoldedCalendar.includes('DTEND:20261127T121500Z\r\n'), "Calendar must represent 27 November, 08:30–16:15 UAE time");
+assert(unfoldedCalendar.includes('DTSTART:20261127T043000Z\r\n') && unfoldedCalendar.includes('DTEND:20261127T131000Z\r\n'), "Calendar must represent 27 November, 08:30–17:10 UAE time");
 assert(unfoldedCalendar.includes('LOCATION:Lecture Hall 1 & 2') && unfoldedCalendar.includes('Mohamed bin Zayed University of Artificial Intelligence') && unfoldedCalendar.includes('Abu Dhabi'), "Calendar must include the full venue");
 assert(unfoldedCalendar.includes(`URL:${documentUrl.href}\r\n`), "Calendar must link to the symposium website");
 assert(!hero.includes('Symposium programme') && !hero.includes('View agenda'), "Remove the old hero programme label and agenda action");
@@ -91,8 +93,11 @@ const peopleUrl = new URL(basePath + 'people/', siteOrigin);
 assert.equal((people.match(/<h1(?:\s|>)/g) || []).length, 1, "The people page needs one main title");
 assert(people.includes(`rel="canonical" href="${peopleUrl.href}"`), "People canonical URL missing");
 for (const section of ['organizing-committee', 'speakers']) assert(people.includes(`id="${section}"`), `People page is missing ${section}`);
-assert.equal((people.match(/class="person-panel speaker-panel"/g) || []).length, 0, "Unconfirmed speaker profiles must not be published");
-assert(people.includes("Speaker names will be announced once confirmed."), "Display the speaker confirmation notice");
+assert.equal((people.match(/class="person-panel speaker-panel"/g) || []).length, speakers.length, "Publish the organiser-approved speaker roster");
+assert.equal(speakers.length, 10, "Ten speaker profiles are approved; Danial awaits identification");
+for (const person of speakers) assert(people.includes(person.name), `Missing approved speaker ${person.name}`);
+assert(!people.includes("Speaker names will be announced once confirmed."), "Remove the outdated speaker notice");
+for (const withdrawnName of ['Shadab Khan', 'Boulbaba', 'Bol Baba']) assert(!people.includes(withdrawnName) && !html.includes(withdrawnName), `Withdrawn speaker must not appear: ${withdrawnName}`);
 for (const match of people.matchAll(/\b(?:href|src)="([^"]+)"/g)) await verifyUrl(match[1], peopleUrl);
 assert(
   html.includes("mbzuai-bls.png") &&
@@ -152,8 +157,8 @@ await walk(directory);
 const agenda = html;
 assert.equal(
   (agenda.match(/class="agenda-entry"/g) || []).length,
-  19,
-  "All 19 updated programme entries must render",
+  21,
+  "All 21 updated programme entries must render",
 );
 for (const time of [
   "08:30",
@@ -172,17 +177,28 @@ for (const time of [
   "14:00",
   "14:20",
   "14:40",
-  "15:00",
+  "15:10",
   "15:30",
-  "16:10",
+  "15:50",
+  "16:30",
+  "17:00",
 ]) {
   assert(
     agenda.includes(`T${time}:00+04:00`),
     `Incorrect or missing UAE start time ${time}`,
   );
 }
+assert(agendaSection.includes('08:30–17:10'), 'The agenda summary must match the new end time');
+const minuteOfDay = time => time.split(':').map(Number).reduce((hours, minutes) => hours * 60 + minutes);
+for (let i = 1; i < programme.length; i++) {
+  assert.equal(minuteOfDay(programme[i - 1].start) + programme[i - 1].duration, minuteOfDay(programme[i].start), `Agenda gap or overlap before ${programme[i].start}`);
+}
+const panel = programme.find(entry => entry.category === 'Panel');
+assert(panel?.start === '16:30' && panel.duration === 30 && panel.speaker.includes('Ghazal') && panel.notes.includes('Hala Alsaleh'), 'Panel must include Ghazal and Hala as moderator');
+const sayeedTalks = programme.filter(entry => entry.category === 'Talk' && entry.speaker?.includes('Sayeed'));
+assert(sayeedTalks.length === 1 && sayeedTalks[0].start === '09:55', 'Sayeed replaces Shadab once, at 09:55');
 for (const name of ["Hala Alsaleh", "Haotian Tang", "Eduardo Beltrame"])
   assert(people.includes(name));
 console.log(
-  `Verified 2 content pages, 5 legacy section redirects, 19 UAE-time agenda entries, pending-speaker notice, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
+  `Verified 2 content pages, 5 legacy section redirects, 21 continuous UAE-time agenda entries, 10 approved speaker profiles, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
 );

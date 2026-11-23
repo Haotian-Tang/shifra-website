@@ -5,7 +5,8 @@ import { sitePath, contentUrl } from '../lib/urls';
 <section id="speakers" class="home-section single-page-section speakers-section container" aria-labelledby="speakers-title">
   <h2 id="speakers-title" class="section-title">Speakers</h2>
   {speakers.length ? <div class="speaker-grid">{speakers.map(person => <article class="person-panel speaker-panel">
-    {person.portrait && <div class="person-portrait speaker-portrait"><img src={contentUrl(person.portrait)} alt={person.name} width="232" height="300" loading="lazy" /></div>}
+    <div class="person-portrait speaker-portrait">{person.portrait ? <img src={contentUrl(person.portrait)} alt={person.name} width="400" height="400" loading="lazy" /> : <span class="speaker-initials" aria-hidden="true">{person.initials}</span>}</div>
+    <p class="speaker-role">{person.role}</p>
     <h3 class="person-name">{person.profileUrl ? <a href={contentUrl(person.profileUrl)}>{person.name}</a> : person.name}</h3>
     {person.title && <p>{person.title}</p>}{person.affiliation && <p>{person.affiliation}</p>}
     {person.talkTitle && <h4>{person.talkTitle}</h4>}{person.biography && <p>{person.biography}</p>}

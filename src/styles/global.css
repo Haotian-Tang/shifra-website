@@ -450,11 +450,36 @@ main:focus {
 .speaker-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px 30px;
+  gap: 24px;
 }
 .speaker-portrait {
   width: 232px;
-  height: 300px;
+  height: auto;
+  aspect-ratio: 1;
+  margin-bottom: 18px;
+}
+.speaker-portrait img {
+  object-position: center 20%;
+}
+.speaker-panel {
+  padding: 22px;
+  text-align: center;
+  box-shadow: none;
+}
+.speaker-panel .speaker-role {
+  margin-bottom: 8px;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 700;
+}
+.speaker-panel .person-name {
+  margin-bottom: 8px;
+  font-size: 20px;
+  line-height: 1.35;
+}
+.speaker-portrait .speaker-initials {
+  font-size: 46px;
+  font-weight: 700;
 }
 .speakers-notice {
   margin: 0 auto;
