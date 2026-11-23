@@ -64,7 +64,15 @@ Speaker roster authorised by the organisers on 23 November 2026. Names and affil
 - [Named portrait source](https://mbzuai.ac.ae/study-ai/compbio)
 - [Original image](https://mbzuai.ac.ae/content/media/2026-11/hala-alsaleh.jpg)
 
+## Mohammad Amaan Sayeed
+
+- Identity confirmed by the organiser on 23 November 2026; full name used consistently in the roster and agenda.
+- Asset: `public/images/speakers/mohammad-amaan-sayeed.png`
+- [LinkedIn profile](https://www.linkedin.com/in/mohammad-amaan29/)
+- [MBZUAI alumni report, page 11](https://staticcdn.mbzuai.ac.ae/mbzuaiwpprd01/2026/03/Annual-Report-Cohort-3.pdf) identifies his Inception affiliation.
+- [Official MBZUAI portrait](https://staticcdn.mbzuai.ac.ae/mbzuaiwpprd01/2024/05/Mohammad-Sayeed.png)
+- No doctorate is claimed; the available education source identifies an MSc.
+
 ## Pending details
 
-- Sayeed: the proposed matching profile is [Mohammad Amaan Sayeed](https://www.linkedin.com/in/mohammad-amaan29/), Inception. His [MBZUAI portrait](https://staticcdn.mbzuai.ac.ae/mbzuaiwpprd01/2024/05/Mohammad-Sayeed.png) is available; identity confirmation from the organiser is pending. The site currently uses the organiser-supplied display name Mohammed Sayeed with initials and no profile link. No doctorate is claimed.
 - Danial: omitted at the organiser’s request pending a full name.

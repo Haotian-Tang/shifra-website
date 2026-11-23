@@ -118,9 +118,10 @@ export const speakers: Speaker[] = [
     talkTitle: 'Cancer Genomics and Genetic Risk Stratification in the United Arab Emirates',
   },
   {
-    name: 'Mohammed Sayeed', initials: 'MS', role: 'Speaker',
+    name: 'Mohammad Amaan Sayeed', initials: 'MS', role: 'Speaker',
     title: null, affiliation: 'Inception', biography: null,
-    portrait: null, profileUrl: null,
+    portrait: 'images/speakers/mohammad-amaan-sayeed.png',
+    profileUrl: 'https://www.linkedin.com/in/mohammad-amaan29/',
     talkTitle: 'From the Emirati Genome to AI-Driven Precision Medicine: The Future of Healthcare in the UAE',
   },
   {
