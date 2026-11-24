@@ -30,7 +30,7 @@ export const agenda: AgendaEntry[] = [
   { start: "13:00", duration: 20, session: 2, title: "When Plants Become Medicine: From Genetic Engineering to Nanotechnology and AI", speaker: "Dr. Nancy ElNaker", affiliation: "Inception", notes: null, category: "Talk" },
   { start: "13:20", duration: 20, title: "Cancer Genomics and Genetic Risk Stratification in the United Arab Emirates", speaker: "Dr. Shalini Behl", affiliation: "M42", notes: null, category: "Talk" },
   { start: "13:40", duration: 20, title: "The Emirati Genome Program Enables Population-wide Penetrance Estimation and Novel Discovery for Inherited Retinal Disease", speaker: "Dr. Budour Alkaf", affiliation: "M42", notes: null, category: "Talk" },
-  { start: "14:00", duration: 20, title: "TBA", speaker: "TBA", notes: null, category: "Talk" },
+  { start: "14:00", duration: 20, title: "From the Emirati Genome to AI-Driven Precision Medicine: A Breast Cancer Case Study", speaker: "Dr. Daniel Sanchez", affiliation: "M42", notes: null, category: "Talk" },
   { start: "14:20", duration: 20, session: 3, title: "Plant Genomics and Biodiversity Research in the UAE", speaker: "Dr. Juliana Ferreira", affiliation: "NYU Abu Dhabi", notes: null, category: "Talk" },
   { start: "14:40", duration: 20, title: "Plant Genome Sequencing to Safeguard Native UAE Species", speaker: "Dr. Thyago Cardoso", affiliation: "M42", notes: null, category: "Talk" },
   { start: "15:00", duration: 20, title: "AI-Powered Wellness: Tailored Dietary Support for Chronic Disease Management", speaker: "Dr. Tania Tahtouh", affiliation: "Abu Dhabi University", notes: null, category: "Talk" },

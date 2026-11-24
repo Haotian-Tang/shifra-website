@@ -36,7 +36,7 @@ export const event = {
   divisionShort: "BLS",
   programmeStatus: "Symposium programme",
   confirmationNote:
-    "The programme is subject to change. The guest of honour, TBA slot and selected-speaker assignments remain subject to confirmation.",
+    "The programme is subject to change. The guest of honour and selected-speaker assignments remain subject to confirmation.",
   introduction:
     "SHIFRA brings students, researchers, and invited guests together to explore the intersection of genomics and artificial intelligence. The symposium creates a shared space for scientific exchange across disciplines and career stages.",
   story:
@@ -122,7 +122,7 @@ export const speakers: Speaker[] = [
     title: 'Senior Bioinformatician', affiliation: 'M42', biography: null,
     portrait: 'images/speakers/daniel-sanchez-2026.png',
     profileUrl: 'https://www.linkedin.com/in/daniel-mat%C3%ADas/',
-    talkTitle: null,
+    talkTitle: 'From the Emirati Genome to AI-Driven Precision Medicine: A Breast Cancer Case Study',
   },
   {
     name: 'Mohammad Amaan Sayeed', initials: 'MS', role: 'Speaker',
