@@ -1,6 +1,6 @@
 # Speaker portrait sources
 
-Speaker roster authorised by the organisers on 23 November 2026. Names and affiliations were matched to the supplied agenda and named source pages. LinkedIn profiles are linked when verified; public named LinkedIn avatars are used where available, otherwise a named official university or event portrait is used. Portraits use supplied or sourced photographs; Juliana's organiser-supplied circular portrait was expanded into a square with AI image editing at the organiser's request, as documented below. Other files are saved locally without raster edits; display cropping is CSS only.
+Speaker roster authorised by the organisers on 23 November 2026. Names and affiliations were matched to the supplied agenda and named source pages. LinkedIn profiles are linked when verified; public named LinkedIn avatars are used where available, otherwise a named official university or event portrait is used. Portraits use supplied or sourced photographs. The current Juliana portrait is the byte-identical organiser-supplied original; its briefly published AI-expanded derivative has been removed. Files are saved locally without raster edits; display cropping is CSS only.
 
 ## Budour Alkaf
 
@@ -39,7 +39,7 @@ Speaker roster authorised by the organisers on 23 November 2026. Names and affil
 
 ## Juliana Ferreira
 
-- Current asset: `public/images/speakers/juliana-ferreira-2026.png`. On 24 November the organiser supplied `image.png`, a circular portrait, and requested a square version. AI image editing extended the surrounding background and shoulders; this is an edited derivative, not an original square photograph. Any generated background poster text is decorative and is not a factual source. The previous photograph below is retained for existing links.
+- Current asset: `public/images/speakers/juliana-ferreira-original-2026.png`, copied byte for byte from the organiser-supplied `image.png` on 24 November. The original circular portrait is displayed within the square speaker card. An AI-expanded version was briefly published, then removed after the organiser raised concerns about invented image content. The current photograph contains no generated additions. The previous sourced photograph below is retained for existing links.
 - Previous asset: `public/images/speakers/juliana-ferreira.jpg`
 - [LinkedIn profile](https://www.linkedin.com/in/juliana-ferreira-6238a7a0/)
 - [Named portrait source](https://www.rabehlab.com/juliana)
