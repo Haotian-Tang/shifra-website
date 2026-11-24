@@ -25,7 +25,7 @@ Speaker roster authorised by the organisers on 23 November 2026. Names and affil
 
 ## Nancy ElNaker
 
-- Asset: `public/images/speakers/nancy-elnaker.jpg`
+- Current asset: `public/images/speakers/nancy-elnaker-2026.jpg`, copied byte for byte from the organiser-supplied `Nance Elnaker-photo-2026.jpeg` on 24 November 2026. The LinkedIn image below is the previous portrait, retained for existing links.
 - [LinkedIn profile](https://www.linkedin.com/in/dr-nancy-a-elnaker-phd-6794b450/)
 - [Named portrait source](https://www.linkedin.com/posts/dr-nancy-a-elnaker-phd-6794b450_wirf2023-womeninresearch-quwa2023-activity-7105141121881636865-qH8c)
 - [Original image](https://media.licdn.com/dms/image/v2/D4E03AQGoFEqhI58lQw/profile-displayphoto-scale_400_400/B4EaBTWyp5HkAg-/0/1788104881379?e=2147483647&v=beta&t=hxwfrGcN90V0PGyZMZxN7l1tlSTLNEdhbP0Qu4bMyeM)
@@ -76,7 +76,7 @@ Speaker roster authorised by the organisers on 23 November 2026. Names and affil
 ## Daniel Sanchez
 
 - The organiser identified the previously missing speaker as Daniel Sanchez on 24 November 2026. His professional profile uses Daniel Matías Sánchez, PhD.
-- [LinkedIn profile](https://www.linkedin.com/in/daniel-mat%C3%ADas/): the live profile viewed on 24 November states **Senior Bioinformatician at M42**. The expanded profile photograph is a generic placeholder even in the signed-in browser, so the website uses initials until a real portrait is provided.
+- [LinkedIn profile](https://www.linkedin.com/in/daniel-mat%C3%ADas/): the live profile viewed on 24 November states **Senior Bioinformatician at M42**. The LinkedIn photograph was a generic placeholder. On 24 November the organiser supplied `Daniel.png`; it is copied byte for byte to `public/images/speakers/daniel-sanchez-2026.png` and replaces the initials placeholder.
 - [Oxford Nanopore ASHG 2024 programme](https://a.storyblok.com/f/196663/x/a1343554d5/ashg-2024-ont-activities.pdf) identifies Daniel Matias Sanchez, M42, UAE.
 - [University of Barcelona thesis announcement](https://web.ub.edu/en/web/facultat-biologia/w/integrating-structural-and-x-chromosome-variants-in-genetic-studies-of-complex-diseases?referer=actualitat) corroborates the doctorate and research identity.
 - The organiser has not assigned a talk title or time. The existing TBA agenda slot is retained.

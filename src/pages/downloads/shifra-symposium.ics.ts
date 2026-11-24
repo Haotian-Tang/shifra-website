@@ -40,12 +40,23 @@ export const GET: APIRoute = () => {
   });
   const start = Math.min(...slots.map(slot => slot.start));
   const end = Math.max(...slots.map(slot => slot.end));
+  const programme = agenda.map(entry => {
+    const [hour, minute] = entry.start.split(':').map(Number);
+    const endMinutes = hour * 60 + minute + entry.duration;
+    const slotEnd = `${String(Math.floor(endMinutes / 60)).padStart(2, '0')}:${String(endMinutes % 60).padStart(2, '0')}`;
+    return [
+      `${entry.start}–${slotEnd}: ${entry.title}`,
+      entry.speaker,
+      entry.notes,
+    ].filter(Boolean).join(' · ');
+  }).join('\n');
   const description = [
     `${event.name}: ${event.theme}`,
     event.introduction,
     `Event times are shown in ${event.timezoneLabel}.`,
     `Programme and registration: ${siteUrl}`,
     `Location map: ${event.mapsUrl}`,
+    `Programme (${event.timezoneLabel}):\n${programme}`,
     'Please register on the website; adding this event to your calendar does not register you.',
   ].join('\n\n');
   const calendar = [

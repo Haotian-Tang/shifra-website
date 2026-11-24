@@ -120,7 +120,7 @@ export const speakers: Speaker[] = [
   {
     name: 'Dr. Daniel Sanchez', initials: 'DS', role: 'Speaker',
     title: 'Senior Bioinformatician', affiliation: 'M42', biography: null,
-    portrait: null,
+    portrait: 'images/speakers/daniel-sanchez-2026.png',
     profileUrl: 'https://www.linkedin.com/in/daniel-mat%C3%ADas/',
     talkTitle: null,
   },
@@ -154,7 +154,7 @@ export const speakers: Speaker[] = [
   {
     name: 'Dr. Nancy ElNaker', initials: 'NE', role: 'Speaker',
     title: 'Senior Applied Scientist', affiliation: 'Inception', biography: null,
-    portrait: 'images/speakers/nancy-elnaker.jpg',
+    portrait: 'images/speakers/nancy-elnaker-2026.jpg',
     profileUrl: 'https://www.linkedin.com/in/dr-nancy-a-elnaker-phd-6794b450/',
     talkTitle: 'When Plants Become Medicine: From Genetic Engineering to Nanotechnology and AI',
   },

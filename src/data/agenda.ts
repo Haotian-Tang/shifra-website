@@ -32,11 +32,11 @@ export const agenda: AgendaEntry[] = [
   { start: "13:40", duration: 20, title: "The Emirati Genome Program Enables Population-wide Penetrance Estimation and Novel Discovery for Inherited Retinal Disease", speaker: "Dr. Budour Alkaf", affiliation: "M42", notes: null, category: "Talk" },
   { start: "14:00", duration: 20, title: "TBA", speaker: "TBA", notes: null, category: "Talk" },
   { start: "14:20", duration: 20, session: 3, title: "Plant Genomics and Biodiversity Research in the UAE", speaker: "Dr. Juliana Ferreira", affiliation: "NYU Abu Dhabi", notes: null, category: "Talk" },
-  { start: "14:40", duration: 30, title: "Coffee Break", notes: "All attendees", category: "Break" },
-  { start: "15:10", duration: 20, title: "Plant Genome Sequencing to Safeguard Native UAE Species", speaker: "Dr. Thyago Cardoso", affiliation: "M42", notes: null, category: "Talk" },
-  { start: "15:30", duration: 20, title: "AI-Powered Wellness: Tailored Dietary Support for Chronic Disease Management", speaker: "Dr. Tania Tahtouh", affiliation: "Abu Dhabi University", notes: null, category: "Talk" },
+  { start: "14:40", duration: 20, title: "Plant Genome Sequencing to Safeguard Native UAE Species", speaker: "Dr. Thyago Cardoso", affiliation: "M42", notes: null, category: "Talk" },
+  { start: "15:00", duration: 20, title: "AI-Powered Wellness: Tailored Dietary Support for Chronic Disease Management", speaker: "Dr. Tania Tahtouh", affiliation: "Abu Dhabi University", notes: null, category: "Talk" },
+  { start: "15:20", duration: 30, title: "Coffee Break", notes: "All attendees", category: "Break" },
   { start: "15:50", duration: 40, title: "Selected Speaker Talks", notes: "40 mins for 4 speakers · Presenters and titles to be confirmed", category: "Talk" },
-  { start: "16:30", duration: 30, title: "Panel Discussion", speaker: "Dr. Mohammed Ghazal; Eduardo Beltrame; Mohammad Amaan Sayeed", notes: "Moderator: Hala Alsaleh", category: "Panel" },
+  { start: "16:30", duration: 30, title: "Panel Discussion", speaker: "Prof. Eduardo Beltrame; Dr. Shahrukh Hashmi; Dr. Mohammed Ghazal; Mohammad Amaan Sayeed", notes: "Moderator: Prof. Eduardo Beltrame", category: "Panel" },
   { start: "17:00", duration: 10, title: "Closing Remarks and Speaker Recognition", speaker: "Organizing Committee; Eduardo Beltrame", notes: null, category: "Closing" },
 ];
 
