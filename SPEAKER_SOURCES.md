@@ -73,6 +73,10 @@ Speaker roster authorised by the organisers on 23 November 2026. Names and affil
 - [Official MBZUAI portrait](https://staticcdn.mbzuai.ac.ae/mbzuaiwpprd01/2024/05/Mohammad-Sayeed.png)
 - No doctorate is claimed; the available education source identifies an MSc.
 
-## Pending details
+## Daniel Sanchez
 
-- Danial: omitted at the organiser’s request pending a full name.
+- The organiser identified the previously missing speaker as Daniel Sanchez on 24 November 2026. His professional profile uses Daniel Matías Sánchez, PhD.
+- [LinkedIn profile](https://www.linkedin.com/in/daniel-mat%C3%ADas/): the live profile viewed on 24 November states **Senior Bioinformatician at M42**. The expanded profile photograph is a generic placeholder even in the signed-in browser, so the website uses initials until a real portrait is provided.
+- [Oxford Nanopore ASHG 2024 programme](https://a.storyblok.com/f/196663/x/a1343554d5/ashg-2024-ont-activities.pdf) identifies Daniel Matias Sanchez, M42, UAE.
+- [University of Barcelona thesis announcement](https://web.ub.edu/en/web/facultat-biologia/w/integrating-structural-and-x-chromosome-variants-in-genetic-studies-of-complex-diseases?referer=actualitat) corroborates the doctorate and research identity.
+- The organiser has not assigned a talk title or time. The existing TBA agenda slot is retained.

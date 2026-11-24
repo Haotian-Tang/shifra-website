@@ -94,7 +94,7 @@ assert.equal((people.match(/<h1(?:\s|>)/g) || []).length, 1, "The people page ne
 assert(people.includes(`rel="canonical" href="${peopleUrl.href}"`), "People canonical URL missing");
 for (const section of ['organizing-committee', 'speakers']) assert(people.includes(`id="${section}"`), `People page is missing ${section}`);
 assert.equal((people.match(/class="person-panel speaker-panel"/g) || []).length, speakers.length, "Publish the organiser-approved speaker roster");
-assert.equal(speakers.length, 10, "Ten speaker profiles are approved; Danial awaits identification");
+assert.equal(speakers.length, 11, "Eleven speaker profiles are approved, including Daniel Sanchez");
 for (const person of speakers) assert(people.includes(person.name), `Missing approved speaker ${person.name}`);
 assert(!people.includes("Speaker names will be announced once confirmed."), "Remove the outdated speaker notice");
 for (const withdrawnName of ['Shadab Khan', 'Boulbaba', 'Bol Baba']) assert(!people.includes(withdrawnName) && !html.includes(withdrawnName), `Withdrawn speaker must not appear: ${withdrawnName}`);
@@ -200,5 +200,5 @@ assert(sayeedTalks.length === 1 && sayeedTalks[0].start === '09:55', 'Sayeed rep
 for (const name of ["Hala Alsaleh", "Haotian Tang", "Eduardo Beltrame"])
   assert(people.includes(name));
 console.log(
-  `Verified 2 content pages, 5 legacy section redirects, 21 continuous UAE-time agenda entries, 10 approved speaker profiles, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
+  `Verified 2 content pages, 5 legacy section redirects, 21 continuous UAE-time agenda entries, ${speakers.length} approved speaker profiles, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
 );

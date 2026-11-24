@@ -93,8 +93,8 @@ export const organizers: Person[] = [
   },
 ];
 
-// Speaker roster approved by the organisers on 23 November 2026.
-// Danial is omitted pending a full name; Shadab Khan and Boulbaba Ben Amor are not speaking.
+// Speaker roster approved on 23 November; Daniel Sanchez identified on 24 November 2026.
+// Shadab Khan and Boulbaba Ben Amor are not speaking.
 export const speakers: Speaker[] = [
   {
     name: 'Dr. Shahrukh Hashmi', initials: 'SH', role: 'Keynote Speaker',
@@ -116,6 +116,13 @@ export const speakers: Speaker[] = [
     portrait: 'images/speakers/shalini-behl.jpg',
     profileUrl: 'https://www.linkedin.com/in/shalini-behl-b30a0b46/',
     talkTitle: 'Cancer Genomics and Genetic Risk Stratification in the United Arab Emirates',
+  },
+  {
+    name: 'Dr. Daniel Sanchez', initials: 'DS', role: 'Speaker',
+    title: 'Senior Bioinformatician', affiliation: 'M42', biography: null,
+    portrait: null,
+    profileUrl: 'https://www.linkedin.com/in/daniel-mat%C3%ADas/',
+    talkTitle: null,
   },
   {
     name: 'Mohammad Amaan Sayeed', initials: 'MS', role: 'Speaker',
