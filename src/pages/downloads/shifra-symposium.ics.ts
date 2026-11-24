@@ -46,7 +46,7 @@ export const GET: APIRoute = () => {
     const slotEnd = `${String(Math.floor(endMinutes / 60)).padStart(2, '0')}:${String(endMinutes % 60).padStart(2, '0')}`;
     return [
       `${entry.start}–${slotEnd}: ${entry.title}`,
-      entry.speaker,
+      entry.speaker && entry.affiliation ? `${entry.speaker} (${entry.affiliation})` : entry.speaker,
       entry.notes,
     ].filter(Boolean).join(' · ');
   }).join('\n');
