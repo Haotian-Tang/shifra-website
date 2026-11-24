@@ -1,6 +1,6 @@
 # Speaker portrait sources
 
-Speaker roster authorised by the organisers on 23 November 2026. Names and affiliations were matched to the supplied agenda and named source pages. LinkedIn profiles are linked when verified; public named LinkedIn avatars are used where available, otherwise a named official university or event portrait is used. Photographs are not generated. New files are saved locally without raster edits; display cropping is CSS only.
+Speaker roster authorised by the organisers on 23 November 2026. Names and affiliations were matched to the supplied agenda and named source pages. LinkedIn profiles are linked when verified; public named LinkedIn avatars are used where available, otherwise a named official university or event portrait is used. Portraits use supplied or sourced photographs; Juliana's organiser-supplied circular portrait was expanded into a square with AI image editing at the organiser's request, as documented below. Other files are saved locally without raster edits; display cropping is CSS only.
 
 ## Budour Alkaf
 
@@ -39,7 +39,8 @@ Speaker roster authorised by the organisers on 23 November 2026. Names and affil
 
 ## Juliana Ferreira
 
-- Asset: `public/images/speakers/juliana-ferreira.jpg`
+- Current asset: `public/images/speakers/juliana-ferreira-2026.png`. On 24 November the organiser supplied `image.png`, a circular portrait, and requested a square version. AI image editing extended the surrounding background and shoulders; this is an edited derivative, not an original square photograph. Any generated background poster text is decorative and is not a factual source. The previous photograph below is retained for existing links.
+- Previous asset: `public/images/speakers/juliana-ferreira.jpg`
 - [LinkedIn profile](https://www.linkedin.com/in/juliana-ferreira-6238a7a0/)
 - [Named portrait source](https://www.rabehlab.com/juliana)
 - [Original image](https://images.squarespace-cdn.com/content/v1/5f5d2b1386473f345eecd2d2/1628674452075-AWZ9DOPAK0W4KIUSH709/Juliana%2BPortrait.jpg)
@@ -79,4 +80,4 @@ Speaker roster authorised by the organisers on 23 November 2026. Names and affil
 - [LinkedIn profile](https://www.linkedin.com/in/daniel-mat%C3%ADas/): the live profile viewed on 24 November states **Senior Bioinformatician at M42**. The LinkedIn photograph was a generic placeholder. On 24 November the organiser supplied `Daniel.png`; it is copied byte for byte to `public/images/speakers/daniel-sanchez-2026.png` and replaces the initials placeholder.
 - [Oxford Nanopore ASHG 2024 programme](https://a.storyblok.com/f/196663/x/a1343554d5/ashg-2024-ont-activities.pdf) identifies Daniel Matias Sanchez, M42, UAE.
 - [University of Barcelona thesis announcement](https://web.ub.edu/en/web/facultat-biologia/w/integrating-structural-and-x-chromosome-variants-in-genetic-studies-of-complex-diseases?referer=actualitat) corroborates the doctorate and research identity.
-- On 24 November, the organiser assigned the 14:00–14:20 slot to Daniel with the title **From the Emirati Genome to AI-Driven Precision Medicine: A Breast Cancer Case Study**. The same title appears in his speaker profile, printable agenda and calendar description.
+- On 24 November, the organiser supplied Daniel's email confirming his final title: **Precision Medicine for Breast Cancer in the UAE: Making Genomic Risk Actionable with AI**. It replaces his earlier breast cancer case-study title in the same 14:00–14:20 slot, speaker profile, printable agenda and calendar description. Mohammad Amaan Sayeed's separate morning talk retains its existing title.

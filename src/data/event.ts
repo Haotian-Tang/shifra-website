@@ -122,7 +122,7 @@ export const speakers: Speaker[] = [
     title: 'Senior Bioinformatician', affiliation: 'M42 Healthcare', biography: null,
     portrait: 'images/speakers/daniel-sanchez-2026.png',
     profileUrl: 'https://www.linkedin.com/in/daniel-mat%C3%ADas/',
-    talkTitle: 'From the Emirati Genome to AI-Driven Precision Medicine: A Breast Cancer Case Study',
+    talkTitle: 'Precision Medicine for Breast Cancer in the UAE: Making Genomic Risk Actionable with AI',
   },
   {
     name: 'Mohammad Amaan Sayeed', initials: 'MS', role: 'Speaker',
@@ -161,7 +161,7 @@ export const speakers: Speaker[] = [
   {
     name: 'Dr. Juliana Ferreira', initials: 'JF', role: 'Speaker',
     title: 'Research Associate', affiliation: 'NYU Abu Dhabi', biography: null,
-    portrait: 'images/speakers/juliana-ferreira.jpg',
+    portrait: 'images/speakers/juliana-ferreira-2026.png',
     profileUrl: 'https://www.linkedin.com/in/juliana-ferreira-6238a7a0/',
     talkTitle: 'Plant Genomics and Biodiversity Research in the UAE',
   },
