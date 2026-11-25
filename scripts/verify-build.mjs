@@ -197,12 +197,12 @@ for (let i = 1; i < programme.length; i++) {
   assert.equal(minuteOfDay(programme[i - 1].start) + programme[i - 1].duration, minuteOfDay(programme[i].start), `Agenda gap or overlap before ${programme[i].start}`);
 }
 const panel = programme.find(entry => entry.category === 'Panel');
-assert(panel?.start === '16:30' && panel.duration === 30 && panel.speaker === 'Prof. Eduardo Beltrame; Dr. Shahrukh Hashmi; Prof. Mohammed Ghazal; Mohammad Amaan Sayeed' && panel.notes === 'Moderator: Prof. Eduardo Beltrame', 'Panel must show the approved order with Eduardo as moderator');
+assert(panel?.start === '16:30' && panel.duration === 30 && panel.speaker === 'Prof. Eduardo Beltrame; Dr. Shahrukh Hashmi; Prof. Mohammed Ghazal; Mr. Mohammad Amaan Sayeed' && panel.notes === 'Moderator: Prof. Eduardo Beltrame', 'Panel must show the approved order with Eduardo as moderator');
 const selectedTalks = programme.filter(entry => entry.notes === 'Selected Speaker Talk');
 assert.deepEqual(selectedTalks.map(({ start, duration, speaker }) => ({ start, duration, speaker })), [
-  { start: '15:50', duration: 10, speaker: 'Tuayyeb Hussain and Falah AlYafei' },
-  { start: '16:00', duration: 10, speaker: 'Yuqi Lei' },
-  { start: '16:10', duration: 10, speaker: 'Irina Karpushkina' },
+  { start: '15:50', duration: 10, speaker: 'Mr. Tuayyeb Hussain and Mr. Falah AlYafei' },
+  { start: '16:00', duration: 10, speaker: 'Mr. Yuqi Lei' },
+  { start: '16:10', duration: 10, speaker: 'Ms. Irina Karpushkina' },
   { start: '16:20', duration: 10, speaker: 'Prof. Min Xu' },
 ], 'The four confirmed selected talks must retain the approved order and ten-minute slots');
 const selectedIndex = programme.indexOf(selectedTalks[0]);
@@ -216,7 +216,7 @@ for (const entry of selectedTalks) {
 assert(!agendaSection.includes('Presenters and titles to be confirmed'), 'Remove the superseded selected-talk placeholder');
 const sayeedTalks = programme.filter(entry => entry.category === 'Talk' && entry.speaker?.includes('Sayeed'));
 assert(sayeedTalks.length === 1 && sayeedTalks[0].start === '09:55', 'Sayeed replaces Shadab once, at 09:55');
-for (const name of ["Hala Alsaleh", "Haotian Tang", "Eduardo Beltrame"])
+for (const name of ["Ms. Hala Alsaleh", "Haotian Tang", "Prof. Eduardo Beltrame"])
   assert(people.includes(name));
 console.log(
   `Verified 2 content pages, 5 legacy section redirects, 24 continuous UAE-time agenda entries, ${speakers.length} approved speaker profiles, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,

@@ -51,18 +51,18 @@ export const event = {
   },
   poster: {
     image: "images/shifra-poster-2026-11-25.webp" as string | null,
-    alt: "SHIFRA UAE Genomics and AI Symposium poster, 27 November 2026, 8:30 AM to 5:10 PM UAE time, MBZUAI Lecture Halls 1 & 2, with a registration QR code and student organisers Hala Alsaleh and Haotian Tang",
+    alt: "SHIFRA UAE Genomics and AI Symposium poster, 27 November 2026, 8:30 AM to 5:10 PM UAE time, MBZUAI Lecture Halls 1 & 2, with a registration QR code and student organisers Ms. Hala Alsaleh and Haotian Tang",
     download: "downloads/SHIFRA_Poster_2026-11-25.pdf" as string | null,
   },
   acknowledgement: [
-    "We are grateful to Eduardo Beltrame for his all-round support of SHIFRA.",
+    "We are grateful to Prof. Eduardo Beltrame for his all-round support of SHIFRA.",
     "We also thank our speakers and the BLS administrative team for their contributions and help in bringing the symposium together.",
   ],
 };
 
 export const organizers: Person[] = [
   {
-    name: "Hala Alsaleh",
+    name: "Ms. Hala Alsaleh",
     initials: "HA",
     title: "Founder",
     academicTitle: "MSc Student · MBZUAI",
@@ -82,7 +82,7 @@ export const organizers: Person[] = [
     profileUrl: null,
   },
   {
-    name: "Eduardo Beltrame",
+    name: "Prof. Eduardo Beltrame",
     initials: "EB",
     title: "Director of Education",
     academicTitle: "Assistant Professor",
@@ -125,7 +125,7 @@ export const speakers: Speaker[] = [
     talkTitle: 'Precision Medicine for Breast Cancer in the UAE: Making Genomic Risk Actionable with AI',
   },
   {
-    name: 'Mohammad Amaan Sayeed', initials: 'MS', role: 'Speaker',
+    name: 'Mr. Mohammad Amaan Sayeed', initials: 'MS', role: 'Speaker',
     title: null, affiliation: 'Inception42', biography: null,
     portrait: 'images/speakers/mohammad-amaan-sayeed.png',
     profileUrl: 'https://www.linkedin.com/in/mohammad-amaan29/',
@@ -139,7 +139,7 @@ export const speakers: Speaker[] = [
     talkTitle: 'Plants & Animals and Bioinformatics',
   },
   {
-    name: 'Hala Alsaleh', initials: 'HA', role: 'Speaker',
+    name: 'Ms. Hala Alsaleh', initials: 'HA', role: 'Speaker',
     title: 'Founder of SHIFRA', affiliation: 'MBZUAI', biography: null,
     portrait: 'images/committee/hala-alsaleh.webp', profileUrl: null,
     talkTitle: 'UAE Sports Genomics: A Pioneering Study of Genetic Markers Associated with Athletic Performance, Strength, Endurance, and Injury Risk',

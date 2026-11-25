@@ -28,3 +28,5 @@
 - On 25 November, Min Xu’s public honorific was confirmed as **Prof. Min Xu**, consistent with his registration and [MBZUAI’s official faculty profile](https://mbzuai.ac.ae/academics/faculty-directory/min-xu), which lists him as Affiliated Associate Professor of Computer Vision. His selected talk remains 16:20–16:30.
 
 - On 25 November, the organiser requested **Founder of SHIFRA** below Hala Alsaleh’s name in her agenda entry and speaker profile. The About heading and calendar copy now refer to the symposium consistently. The obsolete notice that selected-speaker assignments were unconfirmed was removed after the four presentations were confirmed.
+
+- On 25 November, the organiser requested consistent honorifics for all named participants, retaining established Dr./Prof. titles and using Ms. for Hala Alsaleh. Public names in the agenda, speaker and committee profiles, acknowledgement, and derived calendar were updated using registration titles and official profiles. Hala’s Founder of SHIFRA label and all programme times are unchanged.
