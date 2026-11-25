@@ -36,7 +36,7 @@ export const agenda: AgendaEntry[] = [
   { start: "15:00", duration: 20, title: "AI-Powered Wellness: Tailored Dietary Support for Chronic Disease Management", speaker: "Dr. Tania Tahtouh", affiliation: "Abu Dhabi University", notes: null, category: "Talk" },
   { start: "15:20", duration: 30, title: "Coffee Break", notes: "All attendees", category: "Break" },
   { start: "15:50", duration: 40, title: "Selected Speaker Talks", notes: "40 mins for 4 speakers · Presenters and titles to be confirmed", category: "Talk" },
-  { start: "16:30", duration: 30, title: "Panel Discussion", speaker: "Prof. Eduardo Beltrame; Dr. Shahrukh Hashmi; Dr. Mohammed Ghazal; Mohammad Amaan Sayeed", notes: "Moderator: Prof. Eduardo Beltrame", category: "Panel" },
+  { start: "16:30", duration: 30, title: "Panel Discussion", speaker: "Prof. Eduardo Beltrame; Dr. Shahrukh Hashmi; Prof. Mohammed Ghazal; Mohammad Amaan Sayeed", notes: "Moderator: Prof. Eduardo Beltrame", category: "Panel" },
   { start: "17:00", duration: 10, title: "Closing Remarks and Speaker Recognition", speaker: "Organizing Committee", notes: null, category: "Closing" },
 ];
 

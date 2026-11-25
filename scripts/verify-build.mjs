@@ -194,7 +194,7 @@ for (let i = 1; i < programme.length; i++) {
   assert.equal(minuteOfDay(programme[i - 1].start) + programme[i - 1].duration, minuteOfDay(programme[i].start), `Agenda gap or overlap before ${programme[i].start}`);
 }
 const panel = programme.find(entry => entry.category === 'Panel');
-assert(panel?.start === '16:30' && panel.duration === 30 && panel.speaker === 'Prof. Eduardo Beltrame; Dr. Shahrukh Hashmi; Dr. Mohammed Ghazal; Mohammad Amaan Sayeed' && panel.notes === 'Moderator: Prof. Eduardo Beltrame', 'Panel must show the approved order with Eduardo as moderator');
+assert(panel?.start === '16:30' && panel.duration === 30 && panel.speaker === 'Prof. Eduardo Beltrame; Dr. Shahrukh Hashmi; Prof. Mohammed Ghazal; Mohammad Amaan Sayeed' && panel.notes === 'Moderator: Prof. Eduardo Beltrame', 'Panel must show the approved order with Eduardo as moderator');
 const selectedIndex = programme.findIndex(entry => entry.title === 'Selected Speaker Talks');
 assert(programme[selectedIndex - 1].title === 'Coffee Break' && programme[selectedIndex - 1].start === '15:20' && programme[selectedIndex - 1].duration === 30, 'Coffee must follow the complete third session and immediately precede selected talks');
 assert(unfoldedCalendar.includes('15:20–15:50: Coffee Break') && unfoldedCalendar.includes('15:50–16:30: Selected Speaker Talks') && unfoldedCalendar.includes('Moderator: Prof. Eduardo Beltrame'), 'Calendar description must include the updated programme and panel moderator');

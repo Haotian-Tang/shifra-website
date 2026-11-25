@@ -166,7 +166,7 @@ export const speakers: Speaker[] = [
     talkTitle: 'Plant Genomics and Biodiversity Research in the UAE',
   },
   {
-    name: 'Dr. Mohammed Ghazal', initials: 'MG', role: 'Panel Discussion',
+    name: 'Prof. Mohammed Ghazal', initials: 'MG', role: 'Panel Discussion',
     title: null, affiliation: 'Abu Dhabi University', biography: null,
     portrait: 'images/speakers/mohammed-ghazal.webp',
     profileUrl: 'https://www.linkedin.com/in/mohammed-ghazal-60291475/',
