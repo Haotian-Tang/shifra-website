@@ -51,7 +51,7 @@ export const event = {
   },
   poster: {
     image: "images/shifra-poster-2026-11-25.webp" as string | null,
-    alt: "SHIFRA UAE Genomics and AI Symposium poster, 27 November 2026, 8:30 AM to 5:10 PM UAE time, MBZUAI Lecture Halls 1 & 2, with a registration QR code and student organisers Ms. Hala Alsaleh and Haotian Tang",
+    alt: "SHIFRA UAE Genomics and AI Symposium poster, 27 November 2026, 8:30 AM to 5:10 PM UAE time, MBZUAI Lecture Halls 1 & 2, with a registration QR code and student organisers Ms. Hala Alsaleh and Mr. Haotian Tang",
     download: "downloads/SHIFRA_Poster_2026-11-25.pdf" as string | null,
   },
   acknowledgement: [
@@ -72,7 +72,7 @@ export const organizers: Person[] = [
     profileUrl: null,
   },
   {
-    name: "Haotian Tang",
+    name: "Mr. Haotian Tang",
     initials: "HT",
     title: "Co-founder",
     academicTitle: "PhD Student · MBZUAI",

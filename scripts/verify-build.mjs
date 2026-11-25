@@ -216,7 +216,7 @@ for (const entry of selectedTalks) {
 assert(!agendaSection.includes('Presenters and titles to be confirmed'), 'Remove the superseded selected-talk placeholder');
 const sayeedTalks = programme.filter(entry => entry.category === 'Talk' && entry.speaker?.includes('Sayeed'));
 assert(sayeedTalks.length === 1 && sayeedTalks[0].start === '09:55', 'Sayeed replaces Shadab once, at 09:55');
-for (const name of ["Ms. Hala Alsaleh", "Haotian Tang", "Prof. Eduardo Beltrame"])
+for (const name of ["Ms. Hala Alsaleh", "Mr. Haotian Tang", "Prof. Eduardo Beltrame"])
   assert(people.includes(name));
 console.log(
   `Verified 2 content pages, 5 legacy section redirects, 24 continuous UAE-time agenda entries, ${speakers.length} approved speaker profiles, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
