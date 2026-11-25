@@ -163,7 +163,7 @@ export const speakers: Speaker[] = [
     title: 'Research Associate', affiliation: 'NYU Abu Dhabi', biography: null,
     portrait: 'images/speakers/juliana-ferreira-original-2026.png',
     profileUrl: 'https://www.linkedin.com/in/juliana-ferreira-6238a7a0/',
-    talkTitle: 'Plant Genomics and Biodiversity Research in the UAE',
+    talkTitle: 'Genomics, proteomics, structural biology and artificial intelligence in one workflow',
   },
   {
     name: 'Prof. Mohammed Ghazal', initials: 'MG', role: 'Panel Discussion',
