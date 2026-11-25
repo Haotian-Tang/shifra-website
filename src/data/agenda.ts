@@ -38,7 +38,7 @@ export const agenda: AgendaEntry[] = [
   { start: "15:50", duration: 10, title: "PHYTOCODE-LIVER: A genotype-aware computational framework testing whether UAE-relevant dietary bioactives can access the occluded HSD17B13 substrate site and phenocopy a protective MASLD variant", speaker: "PHYTOCODE team", notes: "Selected Speaker Talk · 7-minute presentation + 3-minute Q&A", category: "Talk" },
   { start: "16:00", duration: 10, title: "Predicting Transcriptional Responses to Unseen Compounds through Context Modeling and Multi-View Transfer", speaker: "Yuqi Lei", notes: "Selected Speaker Talk · 7-minute presentation + 3-minute Q&A", category: "Talk" },
   { start: "16:10", duration: 10, title: "Platinum Resistance Before Treatment: Fibroblast Stroma and a Stemness-Associated Regulatory Program in High-Grade Serous Ovarian Cancer", speaker: "Irina Karpushkina", notes: "Selected Speaker Talk · 7-minute presentation + 3-minute Q&A", category: "Talk" },
-  { start: "16:20", duration: 10, title: "Toward Reliable Closed-Loop Laboratory Automation", speaker: "Min Xu", notes: "Selected Speaker Talk · 7-minute presentation + 3-minute Q&A", category: "Talk" },
+  { start: "16:20", duration: 10, title: "Toward Reliable Closed-Loop Laboratory Automation", speaker: "Prof. Min Xu", notes: "Selected Speaker Talk · 7-minute presentation + 3-minute Q&A", category: "Talk" },
   { start: "16:30", duration: 30, title: "Panel Discussion", speaker: "Prof. Eduardo Beltrame; Dr. Shahrukh Hashmi; Prof. Mohammed Ghazal; Mohammad Amaan Sayeed", notes: "Moderator: Prof. Eduardo Beltrame", category: "Panel" },
   { start: "17:00", duration: 10, title: "Closing Remarks and Speaker Recognition", speaker: "Organizing Committee", notes: null, category: "Closing" },
 ];

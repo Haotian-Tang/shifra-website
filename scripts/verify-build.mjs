@@ -203,7 +203,7 @@ assert.deepEqual(selectedTalks.map(({ start, duration, speaker }) => ({ start, d
   { start: '15:50', duration: 10, speaker: 'PHYTOCODE team' },
   { start: '16:00', duration: 10, speaker: 'Yuqi Lei' },
   { start: '16:10', duration: 10, speaker: 'Irina Karpushkina' },
-  { start: '16:20', duration: 10, speaker: 'Min Xu' },
+  { start: '16:20', duration: 10, speaker: 'Prof. Min Xu' },
 ], 'The four confirmed selected talks must retain the approved order and ten-minute slots');
 const selectedIndex = programme.indexOf(selectedTalks[0]);
 assert(programme[selectedIndex - 1].title === 'Coffee Break' && programme[selectedIndex - 1].start === '15:20' && programme[selectedIndex - 1].duration === 30, 'Coffee must follow the complete third session and immediately precede selected talks');
