@@ -129,7 +129,7 @@ export const speakers: Speaker[] = [
     title: null, affiliation: 'Inception42', biography: null,
     portrait: 'images/speakers/mohammad-amaan-sayeed.png',
     profileUrl: 'https://www.linkedin.com/in/mohammad-amaan29/',
-    talkTitle: 'From the Emirati Genome to AI-Driven Precision Medicine: The Future of Healthcare in the UAE',
+    talkTitle: 'InHealth : Towards an Agentic AI Framework for Protein Binders Generation',
   },
   {
     name: 'Dr. Thyago Cardoso', initials: 'TC', role: 'Speaker',
