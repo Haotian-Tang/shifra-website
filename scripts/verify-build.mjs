@@ -198,9 +198,9 @@ for (let i = 1; i < programme.length; i++) {
 }
 const panel = programme.find(entry => entry.category === 'Panel');
 assert(panel?.start === '16:30' && panel.duration === 30 && panel.speaker === 'Prof. Eduardo Beltrame; Dr. Shahrukh Hashmi; Prof. Mohammed Ghazal; Mohammad Amaan Sayeed' && panel.notes === 'Moderator: Prof. Eduardo Beltrame', 'Panel must show the approved order with Eduardo as moderator');
-const selectedTalks = programme.filter(entry => entry.notes?.startsWith('Selected Speaker Talk ·'));
+const selectedTalks = programme.filter(entry => entry.notes === 'Selected Speaker Talk');
 assert.deepEqual(selectedTalks.map(({ start, duration, speaker }) => ({ start, duration, speaker })), [
-  { start: '15:50', duration: 10, speaker: 'PHYTOCODE team' },
+  { start: '15:50', duration: 10, speaker: 'Tuayyeb Hussain and Falah AlYafei' },
   { start: '16:00', duration: 10, speaker: 'Yuqi Lei' },
   { start: '16:10', duration: 10, speaker: 'Irina Karpushkina' },
   { start: '16:20', duration: 10, speaker: 'Prof. Min Xu' },
