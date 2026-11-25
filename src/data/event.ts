@@ -36,7 +36,7 @@ export const event = {
   divisionShort: "BLS",
   programmeStatus: "Symposium programme",
   confirmationNote:
-    "The programme is subject to change. The guest of honour and selected-speaker assignments remain subject to confirmation.",
+    "The programme is subject to change. The guest of honour remains subject to confirmation.",
   introduction:
     "SHIFRA brings students, researchers, and invited guests together to explore the intersection of genomics and artificial intelligence. The symposium creates a shared space for scientific exchange across disciplines and career stages.",
   story:
@@ -140,7 +140,7 @@ export const speakers: Speaker[] = [
   },
   {
     name: 'Hala Alsaleh', initials: 'HA', role: 'Speaker',
-    title: 'MSc Student', affiliation: 'MBZUAI', biography: null,
+    title: 'Founder of SHIFRA', affiliation: 'MBZUAI', biography: null,
     portrait: 'images/committee/hala-alsaleh.webp', profileUrl: null,
     talkTitle: 'UAE Sports Genomics: A Pioneering Study of Genetic Markers Associated with Athletic Performance, Strength, Endurance, and Injury Risk',
   },

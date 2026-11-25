@@ -22,7 +22,7 @@ export const agenda: AgendaEntry[] = [
   { start: "09:10", duration: 15, title: "Opening Address", notes: "Guest of honour · Attendance, name and official title to be confirmed", category: "Welcome" },
   { start: "09:25", duration: 30, title: "Keynote: The Future of Scientific Research and Precision Medicine in the UAE", speaker: "Dr. Shahrukh Hashmi", affiliation: "Department of Health – Abu Dhabi", notes: null, category: "Keynote" },
   { start: "09:55", duration: 25, session: 1, title: "InHealth : Towards an Agentic AI Framework for Protein Binders Generation", speaker: "Mohammad Amaan Sayeed", affiliation: "Inception42", notes: null, category: "Talk" },
-  { start: "10:20", duration: 25, title: "UAE Sports Genomics: A Pioneering Study of Genetic Markers Associated with Athletic Performance, Strength, Endurance, and Injury Risk", speaker: "Hala Alsaleh", affiliation: "MBZUAI", notes: null, category: "Talk" },
+  { start: "10:20", duration: 25, title: "UAE Sports Genomics: A Pioneering Study of Genetic Markers Associated with Athletic Performance, Strength, Endurance, and Injury Risk", speaker: "Hala Alsaleh", affiliation: "Founder of SHIFRA", notes: null, category: "Talk" },
   { start: "10:45", duration: 15, title: "One-Minute Poster Pitches", notes: "Student presenters", category: "Posters" },
   { start: "11:00", duration: 10, title: "Cake Cutting and Photographs", notes: "All attendees", category: "Break" },
   { start: "11:10", duration: 60, title: "Poster Session and Scientific Networking", notes: "Student presenters and attendees", category: "Posters" },
