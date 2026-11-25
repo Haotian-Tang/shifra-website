@@ -157,8 +157,8 @@ await walk(directory);
 const agenda = html;
 assert.equal(
   (agenda.match(/class="agenda-entry"/g) || []).length,
-  21,
-  "All 21 updated programme entries must render",
+  24,
+  "All 24 updated programme entries must render",
 );
 for (const time of [
   "08:30",
@@ -180,6 +180,9 @@ for (const time of [
   "15:00",
   "15:20",
   "15:50",
+  "16:00",
+  "16:10",
+  "16:20",
   "16:30",
   "17:00",
 ]) {
@@ -195,13 +198,26 @@ for (let i = 1; i < programme.length; i++) {
 }
 const panel = programme.find(entry => entry.category === 'Panel');
 assert(panel?.start === '16:30' && panel.duration === 30 && panel.speaker === 'Prof. Eduardo Beltrame; Dr. Shahrukh Hashmi; Prof. Mohammed Ghazal; Mohammad Amaan Sayeed' && panel.notes === 'Moderator: Prof. Eduardo Beltrame', 'Panel must show the approved order with Eduardo as moderator');
-const selectedIndex = programme.findIndex(entry => entry.title === 'Selected Speaker Talks');
+const selectedTalks = programme.filter(entry => entry.notes?.startsWith('Selected Speaker Talk ·'));
+assert.deepEqual(selectedTalks.map(({ start, duration, speaker }) => ({ start, duration, speaker })), [
+  { start: '15:50', duration: 10, speaker: 'PHYTOCODE team' },
+  { start: '16:00', duration: 10, speaker: 'Yuqi Lei' },
+  { start: '16:10', duration: 10, speaker: 'Irina Karpushkina' },
+  { start: '16:20', duration: 10, speaker: 'Min Xu' },
+], 'The four confirmed selected talks must retain the approved order and ten-minute slots');
+const selectedIndex = programme.indexOf(selectedTalks[0]);
 assert(programme[selectedIndex - 1].title === 'Coffee Break' && programme[selectedIndex - 1].start === '15:20' && programme[selectedIndex - 1].duration === 30, 'Coffee must follow the complete third session and immediately precede selected talks');
-assert(unfoldedCalendar.includes('15:20–15:50: Coffee Break') && unfoldedCalendar.includes('15:50–16:30: Selected Speaker Talks') && unfoldedCalendar.includes('Moderator: Prof. Eduardo Beltrame'), 'Calendar description must include the updated programme and panel moderator');
+assert(unfoldedCalendar.includes('15:20–15:50: Coffee Break') && unfoldedCalendar.includes('Moderator: Prof. Eduardo Beltrame'), 'Calendar description must include the updated programme and panel moderator');
+const calendarText = unfoldedCalendar.replaceAll('\\,', ',');
+for (const entry of selectedTalks) {
+  assert(agendaSection.includes(entry.speaker) && agendaSection.includes(entry.title), `Agenda must show the confirmed selected talk by ${entry.speaker}`);
+  assert(calendarText.includes(entry.title) && calendarText.includes(entry.speaker), `Calendar must include the confirmed selected talk by ${entry.speaker}`);
+}
+assert(!agendaSection.includes('Presenters and titles to be confirmed'), 'Remove the superseded selected-talk placeholder');
 const sayeedTalks = programme.filter(entry => entry.category === 'Talk' && entry.speaker?.includes('Sayeed'));
 assert(sayeedTalks.length === 1 && sayeedTalks[0].start === '09:55', 'Sayeed replaces Shadab once, at 09:55');
 for (const name of ["Hala Alsaleh", "Haotian Tang", "Eduardo Beltrame"])
   assert(people.includes(name));
 console.log(
-  `Verified 2 content pages, 5 legacy section redirects, 21 continuous UAE-time agenda entries, ${speakers.length} approved speaker profiles, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
+  `Verified 2 content pages, 5 legacy section redirects, 24 continuous UAE-time agenda entries, ${speakers.length} approved speaker profiles, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
 );
