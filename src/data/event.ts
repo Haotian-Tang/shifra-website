@@ -136,7 +136,7 @@ export const speakers: Speaker[] = [
     title: 'Manager, Commercial Research and Development', affiliation: 'M42 Healthcare', biography: null,
     portrait: 'images/speakers/thyago-cardoso.jpg',
     profileUrl: 'https://www.linkedin.com/in/dr-thyago-cardoso-7181741b3/',
-    talkTitle: 'Plant Genome Sequencing to Safeguard Native UAE Species',
+    talkTitle: 'Plants & Animals and Bioinformatics',
   },
   {
     name: 'Hala Alsaleh', initials: 'HA', role: 'Speaker',
@@ -163,7 +163,7 @@ export const speakers: Speaker[] = [
     title: 'Research Associate', affiliation: 'NYU Abu Dhabi', biography: null,
     portrait: 'images/speakers/juliana-ferreira-original-2026.png',
     profileUrl: 'https://www.linkedin.com/in/juliana-ferreira-6238a7a0/',
-    talkTitle: 'Genomics, proteomics, structural biology and artificial intelligence in one workflow',
+    talkTitle: 'Genomics, Proteomics, Structural Biology and Artificial Intelligence in One Workflow',
   },
   {
     name: 'Prof. Mohammed Ghazal', initials: 'MG', role: 'Panel Discussion',
