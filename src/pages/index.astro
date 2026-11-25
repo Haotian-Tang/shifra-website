@@ -28,7 +28,16 @@ import { sitePath, contentUrl } from '../lib/urls';
   </section>
   <section id="about" class="home-section about-section container" aria-labelledby="about-title">
     <div class="about-layout">
-      <div class="about-copy-column"><h2 id="about-title" class="section-title">About this symposium</h2><div class="home-copy"><p>{event.introduction}</p><p>{event.story}</p><p>{event.community}</p></div></div>
+      <div class="about-copy-column">
+        <h2 id="about-title" class="section-title">About the symposium</h2>
+        <div class="home-copy">
+          <p>{event.introduction}</p>
+          <p>{event.story}</p>
+          <ul class="about-opportunities">{event.opportunities.map(opportunity => <li>{opportunity}</li>)}</ul>
+          <p>{event.community}</p>
+          <p class="about-tagline">{event.tagline}</p>
+        </div>
+      </div>
       <aside class="about-poster" aria-label="Symposium poster"><h3>Symposium poster</h3><Poster /></aside>
     </div>
   </section>

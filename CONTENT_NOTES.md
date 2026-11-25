@@ -32,3 +32,5 @@
 - On 25 November, the organiser requested consistent honorifics for all named participants, retaining established Dr./Prof. titles and using Ms. for Hala Alsaleh. Public names in the agenda, speaker and committee profiles, acknowledgement, and derived calendar were updated using registration titles and official profiles. Hala’s Founder of SHIFRA label and all programme times are unchanged.
 
 - On 25 November, Haotian confirmed **Mr. Haotian Tang** as his preferred public name with honorific. The opening, committee profile, poster description and derived calendar use this form consistently.
+
+- On 25 November, the organiser supplied a broader About the Symposium introduction covering business, healthcare, research and industry collaboration. It was condensed into short paragraphs, three opportunities and the supplied closing line. The About section now uses a wider desktop layout with a 420px poster (previously 300px), aligns the copy with the poster’s lower edge, and stacks the content on narrower screens. The original poster artwork and PDF are unchanged.

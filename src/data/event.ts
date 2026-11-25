@@ -38,11 +38,18 @@ export const event = {
   confirmationNote:
     "The programme is subject to change. The guest of honour remains subject to confirmation.",
   introduction:
-    "SHIFRA brings students, researchers, and invited guests together to explore the intersection of genomics and artificial intelligence. The symposium creates a shared space for scientific exchange across disciplines and career stages.",
+    "SHIFRA brings together business leaders, healthcare professionals, AI innovators, genomics and biotech companies, investors, scientists, researchers, and students to explore genomics and artificial intelligence.",
   story:
-    "Named after the Arabic word for “code”, SHIFRA connects the code of life with the code of computation. Scientific talks and discussions explore how biological insight and computational methods can inform one another.",
+    "Named after the Arabic word for “code,” SHIFRA connects the code of life with the code of computation, linking scientific discovery with practical applications.",
+  opportunities: [
+    "Explore AI-driven healthcare, precision medicine, and biotechnology.",
+    "Build partnerships across academia, healthcare, and industry.",
+    "Discover business opportunities and connect with investors and innovators.",
+  ],
   community:
-    "Poster presentations and one-minute pitches give emerging researchers a place to share their work and receive feedback. Informal conversations make room for new connections and future collaborations across our growing genomics and AI community.",
+    "Hosted at Mohamed bin Zayed University of Artificial Intelligence (MBZUAI), SHIFRA combines scientific talks, discussions, posters, one-minute pitches, and networking to advance research, industry connections, and innovation in the UAE.",
+  tagline:
+    "Where Science Meets Business, Technology Meets Healthcare, and Innovation Creates Opportunity.",
   contactEmail: "hala.alsaleh@mbzuai.ac.ae" as string | null,
   banner: {
     image: "images/shifra-banner-wide.webp" as string | null,
