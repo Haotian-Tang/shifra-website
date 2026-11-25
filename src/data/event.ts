@@ -156,7 +156,7 @@ export const speakers: Speaker[] = [
     title: 'Senior Applied Scientist', affiliation: 'Inception42', biography: null,
     portrait: 'images/speakers/nancy-elnaker-2026.jpg',
     profileUrl: 'https://www.linkedin.com/in/dr-nancy-a-elnaker-phd-6794b450/',
-    talkTitle: 'When Plants Become Medicine: From Genetic Engineering to Nanotechnology and AI',
+    talkTitle: 'From Plant Bioactivity to Molecular Hypotheses: An AI Virtual Lab for Natural Product Discovery',
   },
   {
     name: 'Dr. Juliana Ferreira', initials: 'JF', role: 'Speaker',
