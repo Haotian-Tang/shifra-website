@@ -10,6 +10,7 @@ export interface Person {
 }
 
 export interface Speaker extends Person {
+  portraitMask?: string;
   talkTitle: string | null;
   role: 'Keynote Speaker' | 'Speaker' | 'Panel Discussion';
 }
@@ -122,7 +123,7 @@ export const speakers: Speaker[] = [
     title: 'Senior Research Scientist', affiliation: 'M42 Healthcare', biography: null,
     portrait: 'images/speakers/shalini-behl.jpg',
     profileUrl: 'https://www.linkedin.com/in/shalini-behl-b30a0b46/',
-    talkTitle: 'Cancer Genomics and Genetic Risk Stratification in the United Arab Emirates',
+    talkTitle: 'Proteomics for Diabetes Risk and Complication Detection',
   },
   {
     name: 'Dr. Daniel Sanchez', initials: 'DS', role: 'Speaker',
@@ -169,6 +170,7 @@ export const speakers: Speaker[] = [
     name: 'Dr. Juliana Ferreira', initials: 'JF', role: 'Speaker',
     title: 'Research Associate', affiliation: 'NYU Abu Dhabi', biography: null,
     portrait: 'images/speakers/juliana-ferreira-original-2026.png',
+    portraitMask: 'images/speakers/juliana-ferreira-mask.svg',
     profileUrl: 'https://www.linkedin.com/in/juliana-ferreira-6238a7a0/',
     talkTitle: 'Genomics, Proteomics, Structural Biology and Artificial Intelligence in One Workflow',
   },

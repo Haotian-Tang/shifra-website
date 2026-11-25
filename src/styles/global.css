@@ -461,10 +461,15 @@ main:focus {
 .speaker-portrait img {
   object-position: center 20%;
 }
-.speaker-portrait img[src$="juliana-ferreira-original-2026.png"] {
+.speaker-portrait--cutout img {
   object-fit: contain;
-  /* Hide the original circular portrait's black corners without altering the photograph. */
-  clip-path: circle(49% at 49.3% 49.3%);
+  /* Remove the backdrop for display while preserving the original photo pixels. */
+  mask: var(--portrait-mask) center / 100% 100% no-repeat;
+  transform: scale(1.35);
+  transform-origin: center 35%;
+}
+.speaker-portrait--cutout {
+  overflow: hidden;
 }
 .speaker-panel {
   padding: 22px;

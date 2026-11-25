@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 350">
+  <!-- Foreground display mask for the unchanged original photograph. -->
+  <defs><clipPath id="original-boundary"><circle cx="172.5" cy="172.5" r="171.5"/></clipPath></defs>
+  <path fill="white" clip-path="url(#original-boundary)" d="M146 70 C153 55 166 45 183 43 C206 42 224 51 234 65 C241 80 251 90 265 103 Q274 112 275 119 Q279 129 287 140 Q299 148 304 157 Q309 165 305 180 L303 190 Q313 202 319 214 Q324 225 317 236 Q324 241 327 251 L333 269 L350 350 L78 350 L70 315 L65 304 L61 291 Q68 281 65 274 Q71 264 70 255 Q68 243 73 233 Q83 223 86 211 Q81 203 85 195 L94 179 L97 166 Q99 151 106 137 Q110 122 118 110 Q122 95 131 86 Q137 77 146 70 Z"/>
+</svg>

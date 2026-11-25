@@ -28,7 +28,7 @@ export const agenda: AgendaEntry[] = [
   { start: "11:10", duration: 60, title: "Poster Session and Scientific Networking", notes: "Student presenters and attendees", category: "Posters" },
   { start: "12:10", duration: 50, title: "Lunch and Scientific Networking", notes: "All attendees", category: "Networking" },
   { start: "13:00", duration: 20, session: 2, title: "From Plant Bioactivity to Molecular Hypotheses: An AI Virtual Lab for Natural Product Discovery", speaker: "Dr. Nancy ElNaker", affiliation: "Inception42", notes: null, category: "Talk" },
-  { start: "13:20", duration: 20, title: "Cancer Genomics and Genetic Risk Stratification in the United Arab Emirates", speaker: "Dr. Shalini Behl", affiliation: "M42 Healthcare", notes: null, category: "Talk" },
+  { start: "13:20", duration: 20, title: "Proteomics for Diabetes Risk and Complication Detection", speaker: "Dr. Shalini Behl", affiliation: "M42 Healthcare", notes: null, category: "Talk" },
   { start: "13:40", duration: 20, title: "The Emirati Genome Program Enables Population-wide Penetrance Estimation and Novel Discovery for Inherited Retinal Disease", speaker: "Dr. Budour Alkaf", affiliation: "M42 Healthcare", notes: null, category: "Talk" },
   { start: "14:00", duration: 20, title: "Precision Medicine for Breast Cancer in the UAE: Making Genomic Risk Actionable with AI", speaker: "Dr. Daniel Sanchez", affiliation: "M42 Healthcare", notes: null, category: "Talk" },
   { start: "14:20", duration: 20, session: 3, title: "Genomics, Proteomics, Structural Biology and Artificial Intelligence in One Workflow", speaker: "Dr. Juliana Ferreira", affiliation: "NYU Abu Dhabi", notes: null, category: "Talk" },

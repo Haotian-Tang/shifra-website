@@ -34,3 +34,7 @@
 - On 25 November, Haotian confirmed **Mr. Haotian Tang** as his preferred public name with honorific. The opening, committee profile, poster description and derived calendar use this form consistently.
 
 - On 25 November, the organiser supplied a broader About the Symposium introduction covering business, healthcare, research and industry collaboration. It was condensed into short paragraphs, three opportunities and the supplied closing line. The About section now uses a wider desktop layout with a 420px poster (previously 300px), aligns the copy with the poster’s lower edge, and stacks the content on narrower screens. The original poster artwork and PDF are unchanged.
+
+- On 25 November, the organiser updated Dr. Shalini Behl’s talk title to **Proteomics for Diabetes Risk and Complication Detection** for the agenda, speaker profile and derived calendar download. Her slot remains 13:20–13:40.
+
+- On 25 November, Juliana’s original portrait was kept unchanged and given a foreground SVG display mask to hide the conference backdrop and black corners. The image is framed within the rectangular speaker portrait area. An AI-generated cutout candidate was rejected for adding detail beyond the original photograph; it is not used by the website.
