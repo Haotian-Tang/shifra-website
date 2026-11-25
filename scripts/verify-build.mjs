@@ -157,8 +157,8 @@ await walk(directory);
 const agenda = html;
 assert.equal(
   (agenda.match(/class="agenda-entry"/g) || []).length,
-  24,
-  "All 24 updated programme entries must render",
+  25,
+  "All 25 updated programme entries must render",
 );
 for (const time of [
   "08:30",
@@ -184,6 +184,7 @@ for (const time of [
   "16:10",
   "16:20",
   "16:30",
+  "16:40",
   "17:00",
 ]) {
   assert(
@@ -197,14 +198,15 @@ for (let i = 1; i < programme.length; i++) {
   assert.equal(minuteOfDay(programme[i - 1].start) + programme[i - 1].duration, minuteOfDay(programme[i].start), `Agenda gap or overlap before ${programme[i].start}`);
 }
 const panel = programme.find(entry => entry.category === 'Panel');
-assert(panel?.start === '16:30' && panel.duration === 30 && panel.speaker === 'Prof. Eduardo Beltrame; Dr. Shahrukh Hashmi; Prof. Mohammed Ghazal; Mr. Mohammad Amaan Sayeed' && panel.notes === 'Moderator: Prof. Eduardo Beltrame', 'Panel must show the approved order with Eduardo as moderator');
+assert(panel?.start === '16:40' && panel.duration === 20 && panel.speaker === 'Prof. Eduardo Beltrame; Dr. Shahrukh Hashmi; Prof. Mohammed Ghazal; Mr. Mohammad Amaan Sayeed' && panel.notes === 'Moderator: Prof. Eduardo Beltrame', 'Panel must run for twenty minutes after all selected talks, with Eduardo as moderator');
 const selectedTalks = programme.filter(entry => entry.notes === 'Selected Speaker Talk');
 assert.deepEqual(selectedTalks.map(({ start, duration, speaker }) => ({ start, duration, speaker })), [
   { start: '15:50', duration: 10, speaker: 'Mr. Tuayyeb Hussain and Mr. Falah AlYafei' },
   { start: '16:00', duration: 10, speaker: 'Mr. Yuqi Lei' },
   { start: '16:10', duration: 10, speaker: 'Ms. Irina Karpushkina' },
   { start: '16:20', duration: 10, speaker: 'Prof. Min Xu' },
-], 'The four confirmed selected talks must retain the approved order and ten-minute slots');
+  { start: '16:30', duration: 10, speaker: 'Mr. Shinya Yoshida' },
+], 'The five confirmed selected talks must retain the approved order and ten-minute slots');
 const selectedIndex = programme.indexOf(selectedTalks[0]);
 assert(programme[selectedIndex - 1].title === 'Coffee Break' && programme[selectedIndex - 1].start === '15:20' && programme[selectedIndex - 1].duration === 30, 'Coffee must follow the complete third session and immediately precede selected talks');
 assert(unfoldedCalendar.includes('15:20–15:50: Coffee Break') && unfoldedCalendar.includes('Moderator: Prof. Eduardo Beltrame'), 'Calendar description must include the updated programme and panel moderator');
@@ -219,5 +221,5 @@ assert(sayeedTalks.length === 1 && sayeedTalks[0].start === '09:55', 'Sayeed rep
 for (const name of ["Ms. Hala Alsaleh", "Mr. Haotian Tang", "Prof. Eduardo Beltrame"])
   assert(people.includes(name));
 console.log(
-  `Verified 2 content pages, 5 legacy section redirects, 24 continuous UAE-time agenda entries, ${speakers.length} approved speaker profiles, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
+  `Verified 2 content pages, 5 legacy section redirects, ${programme.length} continuous UAE-time agenda entries, ${speakers.length} approved speaker profiles, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
 );
