@@ -40,7 +40,7 @@ export const agenda: AgendaEntry[] = [
   { start: "16:10", duration: 10, title: "Platinum Resistance Before Treatment: Fibroblast Stroma and a Stemness-Associated Regulatory Program in High-Grade Serous Ovarian Cancer", speaker: "Ms. Irina Karpushkina", notes: "Selected Speaker Talk", category: "Talk" },
   { start: "16:20", duration: 10, title: "Toward Reliable Closed-Loop Laboratory Automation", speaker: "Prof. Min Xu", notes: "Selected Speaker Talk", category: "Talk" },
   { start: "16:30", duration: 10, title: "SaigenBio: Visualize the story behind your bioinformatics results", speaker: "Mr. Shinya Yoshida", affiliation: "MBZUAI", notes: "Selected Speaker Talk", category: "Talk" },
-  { start: "16:40", duration: 20, title: "Panel Discussion", speaker: "Prof. Eduardo Beltrame; Dr. Shahrukh Hashmi; Prof. Mohammed Ghazal; Mr. Mohammad Amaan Sayeed", notes: "Moderator: Prof. Eduardo Beltrame", category: "Panel" },
+  { start: "16:40", duration: 20, title: "Panel Discussion", speaker: "Dr. Shahrukh Hashmi; Prof. Mohammed Ghazal; Mr. Mohammad Amaan Sayeed", notes: "Moderator: Prof. Eduardo Beltrame", category: "Panel" },
   { start: "17:00", duration: 10, title: "Closing Remarks and Speaker Recognition", speaker: "Organizing Committee", notes: null, category: "Closing" },
 ];
 

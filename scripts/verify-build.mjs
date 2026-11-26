@@ -198,7 +198,7 @@ for (let i = 1; i < programme.length; i++) {
   assert.equal(minuteOfDay(programme[i - 1].start) + programme[i - 1].duration, minuteOfDay(programme[i].start), `Agenda gap or overlap before ${programme[i].start}`);
 }
 const panel = programme.find(entry => entry.category === 'Panel');
-assert(panel?.start === '16:40' && panel.duration === 20 && panel.speaker === 'Prof. Eduardo Beltrame; Dr. Shahrukh Hashmi; Prof. Mohammed Ghazal; Mr. Mohammad Amaan Sayeed' && panel.notes === 'Moderator: Prof. Eduardo Beltrame', 'Panel must run for twenty minutes after all selected talks, with Eduardo as moderator');
+assert(panel?.start === '16:40' && panel.duration === 20 && panel.speaker === 'Dr. Shahrukh Hashmi; Prof. Mohammed Ghazal; Mr. Mohammad Amaan Sayeed' && panel.notes === 'Moderator: Prof. Eduardo Beltrame', 'Panel must run for twenty minutes after all selected talks, with Eduardo listed only as moderator');
 const selectedTalks = programme.filter(entry => entry.notes === 'Selected Speaker Talk');
 assert.deepEqual(selectedTalks.map(({ start, duration, speaker }) => ({ start, duration, speaker })), [
   { start: '15:50', duration: 10, speaker: 'Mr. Tuayyeb Hussain and Mr. Falah AlYafei' },
