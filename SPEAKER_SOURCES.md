@@ -54,10 +54,11 @@ Speaker roster authorised by the organisers on 23 November 2026. Names and affil
 
 ## Mohammed Ghazal
 
-- Asset: `public/images/speakers/mohammed-ghazal.webp`
+- Asset: `public/images/speakers/mohammed-ghazal-2026-11-26.jpeg`
+- Current portrait supplied by the organiser as `Ghazal.jpeg` on 26 November 2026; copied unchanged.
 - [LinkedIn profile](https://www.linkedin.com/in/mohammed-ghazal-60291475/)
-- [Named portrait source](https://adu.ac.ae/about-adu/leadership-team/)
-- [Original image](https://adu.ac.ae/media/images/abudhabiuniversitylibraries/faculty/mohammed-ghazal.webp?sfvrsn=ff1bb63e_5)
+- Previous portrait: [Named portrait source](https://adu.ac.ae/about-adu/leadership-team/)
+- Previous portrait: [Original image](https://adu.ac.ae/media/images/abudhabiuniversitylibraries/faculty/mohammed-ghazal.webp?sfvrsn=ff1bb63e_5)
 
 ## Hala Alsaleh
 

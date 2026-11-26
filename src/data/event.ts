@@ -177,7 +177,7 @@ export const speakers: Speaker[] = [
   {
     name: 'Prof. Mohammed Ghazal', initials: 'MG', role: 'Panel Discussion',
     title: null, affiliation: 'Abu Dhabi University', biography: null,
-    portrait: 'images/speakers/mohammed-ghazal.webp',
+    portrait: 'images/speakers/mohammed-ghazal-2026-11-26.jpeg',
     profileUrl: 'https://www.linkedin.com/in/mohammed-ghazal-60291475/',
     talkTitle: null,
   },

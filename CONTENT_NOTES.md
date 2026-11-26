@@ -42,3 +42,5 @@
 - On 25 November, the organiser added **Mr. Shinya Yoshida (MBZUAI)** as the fifth selected speaker, **16:30–16:40**, presenting **SaigenBio: Visualize the story behind your bioinformatics results**. His name and title were checked against the scoring file and original registration. The panel is now twenty minutes, **16:40–17:00**; moderator, panellists, coffee and closing remain unchanged. The overall symposium still ends at **17:10**. The website, print agenda and calendar use this revised schedule. This supersedes the earlier four-talk schedule noted above.
 
 - On 26 November, the organiser removed Prof. Eduardo Beltrame from the panel’s panellist line while retaining **Moderator: Prof. Eduardo Beltrame**. The panel remains **16:40–17:00**; the website, print agenda and calendar derive this distinction from the same agenda entry.
+
+- On 26 November, the organiser supplied a replacement portrait for Prof. Mohammed Ghazal as `Ghazal.jpeg`. The speaker card now uses this original image, copied without retouching or pixel changes; his name, role and programme details are unchanged.
