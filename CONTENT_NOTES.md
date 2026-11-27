@@ -44,3 +44,5 @@
 - On 26 November, the organiser removed Prof. Eduardo Beltrame from the panel’s panellist line while retaining **Moderator: Prof. Eduardo Beltrame**. The panel remains **16:40–17:00**; the website, print agenda and calendar derive this distinction from the same agenda entry.
 
 - On 26 November, the organiser supplied a replacement portrait for Prof. Mohammed Ghazal as `Ghazal.jpeg`. The speaker card now uses this original image, copied without retouching or pixel changes; his name, role and programme details are unchanged.
+
+- On 27 November, the organiser swapped Hala and Nance's talk slots: **Dr. Nance ElNaker** presents **From Plant Bioactivity to Molecular Hypotheses: An AI Virtual Lab for Natural Product Discovery** at **10:20–10:45**, and **Ms. Hala Alsaleh** presents **UAE Sports Genomics: A Pioneering Study of Genetic Markers Associated with Athletic Performance, Strength, Endurance, and Injury Risk** at **13:00–13:20**. The display name is now **Nance**, superseding Nancy in earlier notes. The agenda, print view and calendar share these updated entries; all other timings remain unchanged.

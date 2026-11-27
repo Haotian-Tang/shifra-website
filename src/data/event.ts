@@ -160,7 +160,7 @@ export const speakers: Speaker[] = [
     talkTitle: 'AI-Powered Wellness: Tailored Dietary Support for Chronic Disease Management',
   },
   {
-    name: 'Dr. Nancy ElNaker', initials: 'NE', role: 'Speaker',
+    name: 'Dr. Nance ElNaker', initials: 'NE', role: 'Speaker',
     title: 'Senior Applied Scientist', affiliation: 'Inception42', biography: null,
     portrait: 'images/speakers/nancy-elnaker-2026.jpg',
     profileUrl: 'https://www.linkedin.com/in/dr-nancy-a-elnaker-phd-6794b450/',

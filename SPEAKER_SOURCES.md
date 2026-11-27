@@ -23,7 +23,7 @@ Speaker roster authorised by the organisers on 23 November 2026. Names and affil
 - [Named portrait source](https://www.linkedin.com/posts/dr-thyago-cardoso-7181741b3_ai-healthcareinnovation-genomics-activity-7394453320481800192-knyg)
 - [Original image](https://media.licdn.com/dms/image/v2/D4D03AQG6Tj94o2FWZg/profile-displayphoto-scale_400_400/B4DZ6S0YpZKUAg-/0/1780579667454?e=2147483647&v=beta&t=StKLD9qicsHW8p39ocs8ir8TLjN54qA0D5B6jeiBM3c)
 
-## Nancy ElNaker
+## Nance ElNaker
 
 - Current asset: `public/images/speakers/nancy-elnaker-2026.jpg`, copied byte for byte from the organiser-supplied `Nance Elnaker-photo-2026.jpeg` on 24 November 2026. The LinkedIn image below is the previous portrait, retained for existing links.
 - [LinkedIn profile](https://www.linkedin.com/in/dr-nancy-a-elnaker-phd-6794b450/)
