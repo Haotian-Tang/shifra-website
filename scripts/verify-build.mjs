@@ -3,7 +3,7 @@ import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import { basePath, siteOrigin } from "../site.config.mjs";
 import { registrationUrl } from "../src/data/registration.ts";
-import { speakers } from "../src/data/event.ts";
+import { event, speakers } from "../src/data/event.ts";
 import { agenda as programme } from "../src/data/agenda.ts";
 
 const directory = path.resolve(process.env.BUILD_DIR || "dist");
@@ -55,7 +55,7 @@ assert(
   "Home and Committee & Speakers navigation must be available",
 );
 const hero = html.match(/<section class="home-hero"[\s\S]*?<\/section>/)?.[0];
-assert(hero && (hero.match(/<a\b/g) || []).length === 1 && hero.includes('Register for our symposium') && !hero.includes('Add to calendar'), "Keep the hero focused on registration");
+assert(hero && (hero.match(/<a\b/g) || []).length === 1 && hero.includes(event.isArchived ? 'Explore the symposium programme' : 'Register for our symposium') && !hero.includes('Add to calendar'), "Keep one appropriate hero action for the symposium status");
 const agendaSection = html.match(/<section id="agenda"[\s\S]*?<\/section>/)?.[0];
 assert(agendaSection && agendaSection.includes('Print agenda') && agendaSection.includes('Add to calendar') && agendaSection.includes(`href="${basePath}downloads/shifra-symposium.ics"`) && agendaSection.includes('download="SHIFRA-Symposium.ics"'), "The agenda must offer printing and the calendar download");
 const calendar = await readFile(path.join(directory, 'downloads/shifra-symposium.ics'), 'utf8');
@@ -66,8 +66,14 @@ assert.equal((unfoldedCalendar.match(/^BEGIN:VEVENT$/gm) || []).length, 1, "Cale
 assert(unfoldedCalendar.includes('DTSTART:20261127T043000Z\r\n') && unfoldedCalendar.includes('DTEND:20261127T131000Z\r\n'), "Calendar must represent 27 November, 08:30–17:10 UAE time");
 assert(unfoldedCalendar.includes('LOCATION:Lecture Hall 1 & 2') && unfoldedCalendar.includes('Mohamed bin Zayed University of Artificial Intelligence') && unfoldedCalendar.includes('Abu Dhabi'), "Calendar must include the full venue");
 assert(unfoldedCalendar.includes(`URL:${documentUrl.href}\r\n`), "Calendar must link to the symposium website");
-assert(!hero.includes('Symposium programme') && !hero.includes('View agenda'), "Remove the old hero programme label and agenda action");
-assert(html.includes('2026-11-24T23:59:00+04:00') && html.includes('11:59 PM'), "The abstract deadline must show 24 November 2026 at 23:59 UAE time");
+if (event.isArchived) {
+  assert(!html.includes('class="abstract-deadline"') && !html.includes('Register for our symposium'), "Archived pages must not invite registrations or abstract submissions");
+  assert(html.includes('SHIFRA has concluded') && html.includes('Registration closed'), "Archived pages must show that the symposium and registration have ended");
+  assert(!/\b(?:TBD|TBA|TBC)\b|to be confirmed|subject to confirmation/.test(html + unfoldedCalendar), "The final programme must not contain pending-confirmation placeholders");
+} else {
+  assert(!hero.includes('Symposium programme') && !hero.includes('View agenda'), "Remove the old hero programme label and agenda action");
+  assert(html.includes('2026-11-24T23:59:00+04:00') && html.includes('11:59 PM'), "The abstract deadline must show 24 November 2026 at 23:59 UAE time");
+}
 assert(!html.includes('href="#"'), "No empty placeholder links");
 assert(
   html.includes('lang="ar"') && html.includes('dir="rtl"'),
@@ -107,9 +113,13 @@ assert(
 assert(registrationUrl, "Configure the deployed Apps Script registration URL before publishing");
 const intake = new URL(registrationUrl);
 assert(intake.protocol === "https:" && intake.hostname === "script.google.com" && intake.pathname.endsWith("/exec"), "Registration must use the production Apps Script web app URL");
-assert(html.includes(`src="${registrationUrl}"`) && html.includes('title="Register for SHIFRA"'), "Registration intake frame missing");
+if (event.isArchived) {
+  assert(!html.includes(`src="${registrationUrl}"`) && !html.includes(`href="${registrationUrl}"`) && !html.includes('title="Register for SHIFRA"'), "Archived pages must hide the registration form and direct intake link");
+} else {
+  assert(html.includes(`src="${registrationUrl}"`) && html.includes('title="Register for SHIFRA"'), "Registration intake frame missing");
+}
 assert(!html.includes("SHIFRA%20abstract%20submission") && !html.includes("srcdoc="), "Do not publish the retired email intake or the disconnected preview form");
-assert(html.includes("Print agenda") && html.includes("selected talk"), "Print action and presentation options must remain available");
+assert(html.includes("Print agenda") && html.includes("Selected Speaker Talk"), "Print action and selected presentations must remain available");
 const footer = html.match(/<footer\b[\s\S]*?<\/footer>/)?.[0];
 assert(
   footer && !/<a\b/.test(footer),
@@ -221,5 +231,5 @@ assert(sayeedTalks.length === 1 && sayeedTalks[0].start === '09:55', 'Sayeed rep
 for (const name of ["Ms. Hala Alsaleh", "Mr. Haotian Tang", "Prof. Eduardo Beltrame"])
   assert(people.includes(name));
 console.log(
-  `Verified 2 content pages, 5 legacy section redirects, ${programme.length} continuous UAE-time agenda entries, ${speakers.length} approved speaker profiles, registration deadline and intake, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
+  `Verified 2 content pages, 5 legacy section redirects, ${programme.length} continuous UAE-time agenda entries, ${speakers.length} approved speaker profiles, ${event.isArchived ? 'archived registration state' : 'registration deadline and intake'}, canonical metadata, and ${checked} local asset/link references for ${siteOrigin}${basePath}`,
 );

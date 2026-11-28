@@ -7,7 +7,7 @@ import Registration from '../components/Registration.astro';
 import { event } from '../data/event';
 import { sitePath, contentUrl } from '../lib/urls';
 ---
-<Layout title={event.theme} description={`SHIFRA Symposium brings genomics and artificial intelligence into conversation. ${event.displayDate} at ${event.venue}, ${event.institution}, ${event.city}. Explore the programme and register to attend or submit an abstract for posters and selected talks.`}>
+<Layout title={event.theme} description={event.isArchived ? `Explore the programme and speakers from the SHIFRA Symposium, held on ${event.displayDate} at ${event.institution}, ${event.city}.` : `SHIFRA Symposium brings genomics and artificial intelligence into conversation. ${event.displayDate} at ${event.venue}, ${event.institution}, ${event.city}. Explore the programme and register to attend or submit an abstract for posters and selected talks.`}>
   <div class="event-banner">
     <div class="banner-panel">{event.banner.image ? <picture>
       <source media="(max-width: 767px)" srcset={contentUrl(event.banner.mobileImage)} width="2400" height="1350" />
@@ -20,10 +20,12 @@ import { sitePath, contentUrl } from '../lib/urls';
       <p class="event-date"><time datetime={event.date}>{event.displayDate}</time></p>
       <p class="event-location"><span>{event.venue}</span> · <span>{event.institution}</span></p>
       <div class="home-actions">
-        <a class="primary-button" href={sitePath('#registration')}>Register for our symposium</a>
+        <a class="primary-button" href={sitePath(event.isArchived ? '#agenda' : '#registration')}>{event.isArchived ? 'Explore the symposium programme' : 'Register for our symposium'}</a>
       </div>
-      <p class="home-registration-note">You can submit your abstract here when you register.</p>
-      <p class="abstract-deadline">Abstract submission deadline: <time datetime="2026-11-24T23:59:00+04:00">Tuesday, 24 November 2026, 11:59 PM</time> · UAE time (GST, UTC+4)</p>
+      {event.isArchived ? <p class="home-registration-note">Thank you to our speakers, presenters and attendees for making SHIFRA possible. Explore the programme from 27 November 2026 below.</p> : <>
+        <p class="home-registration-note">You can submit your abstract here when you register.</p>
+        <p class="abstract-deadline">Abstract submission deadline: <time datetime="2026-11-24T23:59:00+04:00">Tuesday, 24 November 2026, 11:59 PM</time> · UAE time (GST, UTC+4)</p>
+      </>}
     </div>
   </section>
   <section id="about" class="home-section about-section container" aria-labelledby="about-title">

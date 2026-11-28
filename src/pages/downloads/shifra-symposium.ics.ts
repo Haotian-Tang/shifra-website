@@ -54,10 +54,10 @@ export const GET: APIRoute = () => {
     `${event.name}: ${event.theme}`,
     event.introduction,
     `Symposium times are shown in ${event.timezoneLabel}.`,
-    `Programme and registration: ${siteUrl}`,
+    `${event.isArchived ? 'Symposium programme' : 'Programme and registration'}: ${siteUrl}`,
     `Location map: ${event.mapsUrl}`,
     `Programme (${event.timezoneLabel}):\n${programme}`,
-    'Please register on the website; adding this symposium to your calendar does not register you.',
+    event.isArchived ? 'The symposium has concluded. Registration is closed.' : 'Please register on the website; adding this symposium to your calendar does not register you.',
   ].join('\n\n');
   const calendar = [
     'BEGIN:VCALENDAR',

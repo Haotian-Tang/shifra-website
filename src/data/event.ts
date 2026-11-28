@@ -17,6 +17,7 @@ export interface Speaker extends Person {
 
 export const event = {
   name: "SHIFRA Symposium",
+  isArchived: true,
   brand: "SHIFRA",
   arabicBrand: "شيفرة",
   theme: "UAE Genomics × AI",
@@ -37,7 +38,7 @@ export const event = {
   divisionShort: "BLS",
   programmeStatus: "Symposium programme",
   confirmationNote:
-    "The programme is subject to change. The guest of honour remains subject to confirmation.",
+    "Programme from the symposium held on 27 November 2026.",
   introduction:
     "SHIFRA brings together business leaders, healthcare professionals, AI innovators, genomics and biotech companies, investors, scientists, researchers, and students to explore genomics and artificial intelligence.",
   story:
