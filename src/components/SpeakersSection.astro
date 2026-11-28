@@ -1,10 +1,13 @@
 ---
 import { speakers } from '../data/event';
+import { agenda } from '../data/agenda';
 import { sitePath, contentUrl } from '../lib/urls';
+const speakerOrder = agenda.filter(entry => entry.category === 'Keynote' || entry.category === 'Talk').map(entry => entry.speaker);
+const orderedSpeakers = [...speakers].sort((a, b) => speakerOrder.indexOf(a.name) - speakerOrder.indexOf(b.name));
 ---
 <section id="speakers" class="home-section single-page-section speakers-section container" aria-labelledby="speakers-title">
   <h2 id="speakers-title" class="section-title">Speakers</h2>
-  {speakers.length ? <div class="speaker-grid">{speakers.map(person => <article class="person-panel speaker-panel">
+  {orderedSpeakers.length ? <div class="speaker-grid">{orderedSpeakers.map(person => <article class="person-panel speaker-panel">
     <div class:list={['person-portrait', 'speaker-portrait', { 'speaker-portrait--cutout': person.portraitMask }]} style={person.portraitMask ? `--portrait-mask: url("${contentUrl(person.portraitMask)}")` : undefined}>{person.portrait ? <img src={contentUrl(person.portrait)} alt={person.name} width="400" height="400" loading="lazy" /> : <span class="speaker-initials" aria-hidden="true">{person.initials}</span>}</div>
     <p class="speaker-role">{person.role}</p>
     <h3 class="person-name">{person.profileUrl ? <a href={contentUrl(person.profileUrl)}>{person.name}</a> : person.name}</h3>

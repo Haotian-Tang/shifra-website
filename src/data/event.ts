@@ -12,7 +12,7 @@ export interface Person {
 export interface Speaker extends Person {
   portraitMask?: string;
   talkTitle: string | null;
-  role: 'Keynote Speaker' | 'Speaker' | 'Panel Discussion';
+  role: 'Keynote Speaker' | 'Speaker' | 'Speaker & Panellist';
 }
 
 export const event = {
@@ -140,7 +140,7 @@ export const speakers: Speaker[] = [
     talkTitle: 'InHealth : Towards an Agentic AI Framework for Protein Binders Generation',
   },
   {
-    name: 'Dr. Thyago Cardoso', initials: 'TC', role: 'Speaker',
+    name: 'Dr. Thyago Cardoso', initials: 'TC', role: 'Speaker & Panellist',
     title: 'Manager, Commercial Research and Development', affiliation: 'M42 Healthcare', biography: null,
     portrait: 'images/speakers/thyago-cardoso.jpg',
     profileUrl: 'https://www.linkedin.com/in/dr-thyago-cardoso-7181741b3/',
@@ -153,14 +153,14 @@ export const speakers: Speaker[] = [
     talkTitle: 'UAE Sports Genomics: A Pioneering Study of Genetic Markers Associated with Athletic Performance, Strength, Endurance, and Injury Risk',
   },
   {
-    name: 'Dr. Tania Tahtouh', initials: 'TT', role: 'Speaker',
+    name: 'Dr. Tania Tahtouh', initials: 'TT', role: 'Speaker & Panellist',
     title: 'Assistant Professor of Biomedical Sciences', affiliation: 'Abu Dhabi University', biography: null,
     portrait: 'images/speakers/tania-tahtouh.jpg',
     profileUrl: 'https://www.linkedin.com/in/tania-tahtouh-ph-d-fhea-2b5a5826/',
     talkTitle: 'AI-Powered Wellness: Tailored Dietary Support for Chronic Disease Management',
   },
   {
-    name: 'Dr. Nance ElNaker', initials: 'NE', role: 'Speaker',
+    name: 'Dr. Nance ElNaker', initials: 'NE', role: 'Speaker & Panellist',
     title: 'Senior Applied Scientist', affiliation: 'Inception42', biography: null,
     portrait: 'images/speakers/nancy-elnaker-2026.jpg',
     profileUrl: 'https://www.linkedin.com/in/dr-nancy-a-elnaker-phd-6794b450/',
@@ -173,12 +173,5 @@ export const speakers: Speaker[] = [
     portraitMask: 'images/speakers/juliana-ferreira-mask.svg',
     profileUrl: 'https://www.linkedin.com/in/juliana-ferreira-6238a7a0/',
     talkTitle: 'Genomics, Proteomics, Structural Biology and Artificial Intelligence in One Workflow',
-  },
-  {
-    name: 'Prof. Mohammed Ghazal', initials: 'MG', role: 'Panel Discussion',
-    title: null, affiliation: 'Abu Dhabi University', biography: null,
-    portrait: 'images/speakers/mohammed-ghazal-2026-11-26.jpeg',
-    profileUrl: 'https://www.linkedin.com/in/mohammed-ghazal-60291475/',
-    talkTitle: null,
   },
 ];

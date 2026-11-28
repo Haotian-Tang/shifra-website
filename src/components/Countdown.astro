@@ -1,42 +1,54 @@
 ---
 import { event } from '../data/event';
-import { agenda } from '../data/agenda';
+import { agenda, programmeEnd } from '../data/agenda';
 import { sitePath } from '../lib/urls';
 const startTime = agenda[0].start;
 const startsAt = `${event.date}T${startTime}:00${event.utcOffset}`;
+const endsAt = `${event.date}T${programmeEnd}:00${event.utcOffset}`;
+const hasEnded = Date.now() >= Date.parse(endsAt);
 ---
-<section class="home-section countdown-section container" aria-labelledby="countdown-title" data-countdown data-starts-at={startsAt}>
-  <h2 id="countdown-title" class="section-title">Countdown to SHIFRA</h2>
+<section class="home-section countdown-section container" aria-labelledby="countdown-title" data-countdown data-starts-at={startsAt} data-ends-at={endsAt}>
+  <h2 id="countdown-title" class="section-title">{hasEnded ? 'SHIFRA has concluded' : 'Countdown to SHIFRA'}</h2>
   <p class="countdown-date"><time datetime={startsAt}>{event.displayDate} · {startTime}</time> · UAE time (GST, UTC+4)</p>
   <div class="countdown-grid" role="timer" aria-label="Time remaining until SHIFRA" aria-live="off" hidden>
     {['Days', 'Hours', 'Minutes', 'Seconds'].map(unit => <div><span class="countdown-value" data-unit={unit.toLowerCase()}>00</span><span class="countdown-unit">{unit}</span></div>)}
   </div>
-  <p class="countdown-note">Join us for a day of genomics, AI, and shared discovery.</p>
+  <p class="countdown-note">{hasEnded ? 'Thank you to our speakers, presenters and attendees for being part of SHIFRA.' : 'Join us for a day of genomics, AI, and shared discovery.'}</p>
   <a class="secondary-button" href={sitePath('#agenda')}>View the programme</a>
 </section>
 <script>
   const section = document.querySelector<HTMLElement>('[data-countdown]');
   if (section) {
     const target = Date.parse(section.dataset.startsAt ?? '');
+    const end = Date.parse(section.dataset.endsAt ?? '');
     const grid = section.querySelector<HTMLElement>('.countdown-grid');
     const heading = section.querySelector<HTMLElement>('#countdown-title');
     const note = section.querySelector<HTMLElement>('.countdown-note');
     let timer: ReturnType<typeof setInterval> | undefined;
     const update = () => {
-      const remaining = Math.max(0, Math.ceil((target - Date.now()) / 1000));
-      if (!Number.isFinite(remaining) || !grid || !heading || !note) return;
+      const now = Date.now();
+      const remaining = Math.max(0, Math.ceil((target - now) / 1000));
+      if (!Number.isFinite(remaining) || !Number.isFinite(end) || !grid || !heading || !note) return;
+      if (now >= end) {
+        grid.hidden = true;
+        heading.textContent = 'SHIFRA has concluded';
+        note.textContent = 'Thank you to our speakers, presenters and attendees for being part of SHIFRA.';
+        if (timer) clearInterval(timer);
+        return;
+      }
       if (remaining === 0) {
         grid.hidden = true;
         heading.textContent = 'SHIFRA has started';
         note.textContent = 'Explore the symposium programme and the research conversations ahead.';
-        if (timer) clearInterval(timer);
         return;
       }
+      heading.textContent = 'Countdown to SHIFRA';
+      note.textContent = 'Join us for a day of genomics, AI, and shared discovery.';
       const values = { days: Math.floor(remaining / 86400), hours: Math.floor(remaining % 86400 / 3600), minutes: Math.floor(remaining % 3600 / 60), seconds: remaining % 60 };
       for (const [unit, value] of Object.entries(values)) section.querySelector<HTMLElement>(`[data-unit="${unit}"]`)!.textContent = String(value).padStart(2, '0');
       grid.hidden = false;
     };
-    const start = () => { if (timer) clearInterval(timer); update(); if (Number.isFinite(target) && target > Date.now()) timer = setInterval(update, 1000); };
+    const start = () => { if (timer) clearInterval(timer); update(); if (Number.isFinite(end) && end > Date.now()) timer = setInterval(update, 1000); };
     start();
     window.addEventListener('pageshow', start);
     window.addEventListener('pagehide', () => { if (timer) clearInterval(timer); });
